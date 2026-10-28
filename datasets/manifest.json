@@ -28,5 +28,15 @@
     "file": "palestinian-history.json",
     "id": "palestinian-history",
     "title": "Palestinian History: The People of Filastin"
+  },
+  {
+    "file": "connections-trigger-effect.json",
+    "id": "connections-trigger-effect",
+    "title": "The Trigger Effect (Connections S1E1)"
+  },
+  {
+    "file": "connections-long-chain.json",
+    "id": "connections-long-chain",
+    "title": "The Long Chain (Connections S1E7)"
   }
 ]

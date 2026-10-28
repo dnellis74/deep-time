@@ -469,7 +469,7 @@ function visibleEvents(){
       const t1=(e.tEnd!=null?e.tEnd:e.t);
       if(t1>=lo&&e.t<=hi) inView.push(e);
     }
-    const eligible=inView.filter(e=>curDec<=e.tier);
+    const eligible=ds.showAllEvents?inView:inView.filter(e=>curDec<=e.tier);
     let chosen=eligible;
     if(eligible.length<PROMOTE_MIN){
       const rest=inView.filter(e=>curDec>e.tier)

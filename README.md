@@ -29,6 +29,10 @@ history, is in `spec.md`.
 - Auto-promotion: when tier gating leaves a dataset with fewer than 4
   visible events in view, the highest-importance in-view events fill the
   gap, so sparse eras still show a few major events.
+- Show-all datasets: a dataset flagged `showAllEvents` skips tier
+  gating, so every in-view event renders a dot at every zoom level.
+  Both Connections datasets carry the flag; label collision declutter
+  still applies.
 - Background layers: universe, earth, and human history are the
   background, designated in the viewer code rather than in the dataset
   files, so datasets stay reusable. One or two foreground datasets
@@ -61,6 +65,8 @@ paste-ready prompt for generating new datasets are in
 | Jewish History: Am Yisrael and Eretz Yisrael | 82 | 8 | 6 |
 | The Southern Levant: Shared Timeline | 72 | 8 | 6 |
 | Palestinian History: The People of Filastin | 81 | 8 | 6 |
+| The Trigger Effect (Connections S1E1) | 12 | 0 | 4 |
+| The Long Chain (Connections S1E7) | 22 | 0 | 4 |
 
 ## Validate a dataset
 

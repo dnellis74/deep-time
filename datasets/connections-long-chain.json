@@ -1,0 +1,281 @@
+{
+  "defaultPreset": "all",
+  "end": 0,
+  "events": [
+    {
+      "blurb": "Burke opens with the 747 air freighter, able to carry one hundred tons anywhere in the world within 24 hours, and calls it uncannily like another freighter built to do exactly the same job 400 years earlier. It is the frame for the chain, not a link in it.",
+      "id": "freighter-747",
+      "importance": 38,
+      "label": "The 747 freighter",
+      "t": -56,
+      "tier": 2
+    },
+    {
+      "blurb": "At Hoorn in 1595, Dutch shipbuilders worked out the fluyt: a near-square hull for maximum cargo space, a very small crew cabin on top, control surfaces worked with block and tackle, no gun decks, nothing radical, just the most efficient cargo ship in the world.",
+      "connections": [
+        "holland-warehouse"
+      ],
+      "id": "fluyt",
+      "importance": 95,
+      "label": "The fluyt, 1595",
+      "t": -431,
+      "tier": 3
+    },
+    {
+      "blurb": "By the mid seventeenth century the Dutch were bringing shiploads of tobacco, sugar, pepper, and silks into Europe by the ton, trading from Arkhangelsk to Cape Town and Brazil to Nagasaki. Holland was the warehouse of Europe, and putting money in Amsterdam was like having a Swiss bank account.",
+      "connections": [
+        "bank-england"
+      ],
+      "id": "holland-warehouse",
+      "importance": 52,
+      "label": "Holland, warehouse of Europe",
+      "t": -376,
+      "tier": 2
+    },
+    {
+      "blurb": "In 1688 Edward Lloyd set up a coffee house where you could go and get insurance, which became Lloyd's of London. From the start Lloyd's categorized ships, classifying the hull by soundness (A, E, I, O, or U) and the equipment as good, middling, or bad.",
+      "connections": [
+        "triangular-trade"
+      ],
+      "id": "lloyds",
+      "importance": 78,
+      "label": "Lloyd's coffee house, 1688",
+      "t": -338,
+      "tier": 2
+    },
+    {
+      "blurb": "The Bank of England, founded 1694, grew out of the coffee-house world where you could register land, get a mortgage on it, and buy a piece of the action in overseas ventures. Burke presents it as England going Dutch to share the cost of sending out ships.",
+      "connections": [
+        "triangular-trade"
+      ],
+      "id": "bank-england",
+      "importance": 55,
+      "label": "Bank of England",
+      "t": -332,
+      "tier": 2
+    },
+    {
+      "blurb": "The deal that made England great, as Burke tells it: kidnap Africans, sell them in Barbados for sugar, sell that in America for tobacco, and make a million. With ships spending up to a year away on voyages to India, Africa, or America, insuring the venture became unavoidable.",
+      "connections": [
+        "baltic-pitch"
+      ],
+      "id": "triangular-trade",
+      "importance": 40,
+      "label": "The triangular trade",
+      "t": -326,
+      "tier": 1
+    },
+    {
+      "blurb": "Ships traveling more in tropical waters had their wooden hulls attacked by a tiny worm, and the only protection was coating the hull bottom with pitch and tar. In 1700 war in the Baltic, where most pitch and tar came from, sent the price through the roof, so Britain turned to its American colonies, where pine trees were buried in pits and roasted to run off tar and turpentine, with enslaved labor to chop the trees.",
+      "connections": [
+        "american-independence"
+      ],
+      "id": "baltic-pitch",
+      "importance": 68,
+      "label": "Baltic war cuts off pitch, 1700",
+      "t": -326,
+      "tier": 2
+    },
+    {
+      "blurb": "In 1776 the American colonies, tired of being ripped off by the pitch arrangement among other things, broke away, and that was the end of cheap American pitch for the Royal Navy.",
+      "connections": [
+        "cochrane"
+      ],
+      "id": "american-independence",
+      "importance": 65,
+      "label": "1776 ends cheap American pitch",
+      "t": -250,
+      "tier": 2
+    },
+    {
+      "blurb": "Archibald Cochrane, ninth Earl of Dundonald, inherited a small estate at Culross in 1778 and tried to recoup the family fortunes by heating coal in a copper kettle and distilling the vapors into coal tar. In 1781 he offered it to the Royal Navy, which refused: it had just decided to cover hulls with copper instead. One of his ovens sprang a leak, and approaching it with a light, he saw the escaping vapors burn, a fact he told his friend James Watt.",
+      "connections": [
+        "murdoch"
+      ],
+      "id": "cochrane",
+      "importance": 85,
+      "label": "Cochrane's coal tar, 1781",
+      "t": -245,
+      "tier": 3
+    },
+    {
+      "blurb": "In 1792 Murdoch, who worked for James Watt, heated coal and set light to the vapors it gave off, making factory gas lamps. Cotton mills working day and night had been going up in flames, and owners were desperate for safer lighting.",
+      "connections": [
+        "winsor"
+      ],
+      "id": "murdoch",
+      "importance": 72,
+      "label": "Murdoch's gas lamps, 1792",
+      "t": -234,
+      "tier": 2
+    },
+    {
+      "blurb": "Friedrich Winzer, who restyled himself Fred Albert Winsor, lectured at the Lyceum in 1803 and grasped what Murdoch had not: supply a whole town, not one factory. His company got its charter in 1812, and within six years the country's major cities had gas-lit streets, evening parties, and workers' institutes where poor people were taught to read and write.",
+      "connections": [
+        "macintosh"
+      ],
+      "id": "winsor",
+      "importance": 70,
+      "label": "Town gas, charter 1812",
+      "t": -214,
+      "tier": 2
+    },
+    {
+      "blurb": "Gas-making left tons of useless coal tar, dumped into the Thames, and ammonia mixed in with it. In 1819 a muck hunter after that ammonia found that naphtha from the tar dissolved rubber, just coming in from South America. By 1823 he had spread rubber solution between layers of cloth to make it waterproof, and called it after his own name: the Macintosh. In 1826 he joined with Hancock to sell waterproof everything.",
+      "connections": [
+        "malaria"
+      ],
+      "id": "macintosh",
+      "importance": 75,
+      "label": "Macintosh waterproofs cloth, 1819",
+      "t": -207,
+      "tier": 2
+    },
+    {
+      "blurb": "Hancock wanted British rubber plantations, but Kew Gardens was busy with a more urgent Far East problem. Plantations meant hacked-down jungle and sunlit water, ideal for the Anopheles mosquito, and by 1852 malaria was all over the British Imperial Far East. The only preventive was quinine, a white powder from cinchona bark grown only in South America and Java. Mixed with sugared water, and then a drop of gin, it became the gin and tonic.",
+      "connections": [
+        "perkin"
+      ],
+      "id": "malaria",
+      "importance": 50,
+      "label": "Malaria and quinine, 1852",
+      "t": -174,
+      "tier": 1
+    },
+    {
+      "blurb": "In 1852 the governor general of India demanded home-grown cinchona, and the Royal College of Chemistry suggested making quinine artificially. Eighteen-year-old William Perkin tried it with a coal tar byproduct, and in 1856 came up with a load of muck that was not quinine but, washed into water, was the first artificial dye: mauve. By the Great Exhibition of 1862 it was an instant success.",
+      "connections": [
+        "german-color"
+      ],
+      "id": "perkin",
+      "importance": 90,
+      "label": "Perkin's mauve, 1856",
+      "t": -170,
+      "tier": 3
+    },
+    {
+      "blurb": "British investors preferred easier colonial profits to the new color chemistry, and training chemists was considered unspeakably lower class, so Britain blew the lead Perkin had given it. By 1870 the Germans were calling the tune in color chemistry, with BASF, H\u00f6chst, Agfa, and Bayer turning out dozens of colors a year, and learning far more than color in the process.",
+      "connections": [
+        "haber"
+      ],
+      "id": "german-color",
+      "importance": 62,
+      "label": "Germany takes color chemistry, 1870",
+      "t": -156,
+      "tier": 2
+    },
+    {
+      "blurb": "McCormick's combine harvester, invented a few years before the German color business, left America with wheat coming out of its ears and prices collapsing. But Prussian Junkers, who ate black rye bread, blocked cheap American wheat while exporting their own rye, so Germany was short of food and had no fertilizer except imports from Chile at colossal expense.",
+      "connections": [
+        "haber"
+      ],
+      "id": "wheat-glut",
+      "importance": 45,
+      "label": "Wheat glut, fertilizer crisis",
+      "t": -156,
+      "tier": 1
+    },
+    {
+      "blurb": "About 1900, thanks to their experience making colors, German chemists were among the best in the world, and Fritz Haber set out consciously to make fertilizer. At 200 times normal air pressure and about 600 degrees centigrade, hydrogen and nitrogen passed over a metal mesh became ammonia, and from ammonia came nitric acid and then sodium nitrate fertilizer. By 1909 Haber and Bosch could build factories producing thousands of tons a year.",
+      "connections": [
+        "arms-race"
+      ],
+      "id": "haber",
+      "importance": 82,
+      "label": "Haber-Bosch, 1909",
+      "t": -117,
+      "tier": 2
+    },
+    {
+      "blurb": "Henri Moissan, trying to make artificial diamonds in Paris, threw lime and carbon into an electric furnace in 1895 and got calcium carbide. Dropped in water it gave acetylene gas, briefly hailed around 1898 as the new light of the future, with about a quarter of a million acetylene jets in Germany alone by 1899, until the price of electricity dropped in 1900 and a gas mantle made town gas brighter.",
+      "connections": [
+        "caro-frank",
+        "klatte"
+      ],
+      "id": "moissan",
+      "importance": 60,
+      "label": "Moissan's calcium carbide, 1895",
+      "t": -131,
+      "tier": 2
+    },
+    {
+      "blurb": "With tons of worthless calcium carbide lying around after the acetylene collapse, chemists Caro and Frank passed nitrogen gas over it in a very hot oven and got a compound 20 percent nitrogen that could go straight onto the fields. The fertilizer Germany needed now had a price Germany could afford, which knocked the Haber-Bosch process right on the head for the time being.",
+      "connections": [
+        {
+          "id": "haber",
+          "kind": "challenges",
+          "note": "Caro and Frank's cheap carbide fertilizer undercut Haber-Bosch's prospects before its factories were built."
+        }
+      ],
+      "id": "caro-frank",
+      "importance": 42,
+      "label": "Caro and Frank's fertilizer",
+      "t": -126,
+      "tier": 1
+    },
+    {
+      "blurb": "In the same year the Kaiser opened the Wuppertal monorail, 1900, he signed a bill to finance a bigger German navy, and an arms race began that ended with the war in 1914. The first major sea battle was off Chile, where the great powers had drawn sodium nitrate, a fertilizer that Germany now desperately needed for explosives, since sodium nitrate with sulfuric acid gives nitric acid. Blockaded from Chile with about one year's stock, Germany poured money into Haber-Bosch factories, and the war lasted four years when it might have ended in less than one.",
+      "connections": [
+        "nylon"
+      ],
+      "id": "arms-race",
+      "importance": 58,
+      "label": "Naval race to World War I",
+      "t": -112,
+      "tier": 2
+    },
+    {
+      "blurb": "In 1912 the German chemist Fritz Klatte left one of his acetylene mixtures sitting on a sunny window shelf, where it gradually went thick and milky. Not thinking it much use to anyone, he poured it down the drain.",
+      "connections": [
+        "nylon"
+      ],
+      "id": "klatte",
+      "importance": 48,
+      "label": "Klatte pours it away, 1912",
+      "t": -114,
+      "tier": 1
+    },
+    {
+      "blurb": "Twenty-seven years after Klatte, at the 1939 World's Fair in New York, millions saw what others had done with that muck at the DuPont Pavilion. The First World War's rubber shortage had forced the search for substitutes, and in 1938 DuPont came up with the most famous substitute of all, made of giant molecules and found by Wallace Carothers in coal tar. They first thought of calling it DuPeru, for DuPont pulls a rabbit out of a hat, then settled on nylon. Nylon opened the door to the modern world of substitute materials.",
+      "id": "nylon",
+      "importance": 92,
+      "label": "Nylon, 1938",
+      "t": -88,
+      "tier": 3
+    }
+  ],
+  "id": "connections-long-chain",
+  "maxSpan": 500,
+  "minSpan": 1,
+  "presets": [
+    {
+      "c": -216,
+      "id": "all",
+      "label": "All",
+      "s": 432
+    },
+    {
+      "c": -372,
+      "id": "dutch-origins",
+      "label": "Dutch origins",
+      "s": 120
+    },
+    {
+      "c": -220,
+      "id": "coal-tar",
+      "label": "Coal tar",
+      "s": 120
+    },
+    {
+      "c": -110,
+      "id": "chemicals-nylon",
+      "label": "Chemicals to nylon",
+      "s": 60
+    }
+  ],
+  "showAllEvents": true,
+  "start": -432,
+  "timeFormat": "ago",
+  "title": "The Long Chain (Connections S1E7)",
+  "unit": "years"
+}

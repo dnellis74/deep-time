@@ -1,0 +1,166 @@
+{
+  "defaultPreset": "all",
+  "end": 0,
+  "events": [
+    {
+      "blurb": "Burke's starting point: about 12,000 years ago it stopped raining and got very hot, drying the grasslands, and the survivors came down into the great river valleys. In Egypt that river was the Nile, whose yearly flood dumped compost and fertilizer on the land.",
+      "connections": [
+        "plow"
+      ],
+      "id": "drying-to-nile",
+      "importance": 80,
+      "label": "Drying drives people to the Nile",
+      "t": -12026,
+      "tier": 4
+    },
+    {
+      "blurb": "Burke's first great man-made trigger of change. With the plow you know how much harvest you will get next year, so you can plan for the future; with surplus food, villages grow, animals are domesticated, and flax is spun into linen. Burke places the trigger inventions within the last 6,000 years.",
+      "connections": [
+        "bread-ovens",
+        "pots-wheel"
+      ],
+      "id": "plow",
+      "importance": 90,
+      "label": "The plow",
+      "t": -6026,
+      "tier": 4
+    },
+    {
+      "blurb": "Grain causes the fundamental change: with it you bake the bread that is the staple diet, and you learn about ovens and about the effects of heat on mud and brick.",
+      "id": "bread-ovens",
+      "importance": 40,
+      "label": "Bread, ovens, and brick",
+      "t": -6026,
+      "tier": 2
+    },
+    {
+      "blurb": "Grain surplus has to be stored, in pots, and there is so much surplus that the pots must be made faster and last longer, so the potter's wheel happens.",
+      "connections": [
+        "writing"
+      ],
+      "id": "pots-wheel",
+      "importance": 45,
+      "label": "Pots and the potter's wheel",
+      "t": -6026,
+      "tier": 2
+    },
+    {
+      "blurb": "Surplus raises the question of who it belongs to, and the only answer is writing. The very first writing takes the form of a name and a symbol for what is inside a pot, a lot of pots, or an entire village granary.",
+      "connections": [
+        "nile-united"
+      ],
+      "id": "writing",
+      "importance": 70,
+      "label": "Writing: a name on the pot",
+      "t": -5226,
+      "tier": 3
+    },
+    {
+      "blurb": "By sometime around 3,200 B.C., Burke says, the entire 700-mile length of the Nile from the Mediterranean to Aswan was united and administered by officials like the chancellor Mereruka, each running a water province of the irrigation network.",
+      "connections": [
+        "irrigation-geometry",
+        "calendar"
+      ],
+      "id": "nile-united",
+      "importance": 55,
+      "label": "The Nile united and administered",
+      "t": -5226,
+      "tier": 3
+    },
+    {
+      "blurb": "The yearly flood destroyed landmarks and then retreated, so the Egyptians had to measure the lands to give each farmer his own fields back and channel the water for use after the flood. That measurement is geometry and civil-engineering mathematics, and building canals teaches stonework.",
+      "connections": [
+        "step-pyramid"
+      ],
+      "id": "irrigation-geometry",
+      "importance": 50,
+      "label": "Irrigation, geometry, stonework",
+      "t": -5026,
+      "tier": 2
+    },
+    {
+      "blurb": "The king's astronomers observed that Sirius rises just before dawn on one particular day, the 17th of July, every year, one day before the flood begins, and that the flood came on average once every 365 days. Put together, that is a calendar, and under a calendar you can organize people and give them a date to do something on.",
+      "id": "calendar",
+      "importance": 58,
+      "label": "Sirius and the 365-day calendar",
+      "t": -5026,
+      "tier": 3
+    },
+    {
+      "blurb": "The oldest stone building in the world, Burke says, built around 2,700 B.C. at Saqqara near Cairo. If you know stonework and geometry and mathematics, and a strong central government developed to run the irrigation schemes tells you to, you can build pyramids.",
+      "connections": [
+        "karnak"
+      ],
+      "id": "step-pyramid",
+      "importance": 66,
+      "label": "Step Pyramid of Djoser",
+      "t": -4726,
+      "tier": 3
+    },
+    {
+      "blurb": "The great temples of Karnak at Thebes, built over about 2,000 years, each pharaoh adding his bit, at the height of an empire Burke calls the New York of the time. The whole civilization ran on a handful of technology: the wheel, irrigation canals, the loom, the calendar, pen and ink, cutting tools, simple metallurgy, and the plow.",
+      "connections": [
+        {
+          "id": "blackout",
+          "kind": "influences",
+          "note": "Burke's thesis arc: the civilization the plow set off ends in the modern technology trap."
+        }
+      ],
+      "id": "karnak",
+      "importance": 60,
+      "label": "Karnak, the New York of its time",
+      "t": -3526,
+      "tier": 3
+    },
+    {
+      "blurb": "November 9, 1965, at 16 minutes and 11 seconds past five: a relay at the Adam Beck Two power station at Niagara trips, cascading power off overloaded lines until, within seconds, 30 million people over the northeastern United States are in darkness, and New York City discovers it is a technology island that can neither feed nor warm its inhabitants without supplies from outside.",
+      "id": "blackout",
+      "importance": 85,
+      "label": "Northeast blackout",
+      "t": -61,
+      "tier": 4
+    },
+    {
+      "blurb": "Burke's modern equivalent, again in the desert, where nomads settled by a river of oil. What it took the pharaohs 4,000 years to build took the Kuwaitis 4,000 days: the change from a nomadic existence to buying and using everything modern technology has to offer came in much less than one generation, leaving Kuwait, like New York, totally dependent on that technology.",
+      "id": "kuwait",
+      "importance": 78,
+      "label": "Kuwait: 4,000 years in 4,000 days",
+      "t": -56,
+      "tier": 4
+    }
+  ],
+  "id": "connections-trigger-effect",
+  "maxSpan": 15000,
+  "minSpan": 1,
+  "presets": [
+    {
+      "c": -6013,
+      "id": "all",
+      "label": "All",
+      "s": 12026
+    },
+    {
+      "c": -5500,
+      "id": "ancient",
+      "label": "Ancient",
+      "s": 2000
+    },
+    {
+      "c": -60,
+      "id": "modern",
+      "label": "Modern",
+      "s": 120
+    },
+    {
+      "c": -61,
+      "id": "blackout",
+      "label": "Blackout",
+      "s": 20
+    }
+  ],
+  "showAllEvents": true,
+  "start": -12026,
+  "timeFormat": "ago",
+  "title": "The Trigger Effect (Connections S1E1)",
+  "unit": "years"
+}
