@@ -250,7 +250,7 @@ async function loadAll(){
     state.sets[item.id]=await (await fetch('datasets/'+item.file)).json();
   }
 }
-function selectedSets(){ return state.selected.map(id=>state.sets[id]).filter(Boolean); }
+function selectedSets(){ return visibleSets(); }
 function setDatasets(ids,opts){
   opts=opts||{};
   // stable order: manifest order, not tap order, so a dataset always
@@ -258,7 +258,7 @@ function setDatasets(ids,opts){
   const order=new Map(state.manifest.map((m,i)=>[m.id,i]));
   state.selected=ids.filter((id,i)=>ids.indexOf(id)===i&&state.sets[id])
     .sort((a,b)=>(order.has(a)?order.get(a):999)-(order.has(b)?order.get(b):999));
-  if(!state.selected.length&&state.manifest.length) state.selected=[state.manifest[0].id];
+  if(!state.selected.length&&state.manifest.length) state.selected=[...BACKGROUND_IDS];
   state.ds=state.sets[state.selected[0]];
   stopAnim(); hidePopover();
   if(!opts.keepView){
@@ -312,11 +312,27 @@ function scheduleLink(){
 /* ================= render ================= */
 const BG='#0d0e11', SPINE='rgba(255,255,255,.28)';
 const ACCENTS=['#8ab4f8','#f0a868','#a8d8a8','#d8a8d8','#8ad8d8']; // per-dataset accent in multi mode
-function spineX(){ if(state.selected.length>1) return cssW/2; return cssW<720?36:cssW/2; }
-// columns mode: three or more datasets, one column each. Single and
-// two-dataset layouts are untouched by the columns code below.
-function columnsMode(){ return state.selected.length>=3; }
-function colW(){ return cssW/state.selected.length; }
+function spineX(){ if(state.selected.length>1&&!mergedView()) return cssW/2; return cssW<720?36:cssW/2; }
+// Background layers (v0.23): universe, earth, and human history are
+// designated here, in the viewer code, not in the dataset files, so
+// datasets stay reusable and carry no composition data. Layout rule: if
+// the selection includes background datasets and at most one other
+// dataset, everything merges into one single column; if it includes
+// background datasets and two or more others, the view is columns of the
+// other datasets only and the background is hidden; selections with no
+// background datasets work exactly as before (single, two-dataset, and
+// columns modes unchanged).
+const BACKGROUND_IDS=['earth-history','human-history','powers-of-10'];
+function hasBackground(){ return state.selected.some(id=>BACKGROUND_IDS.includes(id)); }
+function extraCount(){ return state.selected.filter(id=>!BACKGROUND_IDS.includes(id)).length; }
+function mergedView(){ return hasBackground()&&extraCount()<=1; }
+function visibleSets(){
+  const all=state.selected.map(id=>state.sets[id]).filter(Boolean);
+  if(hasBackground()&&extraCount()>=2) return all.filter(ds=>!BACKGROUND_IDS.includes(ds.id));
+  return all;
+}
+function columnsMode(){ return !mergedView()&&visibleSets().length>=3; }
+function colW(){ return cssW/visibleSets().length; }
 function colX(i){ return i*colW(); }
 function colSpine(i){ return colX(i)+14; }
 
@@ -327,8 +343,8 @@ function draw(){
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.fillStyle=BG; ctx.fillRect(0,0,cssW,cssH);
   drawRegions();
-  // spines: one central spine in single and two-dataset mode; one spine per
-  // column in columns mode (three or more datasets)
+  // spines: one central spine in single, two-dataset, and merged mode; one
+  // spine per column in columns mode (three or more visible datasets)
   const sx=spineX();
   if(columnsMode()){
     for(let i=0;i<state.selected.length;i++){
@@ -361,6 +377,37 @@ function drawRegions(){
   if(!state.regions) return;
   const lo=viewLo(), hi=viewHi();
   const multi=state.selected.length>1;
+  // merged mode: every selected dataset's regions share one full-width
+  // column, painted globally broadest span first (not per dataset), so a
+  // broad region from one dataset sits beneath narrower regions from any
+  // dataset, the same nesting rule single mode already uses.
+  if(mergedView()){
+    const items=[];
+    for(const ds of selectedSets()){
+      if(!ds.connections) continue;
+      for(const b of ds.connections)
+        if(b.form==='region'&&curDec<=b.tier&&b.tEnd>lo&&b.tStart<hi) items.push({b:b,ds:ds});
+    }
+    items.sort((a,b)=>(b.b.tEnd-b.b.tStart)-(a.b.tEnd-a.b.tStart));
+    ctx.textBaseline='alphabetic';
+    for(const {b,ds} of items){
+      const y0=clamp(yOf(b.tStart),-60,cssH+60), y1=clamp(yOf(b.tEnd),-60,cssH+60);
+      if(y1-y0<2) continue;
+      ctx.fillStyle=b.color; ctx.fillRect(0,y0,cssW,y1-y0);
+      if(y1-y0>=28&&y0<viewH()&&y1>0){
+        ctx.fillStyle='rgba(255,255,255,.6)';
+        ctx.font='600 11px '+FONT;
+        if('letterSpacing' in ctx) ctx.letterSpacing='2px';
+        const label=fitText(b.label.toUpperCase(),cssW-24);
+        const ly=clamp(y0+18,14,viewH()-8);
+        ctx.fillText(label,12,ly);
+        if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+        const w=ctx.measureText(label).width;
+        lastRegionLabels.push({conn:b,ds:ds,x0:4,x1:12+w+14,y0:ly-20,y1:ly+10});
+      }
+    }
+    return;
+  }
   ctx.textBaseline='alphabetic';
   selectedSets().forEach((ds,di)=>{
     if(!ds.connections) return;
@@ -432,6 +479,7 @@ function fitText(text,maxW){
 function drawEvents(sx){
   const evs=visibleEvents();
   const cols=columnsMode();
+  const merged=mergedView();
   lastPlaced=[];
   const wide=cssW>=720;
   const multi=state.selected.length>1;
@@ -443,7 +491,9 @@ function drawEvents(sx){
   // by dataset in two-dataset mode, first left, second right. Columns mode
   // ignores sides: each dataset owns a column, see the geometry below.
   const sideOf=new Map();
-  if(!multi){
+  // merged mode uses single-mode geometry: chronological alternation on
+  // wide screens, right side on phones, one shared label column.
+  if(!multi||merged){
     const chrono=[...evs].sort((a,b)=>a.t-b.t);
     chrono.forEach((e,i)=>sideOf.set(e,wide?(i%2===0?'r':'l'):'r'));
   }else{
@@ -471,7 +521,7 @@ function drawEvents(sx){
       lanes[li].push([e.t,e.tEnd]);
       laneOf.set(e,{side:'r',bx:colSpine(ci)+17+li*18});
     }
-  }else if(!multi){
+  }else if(!multi||merged){
     const lanes=[];
     for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
       if(!isTall(e)) continue;
@@ -559,7 +609,7 @@ function drawEvents(sx){
     const sub=fitText(eventDateStr(e,dsOf.get(e)),maxW);
     const ly=clamp(y,26,viewH()-46);
     const top=ly-16, bot=ly+22;
-    const cl=cols?claimedCol[diOf.get(e)]:multi?claimedSide[side]:claimed;
+    const cl=cols?claimedCol[diOf.get(e)]:(multi&&!merged)?claimedSide[side]:claimed;
     let clash=false;
     for(const c of cl){ if(top<c[1]+pad&&bot>c[0]-pad){clash=true;break;} }
     if(clash) continue;
@@ -569,7 +619,9 @@ function drawEvents(sx){
     // tick
     ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.lineWidth=1;
     ctx.beginPath(); ctx.moveTo(tickFrom,ly-4); ctx.lineTo(xA+(side==='r'?-4:4),ly-4); ctx.stroke();
-    ctx.fillStyle='#f2f2f2'; ctx.font='600 14px '+FONT;
+    // merged labels take their dataset's accent (same color as its dots),
+    // so the reader can tell which dataset a label belongs to in one column
+    ctx.fillStyle=merged?ACCENTS[diOf.get(e)%ACCENTS.length]:'#f2f2f2'; ctx.font='600 14px '+FONT;
     ctx.fillText(label,tx,ly-4);
     ctx.fillStyle='#9a9a9a'; ctx.font='12px '+FONT;
     ctx.fillText(sub,tx,ly+13);
@@ -696,13 +748,20 @@ document.getElementById('trayHandle').addEventListener('click',()=>{
 window.addEventListener('resize',layoutZoomctl);
 function buildTrayList(){
   const box=document.getElementById('dsList'); box.innerHTML='';
-  const multi=state.selected.length>1;
+  // tags and accents follow the VISIBLE datasets: in background-plus-two
+  // extras columns, the hidden background datasets get neither
+  const visIds=visibleSets().map(ds=>ds.id);
+  const multi=visIds.length>1;
+  const merged=mergedView();
   for(const m of state.manifest){
-    const idx=state.selected.indexOf(m.id);
+    const idx=visIds.indexOf(m.id);
     const b=document.createElement('button');
-    b.className='dsbtn'+(idx>=0?' active':'');
+    b.className='dsbtn'+(state.selected.includes(m.id)?' active':'');
     const cols=columnsMode();
-    b.textContent=m.title+(multi&&idx>=0?(cols?' · '+(idx+1):idx===0?' · Left':' · Right'):'');
+    b.textContent=m.title+(multi&&idx>=0?(cols?' · '+(idx+1):merged?'':idx===0?' · Left':' · Right'):'');
+    // merged mode: the chip's border carries the dataset's accent, matching
+    // its dots and labels in the single column
+    if(merged&&idx>=0) b.style.borderColor=ACCENTS[idx%ACCENTS.length];
     b.addEventListener('click',()=>{ toggleDataset(m.id); });
     box.appendChild(b);
   }
@@ -722,11 +781,14 @@ regionSwitch.addEventListener('click',()=>{
 });
 document.getElementById('resetBtn').addEventListener('click',resetView);
 function jumpToPresent(){
-  const ds=state.ds; if(!ds) return;
-  const p=(ds.presets||[]).find(x=>x.id==='present');
+  // Present looks for a present preset across the visible datasets, not
+  // just the first selected one: in a merged background view the first
+  // dataset (earth) has none, but human and universe do
+  const vds=visibleSets(); if(!vds.length) return;
+  const pDs=vds.find(ds=>(ds.presets||[]).some(x=>x.id==='present'));
   stopAnim();
-  if(p) animateTo(p.c,p.s,350);
-  else animateTo(ds.end-ds.minSpan/2,ds.minSpan,350);
+  if(pDs){ const p=pDs.presets.find(x=>x.id==='present'); animateTo(p.c,p.s,350); }
+  else{ const ds=state.ds||vds[0]; animateTo(ds.end-ds.minSpan/2,ds.minSpan,350); }
 }
 document.getElementById('presentBtn').addEventListener('click',jumpToPresent);
 
@@ -741,7 +803,7 @@ document.getElementById('presentBtn').addEventListener('click',jumpToPresent);
   }
   const q=new URLSearchParams(location.search);
   const wanted=(q.get('d')||'').split(',').filter(id=>state.sets[id]);
-  const first=wanted.length?wanted:[state.manifest[0].id];
+  const first=wanted.length?wanted:[...BACKGROUND_IDS];
   setDatasets(first);
   layoutZoomctl();
   draw();

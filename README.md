@@ -27,9 +27,16 @@ the top-right shows the visible span as a power of ten.
 - Auto-promotion: when tier gating leaves a dataset with fewer than 4
   visible events in view, the highest-importance in-view events fill the
   gap, so sparse eras still show a few major events.
-- Multiselect: pick several datasets at once. Two datasets render on
-  either side of a central spine; three or more render as one column
-  each, all sharing the same time axis. Toggle chips in the tray;
+- Background layers: universe, earth, and human history are the
+  background, designated in the viewer code rather than in the dataset
+  files, so datasets stay reusable. Background plus at most one other
+  dataset merges into one single column; background plus two or more
+  others renders as columns of the others only, with the background
+  hidden. The app opens on the background trio.
+- Multiselect: pick several datasets at once. Selections with no
+  background dataset render as before: two datasets on either side of
+  a central spine, three or more as one column each, all sharing the
+  same time axis. Toggle chips in the tray;
   deep links take a comma-separated list (`?d=jewish-history,palestinian-history&c=-339.5&s=389`).
 - Presets: jump to named windows (eras, themes). Deep links carry the
   dataset list plus center and span (`?d=...&c=...&s=...`); Reset
