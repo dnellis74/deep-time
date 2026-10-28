@@ -170,12 +170,12 @@ function eventDateStr(e,ds){
 /* ================= state ================= */
 const canvas=document.getElementById('tl'), ctx=canvas.getContext('2d');
 const chipMain=document.getElementById('chipMain'), chipSub=document.getElementById('chipSub');
-const state={ manifest:[], sets:{}, ds:null, C:0, S:1, density:1, regions:true, anim:null };
+const state={ manifest:[], sets:{}, ds:null, selected:[], C:0, S:1, density:1, regions:true, anim:null };
 let cssW=0, cssH=0, dpr=1, needRender=true;
 let bottomInset=0; // px reserved at canvas bottom for the closed tray handle on phones (constant; tray overlays)
 const viewH=()=>cssH-bottomInset;
-let lastPlaced=[]; // hit-test records {e,x,y,x0,x1,y0,y1}
-let lastRegionLabels=[]; // hit-test records {conn,x0,x1,y0,y1} for tap-to-zoom
+let lastPlaced=[]; // hit-test records {e,ds,di,x,y,x0,x1,y0,y1}
+let lastRegionLabels=[]; // hit-test records {conn,ds,x0,x1,y0,y1} for tap-to-zoom
 let curDec=10; // snapped decade of current span; tiers gate on this, same as the chip
 const spanDecade=()=>Math.round(Math.log10(state.S));
 
@@ -196,16 +196,24 @@ window.addEventListener('resize',resize);
 const viewLo=()=>state.C-state.S/2, viewHi=()=>state.C+state.S/2;
 const yOf=t=>viewH()*(t-(state.C-state.S/2))/state.S;
 const tOf=y=>(state.C-state.S/2)+state.S*y/viewH();
+// combined range across the selected datasets; identical to the single
+// dataset's range when only one is selected
+function combinedRange(){
+  const ss=selectedSets();
+  if(!ss.length) return {start:0,end:0,minSpan:1,maxSpan:1};
+  return {start:Math.min(...ss.map(d=>d.start)), end:Math.max(...ss.map(d=>d.end)),
+          minSpan:Math.min(...ss.map(d=>d.minSpan)), maxSpan:Math.max(...ss.map(d=>d.maxSpan))};
+}
 function clampView(){
-  const ds=state.ds, span=ds.end-ds.start;
-  state.S=clamp(state.S,ds.minSpan,ds.maxSpan);
-  if(state.S>=span) state.C=(ds.start+ds.end)/2;
-  else state.C=clamp(state.C,ds.start+state.S/2,ds.end-state.S/2);
+  const r=combinedRange(), span=r.end-r.start;
+  state.S=clamp(state.S,r.minSpan,r.maxSpan);
+  if(state.S>=span) state.C=(r.start+r.end)/2;
+  else state.C=clamp(state.C,r.start+state.S/2,r.end-state.S/2);
 }
 function panBy(dy){ state.C-=dy*state.S/viewH(); clampView(); needRender=true; }
 function zoomAt(y,factor){
-  const ds=state.ds, tm=tOf(y);
-  state.S=clamp(state.S*factor,ds.minSpan,ds.maxSpan);
+  const r=combinedRange(), tm=tOf(y);
+  state.S=clamp(state.S*factor,r.minSpan,r.maxSpan);
   state.C=tm+state.S/2-state.S*y/viewH();
   clampView(); needRender=true;
 }
@@ -225,8 +233,8 @@ function animStep(now){
 }
 function stopAnim(){ state.anim=null; }
 function resetView(){
-  const ds=state.ds;
-  animateTo((ds.start+ds.end)/2,(ds.end-ds.start)*1.0,350);
+  const r=combinedRange();
+  animateTo((r.start+r.end)/2,(r.end-r.start)*1.0,350);
 }
 
 /* ================= data ================= */
@@ -242,27 +250,53 @@ async function loadAll(){
     state.sets[item.id]=await (await fetch('datasets/'+item.file)).json();
   }
 }
-function setDataset(id){
-  state.ds=state.sets[id];
+function selectedSets(){ return state.selected.map(id=>state.sets[id]).filter(Boolean); }
+function setDatasets(ids,opts){
+  opts=opts||{};
+  // stable side order: manifest order, not tap order, so a dataset always
+  // renders on the same side of the spine
+  const order=new Map(state.manifest.map((m,i)=>[m.id,i]));
+  state.selected=ids.filter((id,i)=>ids.indexOf(id)===i&&state.sets[id])
+    .sort((a,b)=>(order.has(a)?order.get(a):999)-(order.has(b)?order.get(b):999));
+  if(!state.selected.length&&state.manifest.length) state.selected=[state.manifest[0].id];
+  state.ds=state.sets[state.selected[0]];
   stopAnim(); hidePopover();
-  const q=new URLSearchParams(location.search);
-  if(q.get('d')===id&&q.get('c')&&q.get('s')){
-    state.C=parseFloat(q.get('c')); state.S=parseFloat(q.get('s'));
-  }else{
-    const dp=(state.ds.presets||[]).find(p=>p.id===state.ds.defaultPreset);
-    if(dp){ state.C=dp.c; state.S=dp.s; }
-    else{ state.C=(state.ds.start+state.ds.end)/2; state.S=state.ds.end-state.ds.start; }
+  if(!opts.keepView){
+    const q=new URLSearchParams(location.search);
+    const urlIds=(q.get('d')||'').split(',').filter(Boolean);
+    if(q.get('c')&&q.get('s')&&urlIds.length===state.selected.length&&urlIds.every(id=>state.selected.includes(id))){
+      state.C=parseFloat(q.get('c')); state.S=parseFloat(q.get('s'));
+    }else if(state.selected.length===1){
+      const dp=(state.ds.presets||[]).find(p=>p.id===state.ds.defaultPreset);
+      if(dp){ state.C=dp.c; state.S=dp.s; }
+      else{ state.C=(state.ds.start+state.ds.end)/2; state.S=state.ds.end-state.ds.start; }
+    }else{
+      const r=combinedRange();
+      state.C=(r.start+r.end)/2; state.S=r.end-r.start;
+    }
   }
   clampView(); buildTrayList(); buildPresets(); needRender=true; draw();
 }
+function setDataset(id){ setDatasets([id]); }
+function toggleDataset(id){
+  if(state.selected.includes(id)){
+    if(state.selected.length===1) return; // at least one dataset stays selected
+    setDatasets(state.selected.filter(x=>x!==id),{keepView:true});
+  }else{
+    setDatasets([...state.selected,id],{keepView:true});
+  }
+  scheduleLink();
+}
 function buildPresets(){
   const box=document.getElementById('presetChips'); box.innerHTML='';
-  const presets=state.ds.presets||[];
+  const multi=state.selected.length>1;
+  const presets=[];
+  for(const ds of selectedSets()) for(const v of (ds.presets||[])) presets.push({v:v,ds:ds});
   document.getElementById('jumpSection').style.display=presets.length?'':'none';
-  for(const v of presets){
+  for(const p of presets){
     const b=document.createElement('button');
-    b.className='chipbtn'; b.textContent=v.label;
-    b.addEventListener('click',()=>{ stopAnim(); animateTo(v.c,v.s,350); });
+    b.className='chipbtn'; b.textContent=multi?p.v.label+' · '+p.ds.id:p.v.label;
+    b.addEventListener('click',()=>{ stopAnim(); animateTo(p.v.c,p.v.s,350); });
     box.appendChild(b);
   }
 }
@@ -270,14 +304,15 @@ function scheduleLink(){
   clearTimeout(scheduleLink.t);
   scheduleLink.t=setTimeout(()=>{
     const q=new URLSearchParams();
-    q.set('d',state.ds.id); q.set('c',state.C.toPrecision(6)); q.set('s',state.S.toPrecision(6));
+    q.set('d',state.selected.join(',')); q.set('c',state.C.toPrecision(6)); q.set('s',state.S.toPrecision(6));
     history.replaceState(null,'',location.pathname+'?'+q.toString());
   },600);
 }
 
 /* ================= render ================= */
 const BG='#0d0e11', SPINE='rgba(255,255,255,.28)';
-function spineX(){ return cssW<720?36:cssW/2; }
+const ACCENTS=['#8ab4f8','#f0a868','#a8d8a8','#d8a8d8','#8ad8d8']; // per-dataset accent in multi mode
+function spineX(){ if(state.selected.length>1) return cssW/2; return cssW<720?36:cssW/2; }
 
 function draw(){
   if(!needRender&&!state.anim) return;
@@ -295,8 +330,7 @@ function draw(){
   updateChip();
 }
 function drawPresent(sx){
-  const ds=state.ds;
-  if(ds.end!==0) return;
+  if(!selectedSets().some(ds=>ds.end===0)) return;
   const y=yOf(0);
   if(y<-20||y>viewH()+20) return;
   ctx.strokeStyle='rgba(255,209,102,.7)'; ctx.lineWidth=1.5;
@@ -309,37 +343,53 @@ const FONT='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,s
 
 function drawRegions(){
   lastRegionLabels=[];
-  if(!state.regions||!state.ds.connections) return;
+  if(!state.regions) return;
   const lo=viewLo(), hi=viewHi();
-  const list=state.ds.connections
-    .filter(b=>b.form==='region'&&curDec<=b.tier&&b.tEnd>lo&&b.tStart<hi)
-    .sort((a,b)=>(b.tEnd-b.tStart)-(a.tEnd-a.tStart));
+  const multi=state.selected.length>1;
   ctx.textBaseline='alphabetic';
-  for(const b of list){
-    const y0=clamp(yOf(b.tStart),-60,cssH+60), y1=clamp(yOf(b.tEnd),-60,cssH+60);
-    if(y1-y0<2) continue;
-    ctx.fillStyle=b.color; ctx.fillRect(0,y0,cssW,y1-y0);
-    if(y1-y0>=28&&y0<viewH()&&y1>0){
-      ctx.fillStyle='rgba(255,255,255,.6)';
-      ctx.font='600 11px '+FONT;
-      if('letterSpacing' in ctx) ctx.letterSpacing='2px';
-      const label=fitText(b.label.toUpperCase(),cssW-24);
-      const ly=clamp(y0+18,14,viewH()-8);
-      ctx.fillText(label,12,ly);
-      if('letterSpacing' in ctx) ctx.letterSpacing='0px';
-      const w=ctx.measureText(label).width;
-      lastRegionLabels.push({conn:b,x0:4,x1:12+w+14,y0:ly-20,y1:ly+10});
+  selectedSets().forEach((ds,di)=>{
+    if(!ds.connections) return;
+    const list=ds.connections
+      .filter(b=>b.form==='region'&&curDec<=b.tier&&b.tEnd>lo&&b.tStart<hi)
+      .sort((a,b)=>(b.tEnd-b.tStart)-(a.tEnd-a.tStart));
+    // single mode: full-width tints as before. Multi mode: the first two
+    // datasets tint their half of the width; further datasets render labels
+    // only, so their eras stay findable without muddying the two halves.
+    const half=!multi||di<2;
+    const x0=!multi?0:(di===0?0:cssW/2);
+    const x1=!multi?cssW:(di===0?cssW/2:cssW);
+    const labelX=!multi?12:(di===0?12:cssW/2+12);
+    const maxW=multi?cssW/2-24:cssW-24;
+    for(const b of list){
+      const y0=clamp(yOf(b.tStart),-60,cssH+60), y1=clamp(yOf(b.tEnd),-60,cssH+60);
+      if(y1-y0<2) continue;
+      if(half){ ctx.fillStyle=b.color; ctx.fillRect(x0,y0,x1-x0,y1-y0); }
+      if(y1-y0>=28&&y0<viewH()&&y1>0){
+        ctx.fillStyle='rgba(255,255,255,.6)';
+        ctx.font='600 11px '+FONT;
+        if('letterSpacing' in ctx) ctx.letterSpacing='2px';
+        const label=fitText(b.label.toUpperCase(),maxW);
+        const ly=clamp(y0+18,14,viewH()-8);
+        ctx.fillText(label,labelX,ly);
+        if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+        const w=ctx.measureText(label).width;
+        lastRegionLabels.push({conn:b,ds:ds,x0:labelX-8,x1:labelX+w+14,y0:ly-20,y1:ly+10});
+      }
     }
-  }
+  });
 }
 
 function visibleEvents(){
-  const lo=viewLo(), hi=viewHi(), ds=state.ds;
-  return ds.events.filter(e=>{
-    if(curDec>e.tier) return false;
-    const t1=(e.tEnd!=null?e.tEnd:e.t);
-    return t1>=lo&&e.t<=hi;
-  });
+  const lo=viewLo(), hi=viewHi();
+  const out=[];
+  for(const ds of selectedSets()){
+    for(const e of ds.events){
+      if(curDec>e.tier) continue;
+      const t1=(e.tEnd!=null?e.tEnd:e.t);
+      if(t1>=lo&&e.t<=hi) out.push(e);
+    }
+  }
+  return out;
 }
 function fitText(text,maxW){
   if(ctx.measureText(text).width<=maxW) return text;
@@ -348,35 +398,60 @@ function fitText(text,maxW){
   return t+'...';
 }
 function drawEvents(sx){
-  const ds=state.ds, evs=visibleEvents();
+  const evs=visibleEvents();
   lastPlaced=[];
   const wide=cssW>=720;
-  // order for side assignment: chronological
-  const chrono=[...evs].sort((a,b)=>a.t-b.t);
-  const sideOf=new Map(); chrono.forEach((e,i)=>sideOf.set(e.id,wide?(i%2===0?'r':'l'):'r'));
+  const multi=state.selected.length>1;
+  // dataset lookup by event object: ids may repeat across datasets (the demo
+  // and earth sets share several), so maps are keyed by object, never by id
+  const dsOf=new Map(), diOf=new Map();
+  selectedSets().forEach((ds,di)=>{ for(const e of ds.events){ dsOf.set(e,ds); diOf.set(e,di); } });
+  // side assignment: chronological alternation in single mode (unchanged);
+  // by dataset in multi mode, first dataset left, second right, further ones right
+  const sideOf=new Map();
+  if(!multi){
+    const chrono=[...evs].sort((a,b)=>a.t-b.t);
+    chrono.forEach((e,i)=>sideOf.set(e,wide?(i%2===0?'r':'l'):'r'));
+  }else{
+    for(const e of evs) sideOf.set(e,diOf.get(e)===0?'l':'r');
+  }
   // lane assignment for tall spans: overlapping ranges get their own lane so
-  // overlaps read like a chart; lanes alternate sides on wide screens, stack
-  // right on phones where there is no room left of the spine
-  const laneOf=new Map(), lanes=[];
+  // overlaps read like a chart. Single mode keeps the old geometry (lanes
+  // alternate sides on wide screens, stack right on phones). Multi mode
+  // stacks lanes on the owning dataset's side.
+  const laneOf=new Map();
   const isTall=e=>e.tEnd!=null&&Math.abs(yOf(e.tEnd)-yOf(e.t))>=36;
   const spansOverlap=(a0,a1,b0,b1)=>a0<=b1&&b0<=a1;
-  for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
-    if(!isTall(e)) continue;
-    let li=lanes.findIndex(l=>l.every(s=>!spansOverlap(e.t,e.tEnd,s[0],s[1])));
-    if(li<0){ if(lanes.length<6){ lanes.push([]); li=lanes.length-1; } else li=5; }
-    lanes[li].push([e.t,e.tEnd]);
-    laneOf.set(e.id,li);
-  }
-  const laneGeom=i=>{
+  const singleLaneGeom=i=>{
     if(wide){ const s=i%2===0?-1:1, k=(i/2)|0; return {bx:sx+s*(17+k*22), side:s<0?'l':'r'}; }
     return {bx:sx+17+i*20, side:'r'};
   };
+  if(!multi){
+    const lanes=[];
+    for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
+      if(!isTall(e)) continue;
+      let li=lanes.findIndex(l=>l.every(s=>!spansOverlap(e.t,e.tEnd,s[0],s[1])));
+      if(li<0){ if(lanes.length<6){ lanes.push([]); li=lanes.length-1; } else li=5; }
+      lanes[li].push([e.t,e.tEnd]);
+      laneOf.set(e,singleLaneGeom(li));
+    }
+  }else{
+    const lanesBySide={l:[],r:[]};
+    for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
+      if(!isTall(e)) continue;
+      const side=diOf.get(e)===0?'l':'r';
+      const lanes=lanesBySide[side];
+      let li=lanes.findIndex(l=>l.every(s=>!spansOverlap(e.t,e.tEnd,s[0],s[1])));
+      if(li<0){ if(lanes.length<6){ lanes.push([]); li=lanes.length-1; } else li=5; }
+      lanes[li].push([e.t,e.tEnd]);
+      laneOf.set(e,{side:side,bx:sx+(side==='l'?-1:1)*(17+li*22)});
+    }
+  }
   // dots and bars first
   for(const e of evs){
     const y=yOf(e.t);
-    const li0=laneOf.get(e.id);
-    if(li0!=null){
-      const g0=laneGeom(li0);
+    const g0=laneOf.get(e);
+    if(g0){
       const ya=yOf(e.tEnd);
       const top=clamp(Math.min(y,ya),-40,cssH+40), bot=clamp(Math.max(y,ya),-40,cssH+40);
       ctx.fillStyle='rgba(122,162,247,.8)';
@@ -384,7 +459,7 @@ function drawEvents(sx){
       ctx.beginPath();
       if(ctx.roundRect) ctx.roundRect(g0.bx-bw/2,top,bw,Math.max(bot-top,8),4); else ctx.rect(g0.bx-bw/2,top,bw,Math.max(bot-top,8));
       ctx.fill();
-      lastPlaced.push({e:e,x:g0.bx,y:(top+bot)/2,x0:g0.bx-9,x1:g0.bx+9,y0:top,y1:bot,bar:true});
+      lastPlaced.push({e:e,ds:dsOf.get(e),di:diOf.get(e),x:g0.bx,y:(top+bot)/2,x0:g0.bx-9,x1:g0.bx+9,y0:top,y1:bot,bar:true});
       continue;
     }
     if(e.tEnd!=null){
@@ -397,27 +472,28 @@ function drawEvents(sx){
       ctx.fill();
     }else{
       if(y<-10||y>viewH()+10) continue;
-      ctx.fillStyle=e.importance>=80?'#ffd166':'#e8e8e8';
+      ctx.fillStyle=multi?ACCENTS[diOf.get(e)%ACCENTS.length]:(e.importance>=80?'#ffd166':'#e8e8e8');
       ctx.beginPath(); ctx.arc(sx,y,e.importance>=80?5:4,0,Math.PI*2); ctx.fill();
     }
   }
-  // labels, greedy by importance
+  // labels, greedy by importance; in multi mode collisions are per side, so a
+  // left label never blocks a right label at the same height
   const byImp=[...evs].sort((a,b)=>b.importance-a.importance);
   const claimed=[];
+  const claimedSide={l:[],r:[]};
   const pad=7*state.density;
   ctx.textBaseline='alphabetic';
   for(const e of byImp){
     const y=yOf(e.t);
-    const li1=laneOf.get(e.id);
+    const g1=laneOf.get(e);
     let side, xA, maxW, tickFrom;
-    if(li1!=null){
-      const g1=laneGeom(li1);
+    if(g1){
       side=g1.side;
       xA=g1.bx+(side==='r'?12:-12);
       maxW=side==='r'?cssW-xA-14:xA-14;
       tickFrom=g1.bx+(side==='r'?5:-5);
     }else{
-      side=sideOf.get(e.id);
+      side=sideOf.get(e);
       xA=sx+(side==='r'?14:-14);
       maxW=(side==='r'?cssW-xA-14:xA-14);
       tickFrom=sx;
@@ -426,13 +502,14 @@ function drawEvents(sx){
     ctx.font='600 14px '+FONT;
     const label=fitText(e.label,maxW);
     ctx.font='12px '+FONT;
-    const sub=fitText(eventDateStr(e,ds),maxW);
+    const sub=fitText(eventDateStr(e,dsOf.get(e)),maxW);
     const ly=clamp(y,26,viewH()-46);
     const top=ly-16, bot=ly+22;
+    const cl=multi?claimedSide[side]:claimed;
     let clash=false;
-    for(const c of claimed){ if(top<c[1]+pad&&bot>c[0]-pad){clash=true;break;} }
+    for(const c of cl){ if(top<c[1]+pad&&bot>c[0]-pad){clash=true;break;} }
     if(clash) continue;
-    claimed.push([top,bot]);
+    cl.push([top,bot]);
     const tx=side==='r'?xA:xA;
     ctx.textAlign=side==='r'?'left':'right';
     // tick
@@ -444,7 +521,7 @@ function drawEvents(sx){
     ctx.fillText(sub,tx,ly+13);
     ctx.textAlign='left';
     const w=Math.max(ctx.measureText(label).width,ctx.measureText(sub).width);
-    lastPlaced.push({e:e,x:sx,y:y,x0:Math.min(tx,tx+(side==='r'?w:-w)),x1:Math.max(tx,tx+(side==='r'?w:-w)),y0:top,y1:bot});
+    lastPlaced.push({e:e,ds:dsOf.get(e),di:diOf.get(e),x:sx,y:y,x0:Math.min(tx,tx+(side==='r'?w:-w)),x1:Math.max(tx,tx+(side==='r'?w:-w)),y0:top,y1:bot});
   }
 }
 
@@ -540,8 +617,9 @@ function zoomToRegion(r){
 /* ================= popover ================= */
 const pop=document.getElementById('pop');
 function showPopover(rec,p){
+  const ds=rec.ds||state.ds;
   document.getElementById('popTitle').textContent=rec.e.label;
-  document.getElementById('popDate').textContent=eventDateStr(rec.e,state.ds);
+  document.getElementById('popDate').textContent=eventDateStr(rec.e,ds)+(state.selected.length>1?' · '+ds.title:'');
   document.getElementById('popBlurb').textContent=rec.e.blurb||'No details recorded.';
   pop.classList.add('show');
   const pw=pop.offsetWidth, ph=pop.offsetHeight;
@@ -564,11 +642,13 @@ document.getElementById('trayHandle').addEventListener('click',()=>{
 window.addEventListener('resize',layoutZoomctl);
 function buildTrayList(){
   const box=document.getElementById('dsList'); box.innerHTML='';
+  const multi=state.selected.length>1;
   for(const m of state.manifest){
+    const idx=state.selected.indexOf(m.id);
     const b=document.createElement('button');
-    b.className='dsbtn'+(state.ds&&m.id===state.ds.id?' active':'');
-    b.textContent=m.title;
-    b.addEventListener('click',()=>{ setDataset(m.id); });
+    b.className='dsbtn'+(idx>=0?' active':'');
+    b.textContent=m.title+(multi&&idx===0?' · Left':multi&&idx===1?' · Right':'');
+    b.addEventListener('click',()=>{ toggleDataset(m.id); });
     box.appendChild(b);
   }
 }
@@ -605,8 +685,9 @@ document.getElementById('presentBtn').addEventListener('click',jumpToPresent);
     return;
   }
   const q=new URLSearchParams(location.search);
-  const first=(q.get('d')&&state.sets[q.get('d')])?q.get('d'):state.manifest[0].id;
-  setDataset(first);
+  const wanted=(q.get('d')||'').split(',').filter(id=>state.sets[id]);
+  const first=wanted.length?wanted:[state.manifest[0].id];
+  setDatasets(first);
   layoutZoomctl();
   draw();
 })();
