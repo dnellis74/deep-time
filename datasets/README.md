@@ -6,9 +6,10 @@ This folder holds the source datasets for
 entry is `{"file", "id", "title"}`. The built `index.html` in the repo
 root inlines these files, so it opens anywhere with no server.
 
-Current datasets: `earth-history.json`, `demo.json` (Powers of 10:
-Universe), `jewish-history.json`, `levant-neutral.json` (The Southern
-Levant: Shared Timeline), `palestinian-history.json`.
+Current datasets: `earth-history.json`, `human-history.json`,
+`demo.json` (Powers of 10: Universe), `jewish-history.json`,
+`levant-neutral.json` (The Southern Levant: Shared Timeline),
+`palestinian-history.json`.
 
 The rest of this file is two things: the JSON format spec, and a
 paste-ready prompt for generating a new dataset with an LLM.

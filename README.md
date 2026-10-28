@@ -45,7 +45,8 @@ paste-ready prompt for generating new datasets are in
 
 | Dataset | Events | Regions | Presets |
 | --- | ---: | ---: | ---: |
-| History of Earth | 154 | 38 | 5 |
+| History of Earth | 75 | 30 | 3 |
+| Human History | 79 | 20 | 10 |
 | Powers of 10: Universe | 18 | 3 | 3 |
 | Jewish History: Am Yisrael and Eretz Yisrael | 82 | 8 | 6 |
 | The Southern Levant: Shared Timeline | 72 | 8 | 6 |

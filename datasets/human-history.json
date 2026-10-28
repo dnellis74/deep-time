@@ -1,0 +1,907 @@
+{
+  "id": "human-history",
+  "title": "Human History",
+  "unit": "years",
+  "timeFormat": "ago",
+  "start": -2600000,
+  "end": 0,
+  "minSpan": 1,
+  "maxSpan": 3000000,
+  "events": [
+    {
+      "blurb": "Early toolmaker with a larger brain than australopiths.",
+      "id": "homo-habilis",
+      "importance": 71,
+      "label": "Homo habilis",
+      "t": -2400000,
+      "tEnd": -1600000,
+      "tier": 7
+    },
+    {
+      "blurb": "Long-lived species; first to reach Asia.",
+      "id": "homo-erectus",
+      "importance": 82,
+      "label": "Homo erectus",
+      "t": -1900000,
+      "tEnd": -110000,
+      "tier": 7
+    },
+    {
+      "blurb": "Hominin fossils at Dmanisi, Georgia.",
+      "id": "dmanisi",
+      "importance": 45,
+      "label": "First hominins leave Africa",
+      "t": -1800000,
+      "tier": 5
+    },
+    {
+      "blurb": "Stocky Eurasian humans; interbred with modern humans.",
+      "id": "neanderthals",
+      "importance": 76,
+      "label": "Neanderthals",
+      "t": -400000,
+      "tEnd": -40000,
+      "tier": 7
+    },
+    {
+      "blurb": "Neanderthal stone tool industry.",
+      "id": "mousterian",
+      "importance": 40,
+      "label": "Mousterian tools",
+      "t": -300000,
+      "tEnd": -40000,
+      "tier": 5
+    },
+    {
+      "blurb": "Anatomically modern humans appear in Africa.",
+      "id": "homo-sapiens",
+      "importance": 94,
+      "label": "Homo sapiens",
+      "t": -300000,
+      "tier": 7
+    },
+    {
+      "blurb": "Small-brained hominin that buried its dead.",
+      "id": "homo-naledi",
+      "importance": 45,
+      "label": "Homo naledi",
+      "t": -300000,
+      "tEnd": -200000,
+      "tier": 5
+    },
+    {
+      "blurb": "Sister group to Neanderthals known from DNA and few fossils.",
+      "id": "denisovans",
+      "importance": 55,
+      "label": "Denisovans",
+      "t": -200000,
+      "tEnd": -50000,
+      "tier": 5
+    },
+    {
+      "blurb": "The 'hobbit': a tiny island species.",
+      "id": "homo-floresiensis",
+      "importance": 43,
+      "label": "Homo floresiensis",
+      "t": -100000,
+      "tEnd": -50000,
+      "tier": 5
+    },
+    {
+      "blurb": "Modern humans disperse across the globe.",
+      "id": "out-of-africa",
+      "importance": 78,
+      "label": "Out of Africa",
+      "t": -60000,
+      "tier": 7
+    },
+    {
+      "blurb": "Symbolic art, ornament, and complex tools flourish.",
+      "id": "behavioral-modernity",
+      "importance": 56,
+      "label": "Behavioral modernity",
+      "t": -50000,
+      "tier": 5
+    },
+    {
+      "blurb": "Upper Paleolithic art in European caves.",
+      "id": "cave-paintings",
+      "importance": 54,
+      "label": "Cave painting",
+      "t": -40000,
+      "tier": 5
+    },
+    {
+      "blurb": "The earliest known stone tools.",
+      "id": "oldowan-tools",
+      "importance": 73,
+      "label": "Oldowan tools",
+      "t": -2600000,
+      "tier": 4
+    },
+    {
+      "blurb": "Teardrop handaxes made for over a million years.",
+      "id": "acheulean",
+      "importance": 55,
+      "label": "Acheulean handaxes",
+      "t": -1700000,
+      "tEnd": -200000,
+      "tier": 4
+    },
+    {
+      "blurb": "Hominins begin cooking food and extending the day.",
+      "id": "control-of-fire",
+      "importance": 74,
+      "label": "Control of fire",
+      "t": -1000000,
+      "tier": 4
+    },
+    {
+      "blurb": "Projectile hunting extends human reach.",
+      "id": "bow-arrow",
+      "importance": 29,
+      "label": "Bow and arrow",
+      "t": -20000,
+      "tier": 4
+    },
+    {
+      "blurb": "Leveraged spear throwing extends hunting range.",
+      "id": "atlatl",
+      "importance": 24,
+      "label": "Atlatl (spear-thrower)",
+      "t": -17000,
+      "tier": 4
+    },
+    {
+      "blurb": "Wolves become humanity's first domesticated animal.",
+      "id": "dogs-domesticated",
+      "importance": 42,
+      "label": "Dogs domesticated",
+      "t": -15000,
+      "tier": 4
+    },
+    {
+      "blurb": "Mammoths and other giants vanish as the ice age ends.",
+      "id": "megafauna-extinction",
+      "importance": 39,
+      "label": "Megafauna extinctions",
+      "t": -12000,
+      "tEnd": -10000,
+      "tier": 4
+    },
+    {
+      "blurb": "Farming starts in the Fertile Crescent; the Neolithic begins.",
+      "id": "agriculture",
+      "importance": 100,
+      "label": "Agriculture begins",
+      "t": -12000,
+      "tier": 5
+    },
+    {
+      "blurb": "Fired clay vessels transform food storage.",
+      "id": "pottery",
+      "importance": 34,
+      "label": "Pottery",
+      "t": -10000,
+      "tier": 4
+    },
+    {
+      "blurb": "Controlled water multiplies crop yields.",
+      "id": "irrigation",
+      "importance": 28,
+      "label": "Irrigation",
+      "t": -8000,
+      "tier": 4
+    },
+    {
+      "blurb": "Metalworking begins in the Chalcolithic.",
+      "id": "copper-smelting",
+      "importance": 38,
+      "label": "Copper smelting",
+      "t": -7026,
+      "tier": 4
+    },
+    {
+      "blurb": "Wind power transforms travel and trade.",
+      "id": "sailing",
+      "importance": 27,
+      "label": "Sail boats",
+      "t": -7000,
+      "tier": 4
+    },
+    {
+      "blurb": "Animal-drawn plows multiply farm yields.",
+      "id": "plow",
+      "importance": 33,
+      "label": "Plow",
+      "t": -6026,
+      "tier": 4
+    },
+    {
+      "blurb": "Horses transform transport and warfare.",
+      "id": "horse-domestication",
+      "importance": 37,
+      "label": "Horses domesticated",
+      "t": -5526,
+      "tier": 3
+    },
+    {
+      "blurb": "Wheeled vehicles appear in Mesopotamia.",
+      "id": "wheel",
+      "importance": 47,
+      "label": "Wheel",
+      "t": -5526,
+      "tier": 3
+    },
+    {
+      "blurb": "Cuneiform emerges in Mesopotamia.",
+      "id": "writing",
+      "importance": 90,
+      "label": "Writing",
+      "t": -5426,
+      "tier": 5
+    },
+    {
+      "blurb": "Bronze tools and weapons spread from the Near East.",
+      "id": "bronze-age-begin",
+      "importance": 72,
+      "label": "Bronze Age begins",
+      "t": -5326,
+      "tier": 5
+    },
+    {
+      "blurb": "Built as a tomb for Pharaoh Khufu.",
+      "id": "pyramids-giza",
+      "importance": 55,
+      "label": "Great Pyramid of Giza",
+      "t": -4586,
+      "tier": 3
+    },
+    {
+      "blurb": "One of the earliest written legal codes.",
+      "id": "code-hammurabi",
+      "importance": 41,
+      "label": "Code of Hammurabi",
+      "t": -3776,
+      "tier": 3
+    },
+    {
+      "blurb": "Iron smelting spreads from Anatolia.",
+      "id": "iron-age-begin",
+      "importance": 68,
+      "label": "Iron Age begins",
+      "t": -3226,
+      "tier": 5
+    },
+    {
+      "blurb": "The alphabet emerges in the Levant.",
+      "id": "alphabet",
+      "importance": 40,
+      "label": "Alphabetic writing",
+      "t": -3076,
+      "tier": 3
+    },
+    {
+      "blurb": "Chinese philosopher; his teachings shape East Asia.",
+      "id": "confucius",
+      "importance": 32,
+      "label": "Confucius",
+      "t": -2577,
+      "tier": 3
+    },
+    {
+      "blurb": "Founder of Buddhism in ancient India.",
+      "id": "buddha",
+      "importance": 31,
+      "label": "Buddha",
+      "t": -2506,
+      "tier": 3
+    },
+    {
+      "blurb": "Qin fortifications link into a northern barrier.",
+      "id": "great-wall",
+      "importance": 36,
+      "label": "Great Wall of China",
+      "t": -2246,
+      "tier": 3
+    },
+    {
+      "blurb": "Trade routes connect China to the Mediterranean.",
+      "id": "silk-road",
+      "importance": 35,
+      "label": "Silk Road",
+      "t": -2156,
+      "tier": 3
+    },
+    {
+      "blurb": "Rome dominates the Mediterranean world.",
+      "id": "roman-empire",
+      "importance": 46,
+      "label": "Roman Empire",
+      "t": -2053,
+      "tEnd": -1550,
+      "tier": 3
+    },
+    {
+      "blurb": "Indian mathematicians formalize zero.",
+      "id": "zero-number",
+      "importance": 45,
+      "label": "Zero as a number",
+      "t": -1526,
+      "tier": 3
+    },
+    {
+      "blurb": "Pandemic weakens the Byzantine Empire.",
+      "id": "justinian-plague",
+      "importance": 30,
+      "label": "Plague of Justinian",
+      "t": -1485,
+      "tier": 3
+    },
+    {
+      "blurb": "A new faith and civilization expands rapidly.",
+      "id": "rise-of-islam",
+      "importance": 57,
+      "label": "Rise of Islam",
+      "t": -1404,
+      "tier": 3
+    },
+    {
+      "blurb": "Norse seafarers raid, trade, and settle widely.",
+      "id": "viking-age",
+      "importance": 40,
+      "label": "Viking Age",
+      "t": -1226,
+      "tEnd": -960,
+      "tier": 3
+    },
+    {
+      "blurb": "Centuries of religious wars over the Holy Land.",
+      "id": "crusades",
+      "importance": 40,
+      "label": "Crusades",
+      "t": -930,
+      "tEnd": -735,
+      "tier": 3
+    },
+    {
+      "blurb": "The largest contiguous land empire in history.",
+      "id": "mongol-empire",
+      "importance": 50,
+      "label": "Mongol Empire",
+      "t": -820,
+      "tEnd": -766,
+      "tier": 3
+    },
+    {
+      "blurb": "English barons limit the king's power.",
+      "id": "magna-carta",
+      "importance": 45,
+      "label": "Magna Carta",
+      "t": -811,
+      "tier": 3
+    },
+    {
+      "blurb": "Plague kills a third of Europe's population.",
+      "id": "black-death",
+      "importance": 45,
+      "label": "Black Death",
+      "t": -679,
+      "tEnd": -676,
+      "tier": 3
+    },
+    {
+      "blurb": "Revival of art, science, and classical learning in Europe.",
+      "id": "renaissance",
+      "importance": 44,
+      "label": "Renaissance",
+      "t": -626,
+      "tEnd": -426,
+      "tier": 3
+    },
+    {
+      "blurb": "Protestant movements split Western Christianity.",
+      "id": "reformation",
+      "importance": 45,
+      "label": "Reformation",
+      "t": -509,
+      "tier": 3
+    },
+    {
+      "blurb": "Gutenberg's press makes books cheap and plentiful.",
+      "id": "printing-press",
+      "importance": 85,
+      "label": "Printing press",
+      "t": -586,
+      "tier": 2
+    },
+    {
+      "blurb": "Sustained European contact with the Americas begins.",
+      "id": "columbus",
+      "importance": 67,
+      "label": "Columbus reaches the Americas",
+      "t": -534,
+      "tier": 2
+    },
+    {
+      "blurb": "From Copernicus to Newton; modern science takes shape.",
+      "id": "scientific-revolution",
+      "importance": 77,
+      "label": "Scientific Revolution",
+      "t": -483,
+      "tEnd": -339,
+      "tier": 2
+    },
+    {
+      "blurb": "Efficient steam power drives the Industrial Revolution.",
+      "id": "steam-engine",
+      "importance": 91,
+      "label": "Watt's steam engine",
+      "t": -257,
+      "tier": 3
+    },
+    {
+      "blurb": "The United States declares independence.",
+      "id": "us-independence",
+      "importance": 53,
+      "label": "American independence",
+      "t": -250,
+      "tier": 2
+    },
+    {
+      "blurb": "Monarchy falls; republican ideals spread.",
+      "id": "french-revolution",
+      "importance": 50,
+      "label": "French Revolution",
+      "t": -237,
+      "tier": 2
+    },
+    {
+      "blurb": "Darwin publishes the theory of evolution by natural selection.",
+      "id": "darwin-origin",
+      "importance": 50,
+      "label": "Origin of Species",
+      "t": -167,
+      "tier": 2
+    },
+    {
+      "blurb": "Bell patents the practical telephone.",
+      "id": "telephone",
+      "importance": 45,
+      "label": "Telephone",
+      "t": -150,
+      "tier": 2
+    },
+    {
+      "blurb": "Benz builds the first production automobile.",
+      "id": "automobile",
+      "importance": 50,
+      "label": "Automobile",
+      "t": -140,
+      "tier": 2
+    },
+    {
+      "blurb": "The Wright brothers fly at Kitty Hawk.",
+      "id": "first-flight",
+      "importance": 83,
+      "label": "First powered flight",
+      "t": -123,
+      "tier": 3
+    },
+    {
+      "blurb": "Industrial warfare engulfs Europe and beyond.",
+      "id": "world-war-1",
+      "importance": 66,
+      "label": "World War I",
+      "t": -112,
+      "tEnd": -108,
+      "tier": 2
+    },
+    {
+      "blurb": "Fleming's discovery launches the antibiotic era.",
+      "id": "penicillin",
+      "importance": 60,
+      "label": "Penicillin",
+      "t": -98,
+      "tier": 2
+    },
+    {
+      "blurb": "Splitting the atom unlocks nuclear energy and weapons.",
+      "id": "nuclear-fission",
+      "importance": 52,
+      "label": "Nuclear fission",
+      "t": -88,
+      "tier": 2
+    },
+    {
+      "blurb": "Global war; ends with the atomic bomb.",
+      "id": "world-war-2",
+      "importance": 65,
+      "label": "World War II",
+      "t": -87,
+      "tEnd": -81,
+      "tier": 2
+    },
+    {
+      "blurb": "Nations charter a forum to prevent future wars.",
+      "id": "un-founded",
+      "importance": 40,
+      "label": "United Nations founded",
+      "t": -81,
+      "tier": 2
+    },
+    {
+      "blurb": "The first general-purpose electronic computer.",
+      "id": "first-computer",
+      "importance": 51,
+      "label": "ENIAC",
+      "t": -80,
+      "tier": 2
+    },
+    {
+      "blurb": "Bell Labs invents the building block of electronics.",
+      "id": "transistor",
+      "importance": 61,
+      "label": "Transistor",
+      "t": -79,
+      "tier": 2
+    },
+    {
+      "blurb": "The double helix reveals how heredity works.",
+      "id": "dna-structure",
+      "importance": 64,
+      "label": "DNA structure",
+      "t": -73,
+      "tier": 2
+    },
+    {
+      "blurb": "Salk's vaccine tames a feared disease.",
+      "id": "polio-vaccine",
+      "importance": 45,
+      "label": "Polio vaccine",
+      "t": -71,
+      "tier": 2
+    },
+    {
+      "blurb": "The first artificial satellite; the Space Age begins.",
+      "id": "sputnik",
+      "importance": 59,
+      "label": "Sputnik",
+      "t": -69,
+      "tier": 2
+    },
+    {
+      "blurb": "The first working laser is demonstrated.",
+      "id": "laser",
+      "importance": 40,
+      "label": "Laser",
+      "t": -66,
+      "tier": 2
+    },
+    {
+      "blurb": "Apollo 11 lands humans on the Moon.",
+      "id": "moon-landing",
+      "importance": 89,
+      "label": "Moon landing",
+      "t": -57,
+      "tier": 1
+    },
+    {
+      "blurb": "Networked messaging begins on ARPANET.",
+      "id": "first-email",
+      "importance": 50,
+      "label": "First email",
+      "t": -55,
+      "tier": 2
+    },
+    {
+      "blurb": "The Cold War division of Europe ends.",
+      "id": "berlin-wall-falls",
+      "importance": 50,
+      "label": "Berlin Wall falls",
+      "t": -37,
+      "tier": 1
+    },
+    {
+      "blurb": "The web makes the internet public and global.",
+      "id": "world-wide-web",
+      "importance": 86,
+      "label": "World Wide Web",
+      "t": -36,
+      "tier": 1
+    },
+    {
+      "blurb": "The Human Genome Project completes its draft.",
+      "id": "human-genome",
+      "importance": 62,
+      "label": "Human genome sequenced",
+      "t": -23,
+      "tier": 1
+    },
+    {
+      "blurb": "The modern smartphone era begins.",
+      "id": "first-iphone",
+      "importance": 49,
+      "label": "First iPhone",
+      "t": -19,
+      "tier": 1
+    },
+    {
+      "blurb": "DNA reveals interbreeding with modern humans.",
+      "id": "neanderthal-dna",
+      "importance": 40,
+      "label": "Neanderthal genome sequenced",
+      "t": -16,
+      "tier": 2
+    },
+    {
+      "blurb": "Precise, cheap gene editing transforms biology.",
+      "id": "crispr",
+      "importance": 48,
+      "label": "CRISPR gene editing",
+      "t": -14,
+      "tier": 1
+    },
+    {
+      "blurb": "A coronavirus pandemic disrupts the globe.",
+      "id": "covid-pandemic",
+      "importance": 58,
+      "label": "COVID-19 pandemic",
+      "t": -6,
+      "tier": 1
+    },
+    {
+      "blurb": "A new observatory opens the infrared universe.",
+      "id": "jwst",
+      "importance": 40,
+      "label": "James Webb Space Telescope",
+      "t": -4,
+      "tier": 1
+    }
+  ],
+  "connections": [
+    {
+      "color": "#6b5844",
+      "form": "region",
+      "id": "neolithic",
+      "label": "Neolithic",
+      "tEnd": -5326,
+      "tStart": -12000,
+      "tier": 5
+    },
+    {
+      "color": "#7a6550",
+      "form": "region",
+      "id": "bronze-age",
+      "label": "Bronze Age",
+      "tEnd": -3226,
+      "tStart": -5326,
+      "tier": 5
+    },
+    {
+      "color": "#89725c",
+      "form": "region",
+      "id": "iron-age",
+      "label": "Iron Age",
+      "tEnd": -266,
+      "tStart": -3226,
+      "tier": 5
+    },
+    {
+      "id": "prehistory",
+      "label": "Prehistory",
+      "form": "region",
+      "tStart": -2600000,
+      "tEnd": -5326,
+      "tier": 6,
+      "color": "#232d3a"
+    },
+    {
+      "id": "lower-paleolithic",
+      "label": "Lower Paleolithic",
+      "form": "region",
+      "tStart": -2600000,
+      "tEnd": -300000,
+      "tier": 5,
+      "color": "#3a2b28"
+    },
+    {
+      "id": "middle-paleolithic",
+      "label": "Middle Paleolithic",
+      "form": "region",
+      "tStart": -300000,
+      "tEnd": -50000,
+      "tier": 5,
+      "color": "#4a3527"
+    },
+    {
+      "id": "upper-paleolithic",
+      "label": "Upper Paleolithic",
+      "form": "region",
+      "tStart": -50000,
+      "tEnd": -14000,
+      "tier": 5,
+      "color": "#5a4232"
+    },
+    {
+      "id": "mesolithic",
+      "label": "Mesolithic",
+      "form": "region",
+      "tStart": -14000,
+      "tEnd": -12000,
+      "tier": 5,
+      "color": "#6b5138"
+    },
+    {
+      "id": "chalcolithic",
+      "label": "Chalcolithic",
+      "form": "region",
+      "tStart": -7026,
+      "tEnd": -5326,
+      "tier": 5,
+      "color": "#8a6a3b"
+    },
+    {
+      "id": "ancient-history",
+      "label": "Ancient history",
+      "form": "region",
+      "tStart": -5326,
+      "tEnd": -1550,
+      "tier": 6,
+      "color": "#2f4560"
+    },
+    {
+      "id": "classical-antiquity",
+      "label": "Classical antiquity",
+      "form": "region",
+      "tStart": -2826,
+      "tEnd": -1550,
+      "tier": 5,
+      "color": "#46648a"
+    },
+    {
+      "id": "post-classical-history",
+      "label": "Post-classical history",
+      "form": "region",
+      "tStart": -1550,
+      "tEnd": -526,
+      "tier": 6,
+      "color": "#3d2f4a"
+    },
+    {
+      "id": "middle-ages",
+      "label": "Middle Ages",
+      "form": "region",
+      "tStart": -1550,
+      "tEnd": -526,
+      "tier": 5,
+      "color": "#5a3d2b"
+    },
+    {
+      "id": "early-middle-ages",
+      "label": "Early Middle Ages",
+      "form": "region",
+      "tStart": -1550,
+      "tEnd": -1026,
+      "tier": 4,
+      "color": "#6b4a35"
+    },
+    {
+      "id": "high-middle-ages",
+      "label": "High Middle Ages",
+      "form": "region",
+      "tStart": -1026,
+      "tEnd": -726,
+      "tier": 4,
+      "color": "#7a5a40"
+    },
+    {
+      "id": "late-middle-ages",
+      "label": "Late Middle Ages",
+      "form": "region",
+      "tStart": -726,
+      "tEnd": -526,
+      "tier": 4,
+      "color": "#8a6a4a"
+    },
+    {
+      "id": "modern-history",
+      "label": "Modern history",
+      "form": "region",
+      "tStart": -526,
+      "tEnd": 0,
+      "tier": 6,
+      "color": "#1f3a2f"
+    },
+    {
+      "id": "early-modern",
+      "label": "Early modern",
+      "form": "region",
+      "tStart": -526,
+      "tEnd": -266,
+      "tier": 5,
+      "color": "#2f5a44"
+    },
+    {
+      "id": "late-modern",
+      "label": "Late modern",
+      "form": "region",
+      "tStart": -266,
+      "tEnd": -81,
+      "tier": 5,
+      "color": "#3a6a52"
+    },
+    {
+      "id": "contemporary",
+      "label": "Contemporary",
+      "form": "region",
+      "tStart": -81,
+      "tEnd": 0,
+      "tier": 5,
+      "color": "#4a7a62"
+    }
+  ],
+  "presets": [
+    {
+      "id": "all",
+      "label": "All",
+      "c": -1300000,
+      "s": 2600000
+    },
+    {
+      "id": "prehistory",
+      "label": "Prehistory",
+      "c": -1302663,
+      "s": 2594674
+    },
+    {
+      "id": "genus-homo",
+      "label": "Genus Homo",
+      "c": -1300000,
+      "s": 2000000
+    },
+    {
+      "id": "ancient",
+      "label": "Ancient history",
+      "c": -3438,
+      "s": 3776
+    },
+    {
+      "id": "medieval",
+      "label": "Middle Ages",
+      "c": -1038,
+      "s": 1024
+    },
+    {
+      "id": "early-modern",
+      "label": "Early modern",
+      "c": -396,
+      "s": 260
+    },
+    {
+      "id": "modern",
+      "label": "Modern",
+      "c": -133,
+      "s": 266
+    },
+    {
+      "id": "civilization",
+      "label": "Civilization",
+      "c": -6000,
+      "s": 12000
+    },
+    {
+      "id": "industrial",
+      "label": "Industrial era",
+      "c": -150,
+      "s": 300
+    },
+    {
+      "id": "present",
+      "label": "Present",
+      "c": -5,
+      "s": 10
+    }
+  ],
+  "defaultPreset": "all"
+}
