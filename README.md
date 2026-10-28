@@ -65,6 +65,21 @@ make auto-promotion's picks arbitrary).
 python3 validate_datasets.py datasets/your-dataset.json
 ```
 
+## Build
+
+`index.html` is built, not written by hand. The sources are
+`src/index.html` (the template) and `datasets/` (the data). To
+regenerate it after changing a dataset:
+
+```sh
+python3 validate_datasets.py datasets/*.json
+python3 build.py
+```
+
+`build.py` inlines every dataset from `datasets/manifest.json` into
+`src/index.html` and writes the self-contained `index.html`. A fresh
+clone builds byte-identically to the checked-in file.
+
 ## Contributing a dataset
 
 Follow [`datasets/README.md`](datasets/README.md): it has the full
