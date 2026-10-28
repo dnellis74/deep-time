@@ -253,8 +253,8 @@ async function loadAll(){
 function selectedSets(){ return state.selected.map(id=>state.sets[id]).filter(Boolean); }
 function setDatasets(ids,opts){
   opts=opts||{};
-  // stable side order: manifest order, not tap order, so a dataset always
-  // renders on the same side of the spine
+  // stable order: manifest order, not tap order, so a dataset always
+  // renders in the same side or column
   const order=new Map(state.manifest.map((m,i)=>[m.id,i]));
   state.selected=ids.filter((id,i)=>ids.indexOf(id)===i&&state.sets[id])
     .sort((a,b)=>(order.has(a)?order.get(a):999)-(order.has(b)?order.get(b):999));
@@ -313,6 +313,12 @@ function scheduleLink(){
 const BG='#0d0e11', SPINE='rgba(255,255,255,.28)';
 const ACCENTS=['#8ab4f8','#f0a868','#a8d8a8','#d8a8d8','#8ad8d8']; // per-dataset accent in multi mode
 function spineX(){ if(state.selected.length>1) return cssW/2; return cssW<720?36:cssW/2; }
+// columns mode: three or more datasets, one column each. Single and
+// two-dataset layouts are untouched by the columns code below.
+function columnsMode(){ return state.selected.length>=3; }
+function colW(){ return cssW/state.selected.length; }
+function colX(i){ return i*colW(); }
+function colSpine(i){ return colX(i)+14; }
 
 function draw(){
   if(!needRender&&!state.anim) return;
@@ -321,10 +327,19 @@ function draw(){
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.fillStyle=BG; ctx.fillRect(0,0,cssW,cssH);
   drawRegions();
-  // spine
+  // spines: one central spine in single and two-dataset mode; one spine per
+  // column in columns mode (three or more datasets)
   const sx=spineX();
-  ctx.strokeStyle=SPINE; ctx.lineWidth=2;
-  ctx.beginPath(); ctx.moveTo(sx,0); ctx.lineTo(sx,viewH()); ctx.stroke();
+  if(columnsMode()){
+    for(let i=0;i<state.selected.length;i++){
+      const sxi=colSpine(i);
+      ctx.strokeStyle=SPINE; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(sxi,0); ctx.lineTo(sxi,viewH()); ctx.stroke();
+    }
+  }else{
+    ctx.strokeStyle=SPINE; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(sx,0); ctx.lineTo(sx,viewH()); ctx.stroke();
+  }
   drawPresent(sx);
   drawEvents(sx);
   updateChip();
@@ -352,14 +367,16 @@ function drawRegions(){
     const list=ds.connections
       .filter(b=>b.form==='region'&&curDec<=b.tier&&b.tEnd>lo&&b.tStart<hi)
       .sort((a,b)=>(b.tEnd-b.tStart)-(a.tEnd-a.tStart));
-    // single mode: full-width tints as before. Multi mode: the first two
-    // datasets tint their half of the width; further datasets render labels
-    // only, so their eras stay findable without muddying the two halves.
-    const half=!multi||di<2;
-    const x0=!multi?0:(di===0?0:cssW/2);
-    const x1=!multi?cssW:(di===0?cssW/2:cssW);
-    const labelX=!multi?12:(di===0?12:cssW/2+12);
-    const maxW=multi?cssW/2-24:cssW-24;
+    // single mode: full-width tints as before. Two-dataset mode: the two
+    // datasets tint their half of the width. Columns mode (three or more):
+    // every dataset tints its own column, so no dataset's eras sit on
+    // another's.
+    const cols=columnsMode();
+    const half=!multi||di<2||cols;
+    const x0=!multi?0:cols?colX(di):(di===0?0:cssW/2);
+    const x1=!multi?cssW:cols?colX(di+1):(di===0?cssW/2:cssW);
+    const labelX=!multi?12:cols?colX(di)+12:(di===0?12:cssW/2+12);
+    const maxW=cols?colW()-24:(multi?cssW/2-24:cssW-24);
     for(const b of list){
       const y0=clamp(yOf(b.tStart),-60,cssH+60), y1=clamp(yOf(b.tEnd),-60,cssH+60);
       if(y1-y0<2) continue;
@@ -399,6 +416,7 @@ function fitText(text,maxW){
 }
 function drawEvents(sx){
   const evs=visibleEvents();
+  const cols=columnsMode();
   lastPlaced=[];
   const wide=cssW>=720;
   const multi=state.selected.length>1;
@@ -407,7 +425,8 @@ function drawEvents(sx){
   const dsOf=new Map(), diOf=new Map();
   selectedSets().forEach((ds,di)=>{ for(const e of ds.events){ dsOf.set(e,ds); diOf.set(e,di); } });
   // side assignment: chronological alternation in single mode (unchanged);
-  // by dataset in multi mode, first dataset left, second right, further ones right
+  // by dataset in two-dataset mode, first left, second right. Columns mode
+  // ignores sides: each dataset owns a column, see the geometry below.
   const sideOf=new Map();
   if(!multi){
     const chrono=[...evs].sort((a,b)=>a.t-b.t);
@@ -426,7 +445,18 @@ function drawEvents(sx){
     if(wide){ const s=i%2===0?-1:1, k=(i/2)|0; return {bx:sx+s*(17+k*22), side:s<0?'l':'r'}; }
     return {bx:sx+17+i*20, side:'r'};
   };
-  if(!multi){
+  if(cols){
+    const lanesByCol=selectedSets().map(()=>[]);
+    for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
+      if(!isTall(e)) continue;
+      const ci=diOf.get(e);
+      const lanes=lanesByCol[ci];
+      let li=lanes.findIndex(l=>l.every(s=>!spansOverlap(e.t,e.tEnd,s[0],s[1])));
+      if(li<0){ if(lanes.length<4){ lanes.push([]); li=lanes.length-1; } else li=3; }
+      lanes[li].push([e.t,e.tEnd]);
+      laneOf.set(e,{side:'r',bx:colSpine(ci)+17+li*18});
+    }
+  }else if(!multi){
     const lanes=[];
     for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
       if(!isTall(e)) continue;
@@ -467,27 +497,36 @@ function drawEvents(sx){
       const top=clamp(Math.min(y,y1),-40,cssH+40), bot=clamp(Math.max(y,y1),-40,cssH+40);
       ctx.fillStyle='rgba(122,162,247,.55)';
       const bw=7;
+      const barX=cols?colSpine(diOf.get(e)):sx;
       ctx.beginPath();
-      if(ctx.roundRect) ctx.roundRect(sx-bw/2,top,bw,Math.max(bot-top,8),3); else ctx.rect(sx-bw/2,top,bw,Math.max(bot-top,8));
+      if(ctx.roundRect) ctx.roundRect(barX-bw/2,top,bw,Math.max(bot-top,8),3); else ctx.rect(barX-bw/2,top,bw,Math.max(bot-top,8));
       ctx.fill();
     }else{
       if(y<-10||y>viewH()+10) continue;
       ctx.fillStyle=multi?ACCENTS[diOf.get(e)%ACCENTS.length]:(e.importance>=80?'#ffd166':'#e8e8e8');
-      ctx.beginPath(); ctx.arc(sx,y,e.importance>=80?5:4,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cols?colSpine(diOf.get(e)):sx,y,e.importance>=80?5:4,0,Math.PI*2); ctx.fill();
     }
   }
-  // labels, greedy by importance; in multi mode collisions are per side, so a
-  // left label never blocks a right label at the same height
+  // labels, greedy by importance; in two-dataset mode collisions are per side,
+  // so a left label never blocks a right label at the same height; in columns
+  // mode collisions are per column, so no dataset's labels can cover another's
   const byImp=[...evs].sort((a,b)=>b.importance-a.importance);
   const claimed=[];
   const claimedSide={l:[],r:[]};
+  const claimedCol=selectedSets().map(()=>[]);
   const pad=7*state.density;
   ctx.textBaseline='alphabetic';
   for(const e of byImp){
     const y=yOf(e.t);
     const g1=laneOf.get(e);
     let side, xA, maxW, tickFrom;
-    if(g1){
+    if(cols){
+      const ci=diOf.get(e);
+      side='r';
+      if(g1){ xA=g1.bx+12; tickFrom=g1.bx+5; }
+      else{ xA=colSpine(ci)+14; tickFrom=colSpine(ci); }
+      maxW=colX(ci+1)-xA-8;
+    }else if(g1){
       side=g1.side;
       xA=g1.bx+(side==='r'?12:-12);
       maxW=side==='r'?cssW-xA-14:xA-14;
@@ -505,7 +544,7 @@ function drawEvents(sx){
     const sub=fitText(eventDateStr(e,dsOf.get(e)),maxW);
     const ly=clamp(y,26,viewH()-46);
     const top=ly-16, bot=ly+22;
-    const cl=multi?claimedSide[side]:claimed;
+    const cl=cols?claimedCol[diOf.get(e)]:multi?claimedSide[side]:claimed;
     let clash=false;
     for(const c of cl){ if(top<c[1]+pad&&bot>c[0]-pad){clash=true;break;} }
     if(clash) continue;
@@ -647,7 +686,8 @@ function buildTrayList(){
     const idx=state.selected.indexOf(m.id);
     const b=document.createElement('button');
     b.className='dsbtn'+(idx>=0?' active':'');
-    b.textContent=m.title+(multi&&idx===0?' · Left':multi&&idx===1?' · Right':'');
+    const cols=columnsMode();
+    b.textContent=m.title+(multi&&idx>=0?(cols?' · '+(idx+1):idx===0?' · Left':' · Right'):'');
     b.addEventListener('click',()=>{ toggleDataset(m.id); });
     box.appendChild(b);
   }
