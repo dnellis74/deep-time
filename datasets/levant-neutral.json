@@ -1,0 +1,790 @@
+{
+  "id": "levant-neutral",
+  "title": "The Southern Levant: Shared Timeline",
+  "unit": "years",
+  "timeFormat": "ago",
+  "start": -15000,
+  "end": 0,
+  "minSpan": 1,
+  "maxSpan": 20000,
+  "connections": [
+    {
+      "id": "era-n-prehistoric",
+      "label": "Prehistoric Southern Levant",
+      "form": "region",
+      "tStart": -14525,
+      "tEnd": -6525,
+      "tier": 4,
+      "color": "#3d4a2f"
+    },
+    {
+      "id": "era-n-bronze",
+      "label": "Chalcolithic and Bronze Age Canaan",
+      "form": "region",
+      "tStart": -6525,
+      "tEnd": -3175,
+      "tier": 4,
+      "color": "#4a3b2f"
+    },
+    {
+      "id": "era-n-iron",
+      "label": "Iron Age: Israel, Judah, Philistia",
+      "form": "region",
+      "tStart": -3175,
+      "tEnd": -2564,
+      "tier": 3,
+      "color": "#2f4560"
+    },
+    {
+      "id": "era-n-classical",
+      "label": "Persian to Roman rule",
+      "form": "region",
+      "tStart": -2564,
+      "tEnd": -1696,
+      "tier": 3,
+      "color": "#3b3a5a"
+    },
+    {
+      "id": "era-n-byzantine",
+      "label": "Byzantine rule",
+      "form": "region",
+      "tStart": -1696,
+      "tEnd": -1389,
+      "tier": 3,
+      "color": "#4a2f3b"
+    },
+    {
+      "id": "era-n-islamic",
+      "label": "Caliphates, Crusaders, Mamluks",
+      "form": "region",
+      "tStart": -1389,
+      "tEnd": -510,
+      "tier": 3,
+      "color": "#2f4a3d"
+    },
+    {
+      "id": "era-n-ottoman",
+      "label": "Ottoman rule",
+      "form": "region",
+      "tStart": -510,
+      "tEnd": -109,
+      "tier": 3,
+      "color": "#4a4530"
+    },
+    {
+      "id": "era-n-modern",
+      "label": "Mandate and modern states",
+      "form": "region",
+      "tStart": -109,
+      "tEnd": 0,
+      "tier": 3,
+      "color": "#2f3d4a"
+    }
+  ],
+  "events": [
+    {
+      "id": "n-natufian",
+      "label": "Natufian culture",
+      "t": -14525,
+      "tEnd": -11525,
+      "tier": 4,
+      "importance": 84,
+      "blurb": "Foragers in the Levant build some of the earliest permanent settlements."
+    },
+    {
+      "id": "n-jericho",
+      "label": "Neolithic Jericho",
+      "t": -11025,
+      "tier": 4,
+      "importance": 88,
+      "blurb": "Jericho becomes one of the oldest known towns, with a stone tower dated to about 8000 BCE.",
+      "connections": [
+        {
+          "id": "n-natufian",
+          "kind": "extends"
+        }
+      ]
+    },
+    {
+      "id": "n-ghassulian",
+      "label": "Ghassulian culture",
+      "t": -6525,
+      "tEnd": -5825,
+      "tier": 0,
+      "importance": 40,
+      "blurb": "Chalcolithic farming and copper-working villages (dates approximate)."
+    },
+    {
+      "id": "n-bronze-towns",
+      "label": "Early Bronze Age towns",
+      "t": -5325,
+      "tier": 2,
+      "importance": 62,
+      "blurb": "Fortified towns spread across Canaan."
+    },
+    {
+      "id": "n-amarna",
+      "label": "Amarna letters",
+      "t": -3375,
+      "tier": 1,
+      "importance": 55,
+      "blurb": "Canaanite city rulers, including of Jerusalem, correspond with Egypt."
+    },
+    {
+      "id": "n-merneptah",
+      "label": "Merneptah Stele",
+      "t": -3233,
+      "tier": 2,
+      "importance": 68,
+      "blurb": "An Egyptian inscription records a people named Israel in Canaan."
+    },
+    {
+      "id": "n-philistines",
+      "label": "Philistine settlement",
+      "t": -3200,
+      "tier": 3,
+      "importance": 78,
+      "blurb": "Aegean-origin migrants settle the southern coast; the name Philistia is the root of the later name Palestine."
+    },
+    {
+      "id": "n-israel-judah",
+      "label": "Kingdoms of Israel and Judah",
+      "t": -3025,
+      "tEnd": -2611,
+      "tier": 3,
+      "importance": 82,
+      "blurb": "Highland kingdoms emerge from the local population; the extent of a united monarchy under David and Solomon is debated."
+    },
+    {
+      "id": "n-tel-dan",
+      "label": "Tel Dan Stele",
+      "t": -2865,
+      "tier": 1,
+      "importance": 50,
+      "blurb": "An Aramaic inscription refers to the 'House of David' (9th century BCE, approximate)."
+    },
+    {
+      "id": "n-assyria",
+      "label": "Assyria conquers Israel",
+      "t": -2747,
+      "tier": 2,
+      "importance": 66,
+      "blurb": "The northern kingdom falls and much of its population is deported."
+    },
+    {
+      "id": "n-babylon",
+      "label": "Babylon destroys Jerusalem",
+      "t": -2611,
+      "tier": 4,
+      "importance": 90,
+      "blurb": "The First Temple is destroyed and Judeans are exiled to Babylon (586 or 587 BCE)."
+    },
+    {
+      "id": "n-cyrus",
+      "label": "Persian rule; Judeans return",
+      "t": -2563,
+      "tier": 2,
+      "importance": 70,
+      "blurb": "Cyrus allows exiles to return and rebuild the Temple.",
+      "connections": [
+        "n-babylon"
+      ]
+    },
+    {
+      "id": "n-herodotus",
+      "label": "Herodotus uses 'Palaistine'",
+      "t": -2475,
+      "tier": 2,
+      "importance": 60,
+      "blurb": "The earliest known Greek use of the name for the region.",
+      "connections": [
+        "n-philistines"
+      ]
+    },
+    {
+      "id": "n-alexander",
+      "label": "Alexander's conquest",
+      "t": -2357,
+      "tier": 1,
+      "importance": 45,
+      "blurb": "The region passes to Greek rule."
+    },
+    {
+      "id": "n-maccabees",
+      "label": "Maccabean revolt",
+      "t": -2192,
+      "tEnd": -2185,
+      "tier": 2,
+      "importance": 67,
+      "blurb": "Judean revolt against the Seleucids leads to the Hasmonean kingdom."
+    },
+    {
+      "id": "n-rome",
+      "label": "Roman conquest",
+      "t": -2088,
+      "tier": 2,
+      "importance": 61,
+      "blurb": "Pompey brings Judea under Roman control."
+    },
+    {
+      "id": "n-temple-70",
+      "label": "Destruction of the Second Temple",
+      "t": -1956,
+      "tier": 3,
+      "importance": 88,
+      "blurb": "Rome destroys Jerusalem and the Temple during the First Jewish-Roman War."
+    },
+    {
+      "id": "n-bar-kokhba",
+      "label": "Bar Kokhba revolt; Syria Palaestina",
+      "t": -1894,
+      "tEnd": -1891,
+      "tier": 3,
+      "importance": 80,
+      "blurb": "Rome suppresses the revolt, bars Jews from Jerusalem, and renames the province Syria Palaestina.",
+      "connections": [
+        {
+          "id": "n-herodotus",
+          "kind": "extends",
+          "note": "Hadrian adopts the existing Greek regional name"
+        }
+      ]
+    },
+    {
+      "id": "n-mishnah",
+      "label": "Mishnah compiled",
+      "t": -1826,
+      "tier": 1,
+      "importance": 50,
+      "blurb": "Rabbinic oral law is codified in the Galilee (c. 200 CE)."
+    },
+    {
+      "id": "n-constantine",
+      "label": "Christian holy sites built",
+      "t": -1691,
+      "tier": 2,
+      "importance": 62,
+      "blurb": "Constantine's Church of the Holy Sepulchre and Bethlehem's Church of the Nativity are built."
+    },
+    {
+      "id": "n-sasanian",
+      "label": "Sasanian conquest",
+      "t": -1412,
+      "tier": 0,
+      "importance": 30,
+      "blurb": "Persia briefly takes Jerusalem; Byzantium recovers it in 629."
+    },
+    {
+      "id": "n-arab-conquest",
+      "label": "Arab Muslim conquest",
+      "t": -1388,
+      "tier": 4,
+      "importance": 90,
+      "blurb": "Caliph Umar takes Jerusalem (637 or 638); Arabization and Islamization proceed gradually over centuries."
+    },
+    {
+      "id": "n-dome",
+      "label": "Dome of the Rock",
+      "t": -1335,
+      "tier": 2,
+      "importance": 72,
+      "blurb": "Umayyad caliph Abd al-Malik completes the shrine on the Temple Mount / Haram al-Sharif.",
+      "connections": [
+        "n-arab-conquest"
+      ]
+    },
+    {
+      "id": "n-crusaders",
+      "label": "Crusader conquest",
+      "t": -927,
+      "tier": 3,
+      "importance": 78,
+      "blurb": "Crusaders take Jerusalem and kill much of its Muslim and Jewish population."
+    },
+    {
+      "id": "n-saladin",
+      "label": "Saladin retakes Jerusalem",
+      "t": -839,
+      "tier": 2,
+      "importance": 73,
+      "blurb": "Ayyubid forces end Crusader rule in Jerusalem after Hattin.",
+      "connections": [
+        {
+          "id": "n-crusaders",
+          "kind": "challenges"
+        }
+      ]
+    },
+    {
+      "id": "n-ain-jalut",
+      "label": "Battle of Ain Jalut",
+      "t": -766,
+      "tier": 1,
+      "importance": 54,
+      "blurb": "Mamluks defeat the Mongols in the Jezreel Valley."
+    },
+    {
+      "id": "n-ottoman",
+      "label": "Ottoman conquest",
+      "t": -510,
+      "tier": 3,
+      "importance": 79,
+      "blurb": "The region becomes part of the Ottoman Empire for four centuries."
+    },
+    {
+      "id": "n-suleiman",
+      "label": "Jerusalem walls rebuilt",
+      "t": -489,
+      "tEnd": -485,
+      "tier": 1,
+      "importance": 45,
+      "blurb": "Suleiman the Magnificent builds the present Old City walls."
+    },
+    {
+      "id": "n-zahir",
+      "label": "Zahir al-Umar in the Galilee",
+      "t": -296,
+      "tEnd": -251,
+      "tier": 1,
+      "importance": 44,
+      "blurb": "A local Arab ruler governs northern Palestine from Acre (dates approximate)."
+    },
+    {
+      "id": "n-1834",
+      "label": "Revolt of 1834",
+      "t": -192,
+      "tier": 0,
+      "importance": 37,
+      "blurb": "Local revolt against Egyptian rule and conscription."
+    },
+    {
+      "id": "n-land-code",
+      "label": "Ottoman Land Code",
+      "t": -168,
+      "tier": 1,
+      "importance": 47,
+      "blurb": "Land registration reform affects ownership of village farmland."
+    },
+    {
+      "id": "n-first-aliyah",
+      "label": "First Aliyah",
+      "t": -144,
+      "tEnd": -123,
+      "tier": 1,
+      "importance": 60,
+      "blurb": "Jewish immigrants from Eastern Europe found agricultural colonies."
+    },
+    {
+      "id": "n-basel",
+      "label": "First Zionist Congress",
+      "t": -129,
+      "tier": 2,
+      "importance": 70,
+      "blurb": "Herzl's movement calls for a Jewish home in Palestine."
+    },
+    {
+      "id": "n-filastin",
+      "label": "Filastin newspaper",
+      "t": -115,
+      "tier": 0,
+      "importance": 39,
+      "blurb": "An Arabic newspaper in Jaffa promotes Palestinian identity and opposes Zionism."
+    },
+    {
+      "id": "n-hussein-mcmahon",
+      "label": "Hussein-McMahon correspondence",
+      "t": -111,
+      "tier": 1,
+      "importance": 46,
+      "blurb": "British pledges of Arab independence; whether Palestine was included remains disputed."
+    },
+    {
+      "id": "n-balfour",
+      "label": "Balfour Declaration",
+      "t": -109,
+      "tier": 3,
+      "importance": 86,
+      "blurb": "Britain supports a Jewish national home in Palestine while pledging not to prejudice the rights of non-Jewish communities.",
+      "connections": [
+        "n-basel"
+      ]
+    },
+    {
+      "id": "n-mandate",
+      "label": "British Mandate",
+      "t": -104,
+      "tier": 2,
+      "importance": 66,
+      "blurb": "The League of Nations confirms British rule with the Balfour policy included.",
+      "connections": [
+        "n-balfour"
+      ]
+    },
+    {
+      "id": "n-1929",
+      "label": "1929 riots",
+      "t": -97,
+      "tier": 1,
+      "importance": 56,
+      "blurb": "Violence over the Western Wall kills 133 Jews and 116 Arabs, most of the Arabs killed by British forces."
+    },
+    {
+      "id": "n-arab-revolt",
+      "label": "1936-39 Arab revolt",
+      "t": -90,
+      "tEnd": -87,
+      "tier": 2,
+      "importance": 69,
+      "blurb": "A general strike and armed uprising against British policy and Jewish immigration is suppressed."
+    },
+    {
+      "id": "n-peel",
+      "label": "Peel partition proposal",
+      "t": -89,
+      "tier": 0,
+      "importance": 38,
+      "blurb": "A British commission first proposes partition."
+    },
+    {
+      "id": "n-white-paper",
+      "label": "1939 White Paper",
+      "t": -87,
+      "tier": 1,
+      "importance": 53,
+      "blurb": "Britain limits Jewish immigration and land purchases.",
+      "connections": [
+        "n-arab-revolt"
+      ]
+    },
+    {
+      "id": "n-holocaust",
+      "label": "The Holocaust",
+      "t": -85,
+      "tEnd": -81,
+      "tier": 3,
+      "importance": 95,
+      "blurb": "Nazi Germany and its collaborators murder about six million Jews."
+    },
+    {
+      "id": "n-partition",
+      "label": "UN Partition Plan",
+      "t": -79,
+      "tier": 2,
+      "importance": 77,
+      "blurb": "Resolution 181 proposes Jewish and Arab states; Jewish leaders accept and Arab leaders reject it."
+    },
+    {
+      "id": "n-1948-war",
+      "label": "1948 Arab-Israeli War",
+      "t": -79,
+      "tEnd": -77,
+      "tier": 4,
+      "importance": 97,
+      "blurb": "Civil war in Mandate Palestine becomes a regional war after Israel's founding.",
+      "connections": [
+        "n-partition"
+      ]
+    },
+    {
+      "id": "n-israel-founded",
+      "label": "Israel declares independence",
+      "t": -77.63,
+      "tier": 3,
+      "importance": 93,
+      "blurb": "The State of Israel is proclaimed as the Mandate ends.",
+      "connections": [
+        "n-partition"
+      ]
+    },
+    {
+      "id": "n-displacement-1948",
+      "label": "1948 Palestinian displacement",
+      "t": -78,
+      "tEnd": -77,
+      "tier": 3,
+      "importance": 92,
+      "blurb": "About 700,000 to 750,000 Palestinians flee or are expelled and are not allowed to return; Palestinians call it the Nakba.",
+      "connections": [
+        "n-1948-war"
+      ]
+    },
+    {
+      "id": "n-jews-arab-lands",
+      "label": "Jewish emigration from Arab countries",
+      "t": -78,
+      "tEnd": -54,
+      "tier": 1,
+      "importance": 61,
+      "blurb": "Most Jews of the Arab world leave or are expelled over three decades, many to Israel."
+    },
+    {
+      "id": "n-armistice",
+      "label": "1949 Armistice Lines",
+      "t": -77,
+      "tier": 1,
+      "importance": 52,
+      "blurb": "The Green Line; Jordan holds the West Bank and Egypt holds Gaza."
+    },
+    {
+      "id": "n-suez",
+      "label": "Suez War",
+      "t": -70,
+      "tier": 0,
+      "importance": 36,
+      "blurb": "Israel, Britain and France attack Egypt."
+    },
+    {
+      "id": "n-plo",
+      "label": "PLO founded",
+      "t": -62,
+      "tier": 1,
+      "importance": 51,
+      "blurb": "An umbrella body for Palestinian nationalist groups."
+    },
+    {
+      "id": "n-1967",
+      "label": "1967 War",
+      "t": -59,
+      "tier": 3,
+      "importance": 90,
+      "blurb": "Israel captures the West Bank, East Jerusalem, Gaza, Sinai and the Golan Heights."
+    },
+    {
+      "id": "n-res-242",
+      "label": "UNSC Resolution 242",
+      "t": -59,
+      "tier": 1,
+      "importance": 50,
+      "blurb": "Calls for withdrawal from territories occupied and for recognized secure borders.",
+      "connections": [
+        "n-1967"
+      ]
+    },
+    {
+      "id": "n-1973",
+      "label": "1973 War",
+      "t": -53,
+      "tier": 2,
+      "importance": 68,
+      "blurb": "Egypt and Syria attack on Yom Kippur."
+    },
+    {
+      "id": "n-egypt-treaty",
+      "label": "Egypt-Israel peace treaty",
+      "t": -47,
+      "tier": 2,
+      "importance": 67,
+      "blurb": "Israel returns Sinai in exchange for peace.",
+      "connections": [
+        "n-1973"
+      ]
+    },
+    {
+      "id": "n-lebanon-1982",
+      "label": "1982 Lebanon War",
+      "t": -44,
+      "tier": 1,
+      "importance": 49,
+      "blurb": "Israel invades Lebanon; Phalangist militia kill hundreds to over 2,000 civilians at Sabra and Shatila."
+    },
+    {
+      "id": "n-intifada-1",
+      "label": "First Intifada",
+      "t": -39,
+      "tEnd": -33,
+      "tier": 2,
+      "importance": 72,
+      "blurb": "A Palestinian uprising in the occupied territories."
+    },
+    {
+      "id": "n-oslo",
+      "label": "Oslo Accords",
+      "t": -33,
+      "tier": 2,
+      "importance": 76,
+      "blurb": "Mutual recognition between Israel and the PLO and an interim self-government framework.",
+      "connections": [
+        "n-intifada-1"
+      ]
+    },
+    {
+      "id": "n-rabin",
+      "label": "Rabin assassinated",
+      "t": -31,
+      "tier": 1,
+      "importance": 59,
+      "blurb": "An Israeli opponent of Oslo kills the prime minister.",
+      "connections": [
+        {
+          "id": "n-oslo",
+          "kind": "challenges"
+        }
+      ]
+    },
+    {
+      "id": "n-intifada-2",
+      "label": "Second Intifada",
+      "t": -26,
+      "tEnd": -21,
+      "tier": 2,
+      "importance": 71,
+      "blurb": "Roughly 1,000 Israelis and 3,000 Palestinians are killed (approximate)."
+    },
+    {
+      "id": "n-disengagement",
+      "label": "Gaza disengagement",
+      "t": -21,
+      "tier": 1,
+      "importance": 48,
+      "blurb": "Israel withdraws settlers and troops from Gaza."
+    },
+    {
+      "id": "n-gaza-blockade",
+      "label": "Hamas takeover and Gaza blockade",
+      "t": -19,
+      "tier": 1,
+      "importance": 58,
+      "blurb": "Hamas takes control of Gaza; Israel and Egypt impose a blockade."
+    },
+    {
+      "id": "n-gaza-2014",
+      "label": "2014 Gaza war",
+      "t": -12,
+      "tier": 0,
+      "importance": 43,
+      "blurb": "About 2,250 Palestinians and 73 Israelis are killed."
+    },
+    {
+      "id": "n-abraham-accords",
+      "label": "Abraham Accords",
+      "t": -6,
+      "tier": 0,
+      "importance": 42,
+      "blurb": "Israel normalizes ties with several Arab states."
+    },
+    {
+      "id": "n-oct-7",
+      "label": "October 7 attack",
+      "t": -2.24,
+      "tier": 2,
+      "importance": 88,
+      "blurb": "Hamas-led attack on Israel kills about 1,200 people and takes 251 hostages."
+    },
+    {
+      "id": "n-gaza-war",
+      "label": "Gaza war",
+      "t": -2.24,
+      "tEnd": -0.23,
+      "tier": 3,
+      "importance": 96,
+      "blurb": "Israeli military campaign in Gaza; the Gaza Health Ministry reports over 73,000 Palestinians killed by late 2026.",
+      "connections": [
+        "n-oct-7"
+      ]
+    },
+    {
+      "id": "n-icj",
+      "label": "ICJ provisional measures",
+      "t": -1.93,
+      "tier": 1,
+      "importance": 57,
+      "blurb": "In South Africa v. Israel the court orders Israel to prevent genocidal acts; the case is pending.",
+      "connections": [
+        "n-gaza-war"
+      ]
+    },
+    {
+      "id": "n-icc",
+      "label": "ICC arrest warrants",
+      "t": -1.11,
+      "tier": 1,
+      "importance": 63,
+      "blurb": "Warrants are issued for Netanyahu, Gallant, and Hamas commander Mohammed Deif."
+    },
+    {
+      "id": "n-iran-2025",
+      "label": "Israel-Iran war",
+      "t": -0.55,
+      "tier": 0,
+      "importance": 41,
+      "blurb": "Twelve days of Israeli strikes on Iran and Iranian missile fire on Israel."
+    },
+    {
+      "id": "n-coi",
+      "label": "UN Commission genocide finding",
+      "t": -0.29,
+      "tier": 1,
+      "importance": 55,
+      "blurb": "A UN Commission of Inquiry concludes Israel committed genocide in Gaza; Israel rejects the finding.",
+      "connections": [
+        "n-gaza-war"
+      ]
+    },
+    {
+      "id": "n-recognitions",
+      "label": "Western recognitions of Palestine",
+      "t": -0.28,
+      "tier": 0,
+      "importance": 40,
+      "blurb": "The UK, France, Canada and Australia recognize the State of Palestine."
+    },
+    {
+      "id": "n-ceasefire",
+      "label": "October 2025 ceasefire",
+      "t": -0.23,
+      "tier": 1,
+      "importance": 62,
+      "blurb": "Hostages are exchanged for nearly 2,000 Palestinian prisoners; strikes in Gaza continue at a lower level.",
+      "connections": [
+        "n-gaza-war"
+      ]
+    },
+    {
+      "id": "n-election-2026",
+      "label": "2026 Knesset election",
+      "t": 0,
+      "tier": 0,
+      "importance": 35,
+      "blurb": "Israel holds a scheduled general election; results are not included here."
+    }
+  ],
+  "presets": [
+    {
+      "id": "all",
+      "label": "All of it",
+      "c": -7500,
+      "s": 15000
+    },
+    {
+      "id": "prehistory",
+      "label": "First villages",
+      "c": -10500,
+      "s": 9000
+    },
+    {
+      "id": "antiquity",
+      "label": "Bronze and Iron Ages",
+      "c": -3000,
+      "s": 3000
+    },
+    {
+      "id": "classical-islamic",
+      "label": "Rome to the Ottomans",
+      "c": -1200,
+      "s": 1500
+    },
+    {
+      "id": "modern",
+      "label": "Since 1876",
+      "c": -75,
+      "s": 150
+    },
+    {
+      "id": "recent",
+      "label": "Since 2020",
+      "c": -3,
+      "s": 6
+    }
+  ],
+  "defaultPreset": "all"
+}

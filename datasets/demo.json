@@ -1,0 +1,207 @@
+{
+  "connections": [
+    {
+      "color": "#1a2233",
+      "form": "region",
+      "id": "dark-ages",
+      "label": "Dark Ages",
+      "tEnd": -13600000000,
+      "tStart": -13800000000,
+      "tier": 11
+    },
+    {
+      "color": "#232c40",
+      "form": "region",
+      "id": "cosmic-dawn",
+      "label": "Cosmic Dawn",
+      "tEnd": -13000000000,
+      "tStart": -13600000000,
+      "tier": 11
+    },
+    {
+      "color": "#1e2a3d",
+      "form": "region",
+      "id": "stelliferous-era",
+      "label": "Stelliferous Era",
+      "tEnd": 0,
+      "tStart": -13600000000,
+      "tier": 11
+    }
+  ],
+  "end": 0,
+  "events": [
+    {
+      "blurb": "The universe begins expanding from a hot, dense state.",
+      "id": "big-bang",
+      "importance": 100,
+      "label": "Big Bang",
+      "t": -13800000000,
+      "tier": 11
+    },
+    {
+      "blurb": "The universe becomes transparent; its afterglow is still detectable.",
+      "id": "first-light",
+      "importance": 70,
+      "label": "First light (CMB)",
+      "t": -13799620000,
+      "tier": 11
+    },
+    {
+      "blurb": "Our galaxy begins assembling.",
+      "id": "milky-way",
+      "importance": 80,
+      "label": "Milky Way forms",
+      "t": -13600000000,
+      "tier": 11
+    },
+    {
+      "blurb": "Gravity collapses the first stars.",
+      "id": "first-stars",
+      "importance": 90,
+      "label": "First stars ignite",
+      "t": -13500000000,
+      "tier": 11
+    },
+    {
+      "blurb": "Stars gather into the first galaxies.",
+      "id": "first-galaxies",
+      "importance": 85,
+      "label": "First galaxies",
+      "t": -13400000000,
+      "tier": 11
+    },
+    {
+      "blurb": "The Sun and planets condense from a collapsing cloud.",
+      "id": "solar-system",
+      "importance": 95,
+      "label": "Solar system forms",
+      "t": -4570000000,
+      "tier": 10
+    },
+    {
+      "blurb": "Accretion from the solar nebula.",
+      "id": "earth-forms",
+      "importance": 96,
+      "label": "Earth forms",
+      "t": -4540000000,
+      "tier": 10
+    },
+    {
+      "blurb": "A giant impact creates the Moon.",
+      "id": "moon-forms",
+      "importance": 80,
+      "label": "Moon forms",
+      "t": -4510000000,
+      "tier": 10
+    },
+    {
+      "blurb": "Life appears in Earth's oceans.",
+      "id": "first-life",
+      "importance": 90,
+      "label": "First life on Earth",
+      "t": -3800000000,
+      "tier": 10
+    },
+    {
+      "blurb": "Oxygen fills the atmosphere.",
+      "id": "great-oxidation",
+      "importance": 75,
+      "label": "Great Oxidation Event",
+      "t": -2400000000,
+      "tier": 10
+    },
+    {
+      "blurb": "Complex multicellular organisms evolve.",
+      "id": "multicellular-life",
+      "importance": 60,
+      "label": "Multicellular life",
+      "t": -1200000000,
+      "tier": 10
+    },
+    {
+      "blurb": "Animal body plans diversify rapidly.",
+      "id": "cambrian-explosion",
+      "importance": 85,
+      "label": "Cambrian explosion",
+      "t": -541000000,
+      "tier": 10
+    },
+    {
+      "blurb": "Dinosaurs dominate terrestrial ecosystems.",
+      "id": "dinosaurs",
+      "importance": 70,
+      "label": "Age of dinosaurs",
+      "t": -240000000,
+      "tEnd": -66000000,
+      "tier": 9
+    },
+    {
+      "blurb": "An asteroid ends the dinosaur era.",
+      "id": "kpg-extinction",
+      "importance": 80,
+      "label": "K-Pg extinction",
+      "t": -66000000,
+      "tier": 9
+    },
+    {
+      "blurb": "The genus Homo appears in Africa.",
+      "id": "first-humans",
+      "importance": 71,
+      "label": "First humans (Homo)",
+      "t": -2800000,
+      "tier": 7
+    },
+    {
+      "blurb": "Farming transforms human societies.",
+      "id": "agriculture",
+      "importance": 75,
+      "label": "Agriculture",
+      "t": -12000,
+      "tier": 5
+    },
+    {
+      "blurb": "Fossil energy reshapes civilization.",
+      "id": "industrial-revolution",
+      "importance": 81,
+      "label": "Industrial Revolution",
+      "t": -266,
+      "tEnd": 0,
+      "tier": 2
+    },
+    {
+      "blurb": "You are here, 13.8 billion years after the Big Bang.",
+      "id": "present",
+      "importance": 90,
+      "label": "Present day",
+      "t": 0,
+      "tier": 0
+    }
+  ],
+  "id": "powers-of-10",
+  "maxSpan": 100000000000,
+  "minSpan": 1,
+  "presets": [
+    {
+      "c": -2285000000,
+      "id": "solar-system",
+      "label": "Solar system",
+      "s": 4570000000
+    },
+    {
+      "c": -6000,
+      "id": "human-era",
+      "label": "Human era",
+      "s": 12000
+    },
+    {
+      "c": -5,
+      "id": "present",
+      "label": "Present",
+      "s": 10
+    }
+  ],
+  "start": -13800000000,
+  "timeFormat": "ago",
+  "title": "Powers of 10: Universe",
+  "unit": "years"
+}

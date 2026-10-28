@@ -1,0 +1,899 @@
+{
+  "id": "jewish-history",
+  "title": "Jewish History: Am Yisrael and Eretz Yisrael",
+  "unit": "years",
+  "timeFormat": "ago",
+  "start": -6000,
+  "end": 0,
+  "minSpan": 1,
+  "maxSpan": 8000,
+  "connections": [
+    {
+      "id": "era-avot",
+      "label": "Age of the Patriarchs (tradition)",
+      "form": "region",
+      "tStart": -3925,
+      "tEnd": -3225,
+      "tier": 4,
+      "color": "#3b3a5a"
+    },
+    {
+      "id": "era-first-temple",
+      "label": "Israelite kingdoms and First Temple",
+      "form": "region",
+      "tStart": -3225,
+      "tEnd": -2611,
+      "tier": 4,
+      "color": "#2f4560"
+    },
+    {
+      "id": "era-second-temple",
+      "label": "Return to Zion and Second Temple",
+      "form": "region",
+      "tStart": -2611,
+      "tEnd": -1956,
+      "tier": 4,
+      "color": "#2f4a3d"
+    },
+    {
+      "id": "era-rabbinic",
+      "label": "Rabbinic and Geonic era",
+      "form": "region",
+      "tStart": -1956,
+      "tEnd": -988,
+      "tier": 3,
+      "color": "#4a3b2f"
+    },
+    {
+      "id": "era-medieval",
+      "label": "Medieval Sepharad and Ashkenaz",
+      "form": "region",
+      "tStart": -988,
+      "tEnd": -534,
+      "tier": 3,
+      "color": "#3d4a2f"
+    },
+    {
+      "id": "era-early-modern",
+      "label": "Early modern diaspora",
+      "form": "region",
+      "tStart": -534,
+      "tEnd": -145,
+      "tier": 3,
+      "color": "#4a2f3b"
+    },
+    {
+      "id": "era-shivat-zion",
+      "label": "Aliyot and the Yishuv",
+      "form": "region",
+      "tStart": -145,
+      "tEnd": -78,
+      "tier": 3,
+      "color": "#2f3d4a"
+    },
+    {
+      "id": "era-medinat-yisrael",
+      "label": "State of Israel",
+      "form": "region",
+      "tStart": -78,
+      "tEnd": 0,
+      "tier": 3,
+      "color": "#4a4530"
+    }
+  ],
+  "events": [
+    {
+      "id": "anno-mundi",
+      "label": "Anno Mundi 1: Hebrew calendar epoch",
+      "t": -5786,
+      "tier": 3,
+      "importance": 40,
+      "blurb": "Rabbinic reckoning places creation in 3761 BCE, the start of the Hebrew year count; this is a religious chronology, not a historical date."
+    },
+    {
+      "id": "brit-avraham",
+      "label": "Covenant with Avraham (tradition)",
+      "t": -3825,
+      "tier": 4,
+      "importance": 90,
+      "blurb": "Genesis presents God's covenant with Avraham and the promise of the land as the founding of the Jewish people; the date is traditional and has no outside attestation."
+    },
+    {
+      "id": "yetziat-mitzrayim",
+      "label": "Exodus and Matan Torah at Sinai",
+      "t": -3275,
+      "tier": 4,
+      "importance": 93,
+      "blurb": "The exodus from Egypt and the giving of the Torah are the central memory of Jewish identity; historicity is debated, and scholars who accept a core event usually place it in the 13th century BCE.",
+      "connections": [
+        "brit-avraham"
+      ]
+    },
+    {
+      "id": "merneptah-stele",
+      "label": "Merneptah Stele names Israel",
+      "t": -3233,
+      "tier": 2,
+      "importance": 70,
+      "blurb": "An Egyptian victory inscription lists a people called Israel in Canaan, the oldest known reference to Israel outside the Bible."
+    },
+    {
+      "id": "david-shlomo",
+      "label": "Kingdom of David and Shlomo",
+      "t": -3025,
+      "tEnd": -2955,
+      "tier": 3,
+      "importance": 86,
+      "blurb": "Tradition holds that David made Jerusalem his capital and Shlomo (Solomon) built the Temple; archaeologists debate how large this united kingdom was."
+    },
+    {
+      "id": "bayit-rishon-built",
+      "label": "First Temple built",
+      "t": -2982,
+      "tier": 2,
+      "importance": 75,
+      "blurb": "Solomon's Temple on Mount Moriah becomes the center of Israelite worship (traditional date).",
+      "connections": [
+        "david-shlomo"
+      ]
+    },
+    {
+      "id": "tel-dan-stele",
+      "label": "Tel Dan Stele: House of David",
+      "t": -2865,
+      "tier": 1,
+      "importance": 55,
+      "blurb": "An Aramaic victory inscription mentions the 'House of David', the earliest outside reference to David's dynasty (9th century BCE, date approximate)."
+    },
+    {
+      "id": "ten-tribes-exiled",
+      "label": "Assyria exiles the Ten Tribes",
+      "t": -2747,
+      "tier": 2,
+      "importance": 72,
+      "blurb": "Samaria falls and the northern kingdom of Israel is deported, remembered as the loss of the Ten Tribes."
+    },
+    {
+      "id": "hezekiah-siege",
+      "label": "Hezekiah withstands Sennacherib",
+      "t": -2726,
+      "tier": 1,
+      "importance": 50,
+      "blurb": "Jerusalem survives the Assyrian siege; Hezekiah's water tunnel still runs under the City of David."
+    },
+    {
+      "id": "josiah-reform",
+      "label": "Reform of King Josiah",
+      "t": -2647,
+      "tier": 1,
+      "importance": 45,
+      "blurb": "Josiah centralizes worship in Jerusalem after a scroll of the Torah is found; many scholars connect it with Deuteronomy."
+    },
+    {
+      "id": "churban-bayit-rishon",
+      "label": "Destruction of the First Temple",
+      "t": -2611,
+      "tier": 4,
+      "importance": 96,
+      "blurb": "Babylon burns Jerusalem and the Temple (586 or 587 BCE), mourned every year on Tisha B'Av.",
+      "connections": [
+        "bayit-rishon-built"
+      ]
+    },
+    {
+      "id": "galut-bavel",
+      "label": "Babylonian Exile",
+      "t": -2611,
+      "tEnd": -2563,
+      "tier": 2,
+      "importance": 73,
+      "blurb": "Exiled Judeans vow in Psalm 137 never to forget Jerusalem, and the community in Babylon lays foundations of diaspora Judaism.",
+      "connections": [
+        "churban-bayit-rishon"
+      ]
+    },
+    {
+      "id": "shivat-zion",
+      "label": "Cyrus decree: return to Zion",
+      "t": -2563,
+      "tier": 3,
+      "importance": 82,
+      "blurb": "Persian king Cyrus permits exiles to return and rebuild the Temple, the first Shivat Zion.",
+      "connections": [
+        "galut-bavel"
+      ]
+    },
+    {
+      "id": "bayit-sheni",
+      "label": "Second Temple completed",
+      "t": -2541,
+      "tier": 2,
+      "importance": 75,
+      "blurb": "The rebuilt Temple is dedicated in Jerusalem under Persian rule.",
+      "connections": [
+        "shivat-zion"
+      ]
+    },
+    {
+      "id": "ezra-nehemiah",
+      "label": "Ezra and Nehemiah",
+      "t": -2483,
+      "tEnd": -2455,
+      "tier": 1,
+      "importance": 51,
+      "blurb": "Ezra's public reading of the Torah and Nehemiah's rebuilding of the walls renew Judean communal life (dates debated)."
+    },
+    {
+      "id": "maccabees",
+      "label": "Maccabean revolt",
+      "t": -2192,
+      "tEnd": -2185,
+      "tier": 3,
+      "importance": 80,
+      "blurb": "Judeans led by the Hasmonean family revolt against the Seleucid ban on Torah observance."
+    },
+    {
+      "id": "chanukah",
+      "label": "Temple rededicated: Chanukah",
+      "t": -2189,
+      "tier": 2,
+      "importance": 72,
+      "blurb": "The Maccabees purify and rededicate the Temple, the origin of Chanukah.",
+      "connections": [
+        "maccabees"
+      ]
+    },
+    {
+      "id": "hasmonean-kingdom",
+      "label": "Hasmonean kingdom",
+      "t": -2165,
+      "tEnd": -2088,
+      "tier": 2,
+      "importance": 62,
+      "blurb": "The last independent Jewish state before 1948.",
+      "connections": [
+        {
+          "id": "maccabees",
+          "kind": "extends"
+        }
+      ]
+    },
+    {
+      "id": "pompey",
+      "label": "Pompey takes Jerusalem",
+      "t": -2088,
+      "tier": 1,
+      "importance": 52,
+      "blurb": "Rome intervenes in a Hasmonean civil war and Judea becomes a Roman client."
+    },
+    {
+      "id": "herod-temple",
+      "label": "Herod expands the Temple Mount",
+      "t": -2045,
+      "tier": 1,
+      "importance": 53,
+      "blurb": "Herod's rebuilding produces the retaining wall now called the Kotel, the Western Wall."
+    },
+    {
+      "id": "great-revolt",
+      "label": "Great Revolt against Rome",
+      "t": -1960,
+      "tEnd": -1953,
+      "tier": 2,
+      "importance": 76,
+      "blurb": "Judea rises against Roman rule; the war ends with the fall of Jerusalem and Masada."
+    },
+    {
+      "id": "churban-bayit-sheni",
+      "label": "Destruction of the Second Temple",
+      "t": -1956,
+      "tier": 4,
+      "importance": 98,
+      "blurb": "Titus destroys Jerusalem and the Temple on Tisha B'Av, beginning nearly two millennia of exile from sovereignty.",
+      "connections": [
+        "great-revolt",
+        "bayit-sheni"
+      ]
+    },
+    {
+      "id": "yavne",
+      "label": "Academy at Yavne",
+      "t": -1956,
+      "tier": 1,
+      "importance": 58,
+      "blurb": "Rabban Yochanan ben Zakkai's academy reorients Judaism around Torah study, prayer, and rabbinic law.",
+      "connections": [
+        "churban-bayit-sheni"
+      ]
+    },
+    {
+      "id": "masada",
+      "label": "Fall of Masada",
+      "t": -1953,
+      "tier": 1,
+      "importance": 55,
+      "blurb": "The last rebel fortress falls (73 or 74 CE); Josephus describes the defenders choosing death over capture."
+    },
+    {
+      "id": "bar-kokhba",
+      "label": "Bar Kokhba revolt",
+      "t": -1894,
+      "tEnd": -1891,
+      "tier": 2,
+      "importance": 77,
+      "blurb": "Rome crushes the last great revolt, bars Jews from Jerusalem, and renames Judea as Syria Palaestina."
+    },
+    {
+      "id": "mishnah",
+      "label": "Mishnah compiled",
+      "t": -1826,
+      "tier": 2,
+      "importance": 75,
+      "blurb": "Rabbi Yehuda HaNasi edits the Oral Torah in the Galilee (c. 200 CE).",
+      "connections": [
+        {
+          "id": "yavne",
+          "kind": "extends"
+        }
+      ]
+    },
+    {
+      "id": "yerushalmi",
+      "label": "Jerusalem Talmud",
+      "t": -1626,
+      "tier": 1,
+      "importance": 50,
+      "blurb": "Galilean academies complete the Talmud of the Land of Israel (c. 400 CE).",
+      "connections": [
+        {
+          "id": "mishnah",
+          "kind": "extends"
+        }
+      ]
+    },
+    {
+      "id": "bavli",
+      "label": "Babylonian Talmud completed",
+      "t": -1526,
+      "tier": 3,
+      "importance": 78,
+      "blurb": "The Talmud Bavli, redacted in Babylonia (c. 500 CE, date approximate), becomes the core text of rabbinic law.",
+      "connections": [
+        {
+          "id": "mishnah",
+          "kind": "extends"
+        }
+      ]
+    },
+    {
+      "id": "aleppo-codex",
+      "label": "Aleppo Codex, Tiberias",
+      "t": -1096,
+      "tier": 1,
+      "importance": 45,
+      "blurb": "Masoretes in Tiberias fix the vowels and text of the Hebrew Bible (c. 930 CE)."
+    },
+    {
+      "id": "golden-age-sepharad",
+      "label": "Golden Age of Sepharad",
+      "t": -1076,
+      "tEnd": -876,
+      "tier": 2,
+      "importance": 66,
+      "blurb": "Under Muslim rule in Spain, Jewish poetry, philosophy and science flourish, from Ibn Gabirol to Yehuda HaLevi (dates approximate)."
+    },
+    {
+      "id": "rashi",
+      "label": "Rashi",
+      "t": -986,
+      "tEnd": -921,
+      "tier": 1,
+      "importance": 60,
+      "blurb": "Rashi of Troyes writes the standard commentaries on the Torah and Talmud."
+    },
+    {
+      "id": "gezerot-tatnu",
+      "label": "Rhineland massacres of 1096",
+      "t": -930,
+      "tier": 2,
+      "importance": 67,
+      "blurb": "First Crusade armies destroy the Jewish communities of Speyer, Worms and Mainz, remembered as Gezerot Tatnu."
+    },
+    {
+      "id": "rambam",
+      "label": "Rambam (Maimonides)",
+      "t": -888,
+      "tEnd": -822,
+      "tier": 2,
+      "importance": 72,
+      "blurb": "Maimonides writes the Mishneh Torah and the Guide for the Perplexed."
+    },
+    {
+      "id": "england-expulsion",
+      "label": "Expulsion from England",
+      "t": -736,
+      "tier": 1,
+      "importance": 46,
+      "blurb": "Edward I expels the Jews of England, the first of the major medieval expulsions."
+    },
+    {
+      "id": "gerush-sefarad",
+      "label": "Expulsion from Spain",
+      "t": -534,
+      "tier": 3,
+      "importance": 86,
+      "blurb": "Ferdinand and Isabella expel Spain's Jews; the Sephardi diaspora spreads to the Ottoman Empire, North Africa and the Netherlands."
+    },
+    {
+      "id": "tzfat",
+      "label": "Safed: Karo and the Ari",
+      "t": -461,
+      "tier": 1,
+      "importance": 56,
+      "blurb": "Joseph Karo's Shulchan Aruch (1565) and Isaac Luria's kabbalah make Safed a center of Jewish learning in Eretz Yisrael.",
+      "connections": [
+        "rambam"
+      ]
+    },
+    {
+      "id": "tach-vetat",
+      "label": "Gezerot Tach VeTat",
+      "t": -378,
+      "tier": 1,
+      "importance": 55,
+      "blurb": "Khmelnytsky's Cossack uprising kills tens of thousands of Jews in Ukraine (1648-49; totals debated)."
+    },
+    {
+      "id": "sabbatai-zevi",
+      "label": "Sabbatai Zevi movement",
+      "t": -361,
+      "tier": 1,
+      "importance": 45,
+      "blurb": "A mass messianic movement collapses when Sabbatai Zevi converts to Islam in 1666."
+    },
+    {
+      "id": "baal-shem-tov",
+      "label": "Baal Shem Tov and Hasidism",
+      "t": -286,
+      "tier": 1,
+      "importance": 57,
+      "blurb": "Hasidism emphasizes joy and devotion and spreads across Eastern Europe (founding date approximate)."
+    },
+    {
+      "id": "haskalah",
+      "label": "Haskalah: Mendelssohn",
+      "t": -243,
+      "tier": 1,
+      "importance": 48,
+      "blurb": "Moses Mendelssohn's Jerusalem argues for Jewish civic participation, a landmark of the Jewish Enlightenment."
+    },
+    {
+      "id": "emancipation",
+      "label": "Emancipation in France",
+      "t": -235,
+      "tier": 1,
+      "importance": 52,
+      "blurb": "Revolutionary France grants Jews full citizenship, the first European state to do so."
+    },
+    {
+      "id": "sufot-banegev",
+      "label": "Pogroms of 1881",
+      "t": -145,
+      "tier": 2,
+      "importance": 70,
+      "blurb": "Anti-Jewish riots across the Russian Empire, the Sufot BaNegev, push Jews toward emigration and Zionism."
+    },
+    {
+      "id": "aliyah-rishona",
+      "label": "First Aliyah",
+      "t": -144,
+      "tEnd": -123,
+      "tier": 2,
+      "importance": 75,
+      "blurb": "Bilu and Hovevei Zion pioneers found moshavot such as Rishon LeZion and Zichron Yaakov.",
+      "connections": [
+        "sufot-banegev"
+      ]
+    },
+    {
+      "id": "judenstaat",
+      "label": "Herzl: Der Judenstaat",
+      "t": -130,
+      "tier": 1,
+      "importance": 66,
+      "blurb": "Theodor Herzl argues that only a Jewish state can solve the Jewish question."
+    },
+    {
+      "id": "basel-congress",
+      "label": "First Zionist Congress, Basel",
+      "t": -129,
+      "tier": 3,
+      "importance": 88,
+      "blurb": "The Basel Program calls for a publicly secured home for the Jewish people in Eretz Yisrael.",
+      "connections": [
+        "judenstaat"
+      ]
+    },
+    {
+      "id": "aliyah-shniya",
+      "label": "Second Aliyah",
+      "t": -122,
+      "tEnd": -112,
+      "tier": 1,
+      "importance": 58,
+      "blurb": "Socialist pioneers, including Ben-Gurion, build Hebrew labor and the first kvutzot."
+    },
+    {
+      "id": "tel-aviv",
+      "label": "Tel Aviv founded",
+      "t": -117,
+      "tier": 1,
+      "importance": 47,
+      "blurb": "Families from Jaffa found Ahuzat Bayit, which becomes Tel Aviv, the first modern Hebrew city."
+    },
+    {
+      "id": "degania",
+      "label": "Degania, first kvutza",
+      "t": -116,
+      "tier": 0,
+      "importance": 40,
+      "blurb": "A collective farm on the Sea of Galilee, the forerunner of the kibbutz movement."
+    },
+    {
+      "id": "balfour",
+      "label": "Balfour Declaration",
+      "t": -109,
+      "tier": 2,
+      "importance": 86,
+      "blurb": "Britain declares support for a national home for the Jewish people in Palestine.",
+      "connections": [
+        "basel-congress"
+      ]
+    },
+    {
+      "id": "mandate",
+      "label": "League of Nations Mandate",
+      "t": -104,
+      "tier": 1,
+      "importance": 62,
+      "blurb": "The Mandate charges Britain with implementing the Balfour Declaration and recognizes the Jewish historical connection to the land.",
+      "connections": [
+        "balfour"
+      ]
+    },
+    {
+      "id": "tarpat",
+      "label": "Tarpat riots and Hebron massacre",
+      "t": -97,
+      "tier": 1,
+      "importance": 63,
+      "blurb": "Arab rioters kill 133 Jews, including about 67 in Hebron, ending the city's ancient Jewish community until after 1967."
+    },
+    {
+      "id": "meoraot",
+      "label": "The Events of 1936-1939",
+      "t": -90,
+      "tEnd": -87,
+      "tier": 1,
+      "importance": 54,
+      "blurb": "The Yishuv defends its settlements during the Arab uprising, and the Peel Commission proposes the first partition (1937)."
+    },
+    {
+      "id": "white-paper",
+      "label": "1939 White Paper",
+      "t": -87,
+      "tier": 1,
+      "importance": 61,
+      "blurb": "Britain caps Jewish immigration at 75,000 over five years as Europe's Jews try to escape the Nazis.",
+      "connections": [
+        "meoraot"
+      ]
+    },
+    {
+      "id": "shoah",
+      "label": "The Shoah",
+      "t": -85,
+      "tEnd": -81,
+      "tier": 3,
+      "importance": 100,
+      "blurb": "Nazi Germany and its collaborators murder about six million Jews, a third of the Jewish people."
+    },
+    {
+      "id": "partition",
+      "label": "UN Partition Plan accepted",
+      "t": -79,
+      "tier": 2,
+      "importance": 80,
+      "blurb": "The Jewish Agency accepts UN Resolution 181; Arab leaders reject it and fighting begins."
+    },
+    {
+      "id": "atzmaut",
+      "label": "Declaration of Independence",
+      "t": -77.63,
+      "tier": 4,
+      "importance": 99,
+      "blurb": "David Ben-Gurion proclaims the State of Israel in Tel Aviv on 5 Iyar 5708.",
+      "connections": [
+        "partition"
+      ]
+    },
+    {
+      "id": "milchemet-haatzmaut",
+      "label": "War of Independence",
+      "t": -77.63,
+      "tEnd": -77,
+      "tier": 2,
+      "importance": 87,
+      "blurb": "Five Arab armies invade the new state; about 6,000 Israelis are killed, roughly 1% of the Jewish population.",
+      "connections": [
+        "atzmaut"
+      ]
+    },
+    {
+      "id": "mizrahi-exodus",
+      "label": "Exodus of Jews from Arab lands",
+      "t": -78,
+      "tEnd": -54,
+      "tier": 1,
+      "importance": 67,
+      "blurb": "Jewish communities in the Arab world are expelled or pressured out, a total commonly given as about 850,000; most resettle in Israel."
+    },
+    {
+      "id": "law-of-return",
+      "label": "Law of Return",
+      "t": -76,
+      "tier": 1,
+      "importance": 53,
+      "blurb": "Every Jew gains the right to immigrate to Israel and become a citizen.",
+      "connections": [
+        "atzmaut"
+      ]
+    },
+    {
+      "id": "eichmann",
+      "label": "Eichmann trial",
+      "t": -65,
+      "tier": 0,
+      "importance": 46,
+      "blurb": "Israel tries a central organizer of the Shoah, bringing survivor testimony to the world."
+    },
+    {
+      "id": "sheshet-hayamim",
+      "label": "Six-Day War: Jerusalem reunited",
+      "t": -59,
+      "tier": 3,
+      "importance": 92,
+      "blurb": "Facing Arab mobilization, Israel takes Sinai, Gaza, Judea and Samaria, and the Golan, and Jews return to the Old City and the Kotel."
+    },
+    {
+      "id": "munich",
+      "label": "Munich massacre",
+      "t": -54,
+      "tier": 0,
+      "importance": 44,
+      "blurb": "Black September terrorists murder eleven Israeli Olympic athletes and coaches."
+    },
+    {
+      "id": "yom-kippur-war",
+      "label": "Yom Kippur War",
+      "t": -53,
+      "tier": 2,
+      "importance": 76,
+      "blurb": "Egypt and Syria launch a surprise attack on the holiest day of the year; Israel recovers at a cost of about 2,700 dead."
+    },
+    {
+      "id": "entebbe",
+      "label": "Operation Entebbe",
+      "t": -50,
+      "tier": 0,
+      "importance": 39,
+      "blurb": "Commandos rescue hostages from a hijacked airliner in Uganda."
+    },
+    {
+      "id": "peace-egypt",
+      "label": "Peace treaty with Egypt",
+      "t": -47,
+      "tier": 2,
+      "importance": 72,
+      "blurb": "Begin and Sadat sign the first peace between Israel and an Arab state, returning Sinai.",
+      "connections": [
+        "yom-kippur-war"
+      ]
+    },
+    {
+      "id": "shlom-hagalil",
+      "label": "Operation Peace for Galilee",
+      "t": -44,
+      "tier": 1,
+      "importance": 51,
+      "blurb": "Israel invades Lebanon to expel the PLO; the Kahan Commission later finds Defense Minister Sharon indirectly responsible for Sabra and Shatila."
+    },
+    {
+      "id": "ethiopian-aliyah",
+      "label": "Operations Moses and Solomon",
+      "t": -42,
+      "tEnd": -35,
+      "tier": 0,
+      "importance": 43,
+      "blurb": "Airlifts bring most of Ethiopian Jewry (Beta Israel) to Israel."
+    },
+    {
+      "id": "intifada-1",
+      "label": "First Intifada",
+      "t": -39,
+      "tEnd": -33,
+      "tier": 1,
+      "importance": 50,
+      "blurb": "A Palestinian uprising in Judea, Samaria and Gaza challenges Israeli rule."
+    },
+    {
+      "id": "soviet-aliyah",
+      "label": "Aliyah from the former USSR",
+      "t": -37,
+      "tEnd": -27,
+      "tier": 1,
+      "importance": 64,
+      "blurb": "About one million immigrants arrive after the Soviet collapse, reshaping Israeli society."
+    },
+    {
+      "id": "oslo",
+      "label": "Oslo Accords",
+      "t": -33,
+      "tier": 2,
+      "importance": 77,
+      "blurb": "Rabin and Arafat sign mutual recognition and an interim self-rule framework.",
+      "connections": [
+        "intifada-1"
+      ]
+    },
+    {
+      "id": "peace-jordan",
+      "label": "Peace treaty with Jordan",
+      "t": -32,
+      "tier": 1,
+      "importance": 49,
+      "blurb": "Israel and Jordan sign a full peace treaty."
+    },
+    {
+      "id": "rabin",
+      "label": "Rabin assassinated",
+      "t": -31,
+      "tier": 1,
+      "importance": 73,
+      "blurb": "A Jewish extremist opposed to Oslo murders Prime Minister Yitzhak Rabin.",
+      "connections": [
+        {
+          "id": "oslo",
+          "kind": "challenges"
+        }
+      ]
+    },
+    {
+      "id": "intifada-2",
+      "label": "Second Intifada",
+      "t": -26,
+      "tEnd": -21,
+      "tier": 1,
+      "importance": 65,
+      "blurb": "Suicide bombings and attacks kill about 1,000 Israelis; Israel builds the security barrier."
+    },
+    {
+      "id": "hitnatkut",
+      "label": "Disengagement from Gaza",
+      "t": -21,
+      "tier": 1,
+      "importance": 59,
+      "blurb": "Israel removes all settlements and soldiers from the Gaza Strip."
+    },
+    {
+      "id": "lebanon-2006",
+      "label": "Second Lebanon War",
+      "t": -20,
+      "tier": 0,
+      "importance": 42,
+      "blurb": "A month-long war with Hezbollah follows a cross-border raid."
+    },
+    {
+      "id": "abraham-accords",
+      "label": "Abraham Accords",
+      "t": -6,
+      "tier": 1,
+      "importance": 60,
+      "blurb": "Israel normalizes relations with the UAE, Bahrain, Morocco and Sudan."
+    },
+    {
+      "id": "judicial-protests",
+      "label": "Judicial overhaul protests",
+      "t": -3,
+      "tier": 0,
+      "importance": 41,
+      "blurb": "Mass protests oppose the government's plan to curb the Supreme Court."
+    },
+    {
+      "id": "simchat-torah-massacre",
+      "label": "October 7: Simchat Torah massacre",
+      "t": -2.24,
+      "tier": 3,
+      "importance": 97,
+      "blurb": "Hamas-led terrorists kill about 1,200 people, mostly civilians, and take 251 hostages, the deadliest day for Jews since the Shoah."
+    },
+    {
+      "id": "swords-of-iron",
+      "label": "Swords of Iron War",
+      "t": -2.24,
+      "tEnd": -0.23,
+      "tier": 2,
+      "importance": 85,
+      "blurb": "Israel fights to destroy Hamas and bring the hostages home; Israel rejects the genocide charge brought by South Africa at the ICJ.",
+      "connections": [
+        "simchat-torah-massacre"
+      ]
+    },
+    {
+      "id": "rising-lion",
+      "label": "Twelve-Day War with Iran",
+      "t": -0.55,
+      "tier": 1,
+      "importance": 56,
+      "blurb": "Operation Rising Lion strikes Iran's nuclear and missile programs; Iran fires missiles at Israeli cities."
+    },
+    {
+      "id": "hostages-home",
+      "label": "Last living hostages come home",
+      "t": -0.22,
+      "tier": 1,
+      "importance": 71,
+      "blurb": "Hamas releases the 20 remaining living hostages under the October 2025 ceasefire.",
+      "connections": [
+        "swords-of-iron"
+      ]
+    },
+    {
+      "id": "election-2026",
+      "label": "26th Knesset election",
+      "t": 0,
+      "tier": 0,
+      "importance": 38,
+      "blurb": "The first Knesset election held on its scheduled date since 1988; results are not included here."
+    }
+  ],
+  "presets": [
+    {
+      "id": "all",
+      "label": "All of it",
+      "c": -3000,
+      "s": 6000
+    },
+    {
+      "id": "biblical",
+      "label": "Biblical era",
+      "c": -3300,
+      "s": 1600
+    },
+    {
+      "id": "second-temple",
+      "label": "Second Temple",
+      "c": -2250,
+      "s": 700
+    },
+    {
+      "id": "diaspora",
+      "label": "Diaspora",
+      "c": -900,
+      "s": 1500
+    },
+    {
+      "id": "modern",
+      "label": "Return and statehood",
+      "c": -75,
+      "s": 150
+    },
+    {
+      "id": "recent",
+      "label": "Since 2020",
+      "c": -3,
+      "s": 6
+    }
+  ],
+  "defaultPreset": "all"
+}

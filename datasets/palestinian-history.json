@@ -1,0 +1,875 @@
+{
+  "id": "palestinian-history",
+  "title": "Palestinian History: The People of Filastin",
+  "unit": "years",
+  "timeFormat": "ago",
+  "start": -15000,
+  "end": 0,
+  "minSpan": 1,
+  "maxSpan": 20000,
+  "connections": [
+    {
+      "id": "era-natufian-neolithic",
+      "label": "Natufian and Neolithic Palestine",
+      "form": "region",
+      "tStart": -14525,
+      "tEnd": -6525,
+      "tier": 4,
+      "color": "#3d4a2f"
+    },
+    {
+      "id": "era-canaan",
+      "label": "Canaan",
+      "form": "region",
+      "tStart": -6525,
+      "tEnd": -3175,
+      "tier": 4,
+      "color": "#4a3b2f"
+    },
+    {
+      "id": "era-iron-age",
+      "label": "Philistia, Israel and Judah",
+      "form": "region",
+      "tStart": -3175,
+      "tEnd": -2564,
+      "tier": 3,
+      "color": "#2f4560"
+    },
+    {
+      "id": "era-classical",
+      "label": "Persian, Greek, Roman and Byzantine rule",
+      "form": "region",
+      "tStart": -2564,
+      "tEnd": -1389,
+      "tier": 3,
+      "color": "#3b3a5a"
+    },
+    {
+      "id": "era-islamic",
+      "label": "Islamic and Crusader eras",
+      "form": "region",
+      "tStart": -1389,
+      "tEnd": -510,
+      "tier": 3,
+      "color": "#2f4a3d"
+    },
+    {
+      "id": "era-ottoman",
+      "label": "Ottoman Palestine",
+      "form": "region",
+      "tStart": -510,
+      "tEnd": -109,
+      "tier": 3,
+      "color": "#4a2f3b"
+    },
+    {
+      "id": "era-mandate",
+      "label": "British Mandate",
+      "form": "region",
+      "tStart": -109,
+      "tEnd": -78,
+      "tier": 3,
+      "color": "#4a4530"
+    },
+    {
+      "id": "era-nakba-occupation",
+      "label": "Nakba, exile and occupation",
+      "form": "region",
+      "tStart": -78,
+      "tEnd": 0,
+      "tier": 3,
+      "color": "#2f3d4a"
+    }
+  ],
+  "events": [
+    {
+      "id": "natufian",
+      "label": "Natufian culture",
+      "t": -14525,
+      "tEnd": -11525,
+      "tier": 4,
+      "importance": 84,
+      "blurb": "Natufian foragers in Palestine build some of the earliest permanent villages in the world, a deep local past that Palestinian historians emphasize."
+    },
+    {
+      "id": "jericho",
+      "label": "Jericho (Tell es-Sultan)",
+      "t": -11025,
+      "tier": 4,
+      "importance": 90,
+      "blurb": "One of the oldest continuously inhabited towns, with a stone tower from about 8000 BCE; UNESCO inscribed it as a World Heritage site in the State of Palestine in 2023.",
+      "connections": [
+        {
+          "id": "natufian",
+          "kind": "extends"
+        }
+      ]
+    },
+    {
+      "id": "ghassulian",
+      "label": "Ghassulian culture",
+      "t": -6525,
+      "tEnd": -5825,
+      "tier": 0,
+      "importance": 40,
+      "blurb": "Chalcolithic villagers near Jericho and Beersheba farm, herd and work copper (dates approximate)."
+    },
+    {
+      "id": "canaanite-towns",
+      "label": "Canaanite towns arise",
+      "t": -5325,
+      "tier": 2,
+      "importance": 62,
+      "blurb": "Walled towns develop across Canaan in the Early Bronze Age, the beginning of the city-state world."
+    },
+    {
+      "id": "amarna-letters",
+      "label": "Amarna letters",
+      "t": -3375,
+      "tier": 1,
+      "importance": 56,
+      "blurb": "Canaanite kings of Urusalim (Jerusalem), Gezer and Shechem write to the Egyptian pharaoh (c. 1350 BCE)."
+    },
+    {
+      "id": "philistines",
+      "label": "Philistines settle the coast",
+      "t": -3200,
+      "tier": 3,
+      "importance": 82,
+      "blurb": "Aegean-origin Sea Peoples settle Gaza, Ashkelon and Ashdod and mix with Canaanites; their name later becomes Palestine."
+    },
+    {
+      "id": "israel-judah",
+      "label": "Israel and Judah in the hills",
+      "t": -3025,
+      "tier": 2,
+      "importance": 60,
+      "blurb": "Highland kingdoms emerge from the local Canaanite population; Ben-Gurion and Ben-Zvi themselves argued in 1918 that the fellahin descended largely from these ancient Jewish farmers."
+    },
+    {
+      "id": "assyrian-conquest",
+      "label": "Assyrian conquests",
+      "t": -2747,
+      "tier": 1,
+      "importance": 45,
+      "blurb": "Assyria conquers Samaria and the Philistine cities and settles deportees from elsewhere in its empire."
+    },
+    {
+      "id": "babylon-ashkelon",
+      "label": "Babylon destroys Ashkelon",
+      "t": -2629,
+      "tier": 1,
+      "importance": 40,
+      "blurb": "Nebuchadnezzar sacks Philistine Ashkelon, and later Jerusalem in 586 BCE."
+    },
+    {
+      "id": "herodotus",
+      "label": "Herodotus names Palaistine",
+      "t": -2475,
+      "tier": 3,
+      "importance": 76,
+      "blurb": "The Greek historian calls the coastal region Palaistine Syria, the earliest known use of the name in Greek.",
+      "connections": [
+        "philistines"
+      ]
+    },
+    {
+      "id": "alexander-gaza",
+      "label": "Alexander besieges Gaza",
+      "t": -2357,
+      "tier": 1,
+      "importance": 46,
+      "blurb": "Gaza resists Alexander for two months; Greek cities and culture spread through the land."
+    },
+    {
+      "id": "roman-rule",
+      "label": "Roman rule begins",
+      "t": -2088,
+      "tier": 1,
+      "importance": 41,
+      "blurb": "Pompey brings the region under Rome."
+    },
+    {
+      "id": "syria-palaestina",
+      "label": "Province renamed Syria Palaestina",
+      "t": -1891,
+      "tier": 3,
+      "importance": 80,
+      "blurb": "After crushing the Bar Kokhba revolt Hadrian renames Judea; the name Palestine continues through Byzantine, Arab and Ottoman rule.",
+      "connections": [
+        {
+          "id": "herodotus",
+          "kind": "extends"
+        }
+      ]
+    },
+    {
+      "id": "holy-sepulchre",
+      "label": "Church of the Holy Sepulchre",
+      "t": -1691,
+      "tier": 2,
+      "importance": 66,
+      "blurb": "Constantine's churches in Jerusalem and Bethlehem anchor the Palestinian Christian community, one of the oldest in the world."
+    },
+    {
+      "id": "three-palestines",
+      "label": "Palaestina Prima, Secunda, Tertia",
+      "t": -1626,
+      "tier": 1,
+      "importance": 40,
+      "blurb": "Byzantine administration divides the land into three provinces named Palestine (c. 400 CE)."
+    },
+    {
+      "id": "sasanian",
+      "label": "Sasanian conquest",
+      "t": -1412,
+      "tier": 0,
+      "importance": 30,
+      "blurb": "Persian forces take Jerusalem before Byzantium recovers it in 629."
+    },
+    {
+      "id": "fath-al-quds",
+      "label": "Arab conquest; Umar in Jerusalem",
+      "t": -1388,
+      "tier": 4,
+      "importance": 92,
+      "blurb": "Caliph Umar receives Jerusalem's surrender (637 or 638); Arabic and Islam spread among the local population gradually over centuries."
+    },
+    {
+      "id": "jund-filastin",
+      "label": "Jund Filastin",
+      "t": -1386,
+      "tier": 1,
+      "importance": 55,
+      "blurb": "The Arab district of Filastin, later governed from Ramla, keeps the Roman name in Arabic.",
+      "connections": [
+        {
+          "id": "syria-palaestina",
+          "kind": "extends"
+        }
+      ]
+    },
+    {
+      "id": "qubbat-al-sakhra",
+      "label": "Dome of the Rock",
+      "t": -1335,
+      "tier": 2,
+      "importance": 82,
+      "blurb": "Caliph Abd al-Malik completes the Dome of the Rock on the Haram al-Sharif (691/692).",
+      "connections": [
+        "fath-al-quds"
+      ]
+    },
+    {
+      "id": "al-aqsa",
+      "label": "Al-Aqsa Mosque built",
+      "t": -1321,
+      "tier": 1,
+      "importance": 62,
+      "blurb": "The Umayyads build al-Aqsa, the third holiest mosque in Islam (dates approximate)."
+    },
+    {
+      "id": "ramla",
+      "label": "Ramla founded",
+      "t": -1310,
+      "tier": 0,
+      "importance": 35,
+      "blurb": "The only town founded by the Arabs in Palestine becomes the capital of Jund Filastin."
+    },
+    {
+      "id": "crusader-conquest",
+      "label": "Crusaders take Jerusalem",
+      "t": -927,
+      "tier": 3,
+      "importance": 79,
+      "blurb": "Crusaders massacre Muslim and Jewish inhabitants and found the Latin Kingdom."
+    },
+    {
+      "id": "salah-al-din",
+      "label": "Salah al-Din retakes Jerusalem",
+      "t": -839,
+      "tier": 2,
+      "importance": 83,
+      "blurb": "After victory at Hattin, Salah al-Din restores Muslim rule over al-Quds.",
+      "connections": [
+        {
+          "id": "crusader-conquest",
+          "kind": "challenges"
+        }
+      ]
+    },
+    {
+      "id": "ain-jalut",
+      "label": "Battle of Ain Jalut",
+      "t": -766,
+      "tier": 1,
+      "importance": 59,
+      "blurb": "The Mamluks halt the Mongol advance near Jenin."
+    },
+    {
+      "id": "nabi-musa-shrine",
+      "label": "Nabi Musa shrine",
+      "t": -757,
+      "tier": 0,
+      "importance": 31,
+      "blurb": "Sultan Baybars builds the shrine near Jericho whose yearly festival later becomes a Palestinian national gathering."
+    },
+    {
+      "id": "ottoman-conquest",
+      "label": "Ottoman conquest",
+      "t": -510,
+      "tier": 3,
+      "importance": 80,
+      "blurb": "Selim I takes Palestine, beginning four centuries of Ottoman rule."
+    },
+    {
+      "id": "suleiman-walls",
+      "label": "Suleiman rebuilds Jerusalem's walls",
+      "t": -489,
+      "tEnd": -485,
+      "tier": 1,
+      "importance": 41,
+      "blurb": "The walls of the Old City standing today are built."
+    },
+    {
+      "id": "zahir-al-umar",
+      "label": "Zahir al-Umar's Galilee",
+      "t": -296,
+      "tEnd": -251,
+      "tier": 1,
+      "importance": 56,
+      "blurb": "An Arab sheikh rules much of northern Palestine from Acre, cited by Palestinian historians as an early local polity (dates approximate)."
+    },
+    {
+      "id": "napoleon-acre",
+      "label": "Napoleon fails at Acre",
+      "t": -227,
+      "tier": 0,
+      "importance": 30,
+      "blurb": "Acre's defenders turn back the French army."
+    },
+    {
+      "id": "revolt-1834",
+      "label": "Peasants' revolt of 1834",
+      "t": -192,
+      "tier": 1,
+      "importance": 42,
+      "blurb": "Fellahin and notables rise against Egyptian conscription under Ibrahim Pasha; some historians treat it as a formative moment for Palestinian identity."
+    },
+    {
+      "id": "land-code",
+      "label": "Ottoman Land Code",
+      "t": -168,
+      "tier": 1,
+      "importance": 47,
+      "blurb": "Land registration lets absentee owners take title to land farmed by villagers, land later sold to Zionist buyers."
+    },
+    {
+      "id": "petah-tikva-clash",
+      "label": "First land clash with settlers",
+      "t": -140,
+      "tier": 0,
+      "importance": 39,
+      "blurb": "Villagers who lost land near Petah Tikva clash with Zionist settlers, an early recorded dispute.",
+      "connections": [
+        "land-code"
+      ]
+    },
+    {
+      "id": "filastin-paper",
+      "label": "Filastin newspaper founded",
+      "t": -115,
+      "tier": 1,
+      "importance": 62,
+      "blurb": "Issa and Yousef al-Issa's Jaffa paper addresses its readers as Palestinians and warns against Zionist colonization."
+    },
+    {
+      "id": "hussein-mcmahon",
+      "label": "Hussein-McMahon correspondence",
+      "t": -111,
+      "tier": 1,
+      "importance": 57,
+      "blurb": "Britain promises Arab independence in exchange for revolt against the Ottomans; Arabs understood Palestine to be included, which Britain later denied."
+    },
+    {
+      "id": "wad-balfour",
+      "label": "Wa'd Balfour (Balfour Declaration)",
+      "t": -109,
+      "tier": 3,
+      "importance": 88,
+      "blurb": "Britain promises a Jewish national home in a land about 90 percent Arab, referring to them only as 'non-Jewish communities'; Palestinians mark it each November."
+    },
+    {
+      "id": "arab-congresses",
+      "label": "Palestine Arab Congresses",
+      "t": -107,
+      "tEnd": -98,
+      "tier": 0,
+      "importance": 33,
+      "blurb": "Notables organize congresses to oppose the Mandate and Zionist immigration."
+    },
+    {
+      "id": "nabi-musa-1920",
+      "label": "Nabi Musa uprising",
+      "t": -106,
+      "tier": 0,
+      "importance": 32,
+      "blurb": "The Nabi Musa festival in Jerusalem turns into the first major riots against British and Zionist plans.",
+      "connections": [
+        "nabi-musa-shrine"
+      ]
+    },
+    {
+      "id": "british-mandate",
+      "label": "British Mandate imposed",
+      "t": -104,
+      "tier": 2,
+      "importance": 66,
+      "blurb": "The League of Nations gives Britain a mandate that writes the Balfour Declaration into law.",
+      "connections": [
+        "wad-balfour"
+      ]
+    },
+    {
+      "id": "thawrat-al-buraq",
+      "label": "Buraq Revolt",
+      "t": -97,
+      "tier": 1,
+      "importance": 55,
+      "blurb": "Clashes over the Western Wall (al-Buraq) spread, including killings of Jews in Hebron and Safed; Britain hangs Fuad Hijazi, Muhammad Jamjoum and Ata al-Zir in 1930."
+    },
+    {
+      "id": "qassam",
+      "label": "Izz al-Din al-Qassam killed",
+      "t": -91,
+      "tier": 1,
+      "importance": 46,
+      "blurb": "The preacher who led armed resistance in the north is killed by British police, becoming a lasting symbol."
+    },
+    {
+      "id": "thawra-kubra",
+      "label": "The Great Revolt",
+      "t": -90,
+      "tEnd": -87,
+      "tier": 2,
+      "importance": 82,
+      "blurb": "A six-month general strike and armed uprising against British rule and Zionist immigration; Britain crushes it and roughly 5,000 Arabs are killed (estimates vary).",
+      "connections": [
+        "qassam"
+      ]
+    },
+    {
+      "id": "resolution-181",
+      "label": "UN Partition Resolution 181",
+      "t": -79,
+      "tier": 2,
+      "importance": 76,
+      "blurb": "The UN proposes about 55 percent of the land for a Jewish state when Jews were about a third of the population and owned under 7 percent of the land."
+    },
+    {
+      "id": "deir-yassin",
+      "label": "Deir Yassin massacre",
+      "t": -77.73,
+      "tier": 1,
+      "importance": 74,
+      "blurb": "Irgun and Lehi fighters kill over 100 villagers near Jerusalem, and news of the killings drives flight elsewhere."
+    },
+    {
+      "id": "nakba",
+      "label": "Al-Nakba",
+      "t": -79,
+      "tEnd": -77,
+      "tier": 4,
+      "importance": 99,
+      "blurb": "About 750,000 Palestinians flee or are expelled, more than 400 villages are depopulated, and Israel bars their return.",
+      "connections": [
+        "resolution-181",
+        "deir-yassin"
+      ]
+    },
+    {
+      "id": "resolution-194",
+      "label": "UN Resolution 194",
+      "t": -77.05,
+      "tier": 1,
+      "importance": 63,
+      "blurb": "The General Assembly resolves that refugees wishing to return home should be permitted to do so.",
+      "connections": [
+        "nakba"
+      ]
+    },
+    {
+      "id": "unrwa",
+      "label": "UNRWA established",
+      "t": -77,
+      "tier": 0,
+      "importance": 38,
+      "blurb": "The UN agency for Palestine refugees begins serving camps in Gaza, the West Bank, Jordan, Syria and Lebanon.",
+      "connections": [
+        "nakba"
+      ]
+    },
+    {
+      "id": "military-rule",
+      "label": "Military rule inside Israel",
+      "t": -78,
+      "tEnd": -60,
+      "tier": 1,
+      "importance": 40,
+      "blurb": "Palestinians who remained and became Israeli citizens live under military government with travel permits until 1966."
+    },
+    {
+      "id": "kafr-qasim",
+      "label": "Kafr Qasim massacre",
+      "t": -70,
+      "tier": 1,
+      "importance": 45,
+      "blurb": "Israeli border police kill 49 Palestinian citizens returning from their fields after an unannounced curfew."
+    },
+    {
+      "id": "fatah",
+      "label": "Fatah founded",
+      "t": -67,
+      "tier": 0,
+      "importance": 37,
+      "blurb": "Yasser Arafat and others found a movement for Palestinian-led armed struggle."
+    },
+    {
+      "id": "plo",
+      "label": "PLO founded",
+      "t": -62,
+      "tier": 2,
+      "importance": 72,
+      "blurb": "The Palestine Liberation Organization forms in Jerusalem; Fatah takes over its leadership in 1969.",
+      "connections": [
+        "fatah"
+      ]
+    },
+    {
+      "id": "naksa",
+      "label": "Al-Naksa",
+      "t": -59,
+      "tier": 3,
+      "importance": 90,
+      "blurb": "Israel occupies the West Bank, East Jerusalem and Gaza; about 300,000 Palestinians are displaced, many for a second time."
+    },
+    {
+      "id": "karameh",
+      "label": "Battle of Karameh",
+      "t": -58,
+      "tier": 0,
+      "importance": 36,
+      "blurb": "Fedayeen and Jordanian forces resist an Israeli raid, boosting the guerrilla movement."
+    },
+    {
+      "id": "black-september",
+      "label": "Black September",
+      "t": -56,
+      "tier": 1,
+      "importance": 50,
+      "blurb": "The Jordanian army drives the PLO out of Jordan, killing thousands."
+    },
+    {
+      "id": "yawm-al-ard",
+      "label": "Land Day",
+      "t": -49.76,
+      "tier": 1,
+      "importance": 61,
+      "blurb": "Israeli forces kill six Palestinian citizens protesting land confiscation in the Galilee; it is commemorated every March 30."
+    },
+    {
+      "id": "sabra-shatila",
+      "label": "Sabra and Shatila massacre",
+      "t": -44,
+      "tier": 2,
+      "importance": 73,
+      "blurb": "Lebanese Phalangists, in an area controlled by the Israeli army, kill hundreds to over 2,000 refugees (estimates vary); an Israeli inquiry found Sharon bore personal responsibility."
+    },
+    {
+      "id": "intifada-oula",
+      "label": "First Intifada",
+      "t": -39,
+      "tEnd": -33,
+      "tier": 2,
+      "importance": 86,
+      "blurb": "A mass civil uprising of strikes, boycotts and stone-throwing against occupation; about 1,100 Palestinians are killed."
+    },
+    {
+      "id": "algiers-declaration",
+      "label": "Declaration of Independence",
+      "t": -38,
+      "tier": 1,
+      "importance": 67,
+      "blurb": "The PNC in Algiers proclaims the State of Palestine in a text drafted by poet Mahmoud Darwish, implicitly accepting the 1967 lines.",
+      "connections": [
+        "intifada-oula"
+      ]
+    },
+    {
+      "id": "oslo-p",
+      "label": "Oslo Accords",
+      "t": -33,
+      "tier": 2,
+      "importance": 71,
+      "blurb": "The PLO recognizes Israel, which recognizes the PLO but not a Palestinian state; critics such as Edward Said called it a surrender.",
+      "connections": [
+        "intifada-oula"
+      ]
+    },
+    {
+      "id": "palestinian-authority",
+      "label": "Palestinian Authority formed",
+      "t": -32,
+      "tier": 1,
+      "importance": 54,
+      "blurb": "Arafat returns and limited self-rule begins in Gaza and Jericho.",
+      "connections": [
+        "oslo-p"
+      ]
+    },
+    {
+      "id": "ibrahimi-massacre",
+      "label": "Ibrahimi Mosque massacre",
+      "t": -32,
+      "tier": 1,
+      "importance": 53,
+      "blurb": "Settler Baruch Goldstein kills 29 Muslim worshippers in Hebron."
+    },
+    {
+      "id": "camp-david-2000",
+      "label": "Camp David summit fails",
+      "t": -26,
+      "tier": 0,
+      "importance": 35,
+      "blurb": "Talks collapse over borders, Jerusalem and refugees."
+    },
+    {
+      "id": "intifada-al-aqsa",
+      "label": "Al-Aqsa Intifada",
+      "t": -26,
+      "tEnd": -21,
+      "tier": 2,
+      "importance": 81,
+      "blurb": "Sharon's visit to the Haram al-Sharif is followed by a second, armed uprising; roughly 3,000 Palestinians are killed by 2005.",
+      "connections": [
+        "camp-david-2000"
+      ]
+    },
+    {
+      "id": "apartheid-wall",
+      "label": "The Wall",
+      "t": -24,
+      "tier": 1,
+      "importance": 52,
+      "blurb": "Israel builds a barrier largely inside the West Bank; the ICJ advised in 2004 that the route violates international law."
+    },
+    {
+      "id": "arafat-death",
+      "label": "Death of Yasser Arafat",
+      "t": -22,
+      "tier": 1,
+      "importance": 51,
+      "blurb": "Arafat dies in Paris after years besieged in his Ramallah compound."
+    },
+    {
+      "id": "hamas-elections",
+      "label": "Hamas wins elections",
+      "t": -20,
+      "tier": 1,
+      "importance": 50,
+      "blurb": "Hamas wins the legislative elections; in 2007 Fatah and Hamas split between the West Bank and Gaza."
+    },
+    {
+      "id": "gaza-blockade",
+      "label": "Siege of Gaza",
+      "t": -19,
+      "tEnd": 0,
+      "tier": 1,
+      "importance": 70,
+      "blurb": "Israel and Egypt impose a land, sea and air blockade on Gaza's two million people.",
+      "connections": [
+        "hamas-elections"
+      ]
+    },
+    {
+      "id": "gaza-2008",
+      "label": "Gaza war 2008-09",
+      "t": -18,
+      "tier": 0,
+      "importance": 45,
+      "blurb": "About 1,400 Palestinians are killed in Israel's Operation Cast Lead."
+    },
+    {
+      "id": "un-observer",
+      "label": "UN non-member observer state",
+      "t": -14,
+      "tier": 1,
+      "importance": 49,
+      "blurb": "The General Assembly upgrades Palestine's status by a large majority."
+    },
+    {
+      "id": "gaza-2014",
+      "label": "Gaza war 2014",
+      "t": -12,
+      "tier": 1,
+      "importance": 48,
+      "blurb": "About 2,250 Palestinians are killed, most of them civilians, in 51 days."
+    },
+    {
+      "id": "ancient-dna",
+      "label": "Ancient DNA study of Canaanites",
+      "t": -6,
+      "tier": 0,
+      "importance": 34,
+      "blurb": "Agranat-Tamir et al. in Cell find that modern Levantine populations carry substantial Bronze Age Southern Levant ancestry.",
+      "connections": [
+        "canaanite-towns"
+      ]
+    },
+    {
+      "id": "great-march",
+      "label": "Great March of Return",
+      "t": -8,
+      "tEnd": -7,
+      "tier": 0,
+      "importance": 45,
+      "blurb": "Weekly protests at the Gaza fence demand return; Israeli snipers kill over 200."
+    },
+    {
+      "id": "unity-intifada",
+      "label": "Sheikh Jarrah and the Unity Intifada",
+      "t": -5,
+      "tier": 0,
+      "importance": 45,
+      "blurb": "Evictions in Jerusalem spark protests by Palestinians in Israel, the West Bank and Gaza."
+    },
+    {
+      "id": "october-7-p",
+      "label": "October 7 attack",
+      "t": -2.24,
+      "tier": 2,
+      "importance": 87,
+      "blurb": "Hamas-led fighters break out of besieged Gaza, kill about 1,200 people in Israel, most of them civilians, and seize 251 hostages; Hamas named it the Al-Aqsa Flood."
+    },
+    {
+      "id": "harb-al-ibada",
+      "label": "Genocide war on Gaza",
+      "t": -2.24,
+      "tEnd": -0.23,
+      "tier": 3,
+      "importance": 100,
+      "blurb": "Over 73,000 Palestinians killed by late 2026 according to the Gaza Health Ministry, most of the Strip destroyed and its people repeatedly displaced; Palestinians call it harb al-ibada, the war of extermination.",
+      "connections": [
+        "october-7-p"
+      ]
+    },
+    {
+      "id": "icj-measures",
+      "label": "ICJ orders provisional measures",
+      "t": -1.93,
+      "tier": 1,
+      "importance": 64,
+      "blurb": "In South Africa's genocide case the court orders Israel to prevent genocidal acts and allow aid.",
+      "connections": [
+        {
+          "id": "harb-al-ibada",
+          "kind": "challenges"
+        }
+      ]
+    },
+    {
+      "id": "icj-occupation",
+      "label": "ICJ: occupation is unlawful",
+      "t": -1.45,
+      "tier": 1,
+      "importance": 60,
+      "blurb": "An advisory opinion finds Israel's continued occupation unlawful and calls for its end as rapidly as possible."
+    },
+    {
+      "id": "famine",
+      "label": "Famine confirmed in Gaza City",
+      "t": -0.36,
+      "tier": 0,
+      "importance": 43,
+      "blurb": "The IPC famine review confirms famine in Gaza governorate."
+    },
+    {
+      "id": "coi-genocide",
+      "label": "UN Commission finds genocide",
+      "t": -0.29,
+      "tier": 1,
+      "importance": 68,
+      "blurb": "The UN Commission of Inquiry chaired by Navi Pillay concludes that Israel committed genocide in Gaza; Israel rejects the finding.",
+      "connections": [
+        "harb-al-ibada"
+      ]
+    },
+    {
+      "id": "recognition-2025",
+      "label": "UK, France, Canada, Australia recognize Palestine",
+      "t": -0.28,
+      "tier": 1,
+      "importance": 58,
+      "blurb": "Major Western states recognize the State of Palestine at the UN General Assembly."
+    },
+    {
+      "id": "ceasefire-2025",
+      "label": "Ceasefire and prisoner release",
+      "t": -0.23,
+      "tier": 1,
+      "importance": 65,
+      "blurb": "Israel releases nearly 2,000 prisoners in exchange for the hostages, but strikes continue and over 1,000 more Palestinians are killed by 2026 per the Health Ministry.",
+      "connections": [
+        "harb-al-ibada"
+      ]
+    },
+    {
+      "id": "west-bank-2025",
+      "label": "Record displacement in the West Bank",
+      "t": -1,
+      "tEnd": 0,
+      "tier": 0,
+      "importance": 44,
+      "blurb": "At least 37,000 Palestinians are displaced in 2025 by raids and settler attacks, a record, and B'Tselem reports 21 communities uprooted."
+    }
+  ],
+  "presets": [
+    {
+      "id": "all",
+      "label": "All of it",
+      "c": -7500,
+      "s": 15000
+    },
+    {
+      "id": "prehistory",
+      "label": "First villages",
+      "c": -10500,
+      "s": 9000
+    },
+    {
+      "id": "antiquity",
+      "label": "Canaan to Rome",
+      "c": -3000,
+      "s": 3000
+    },
+    {
+      "id": "islamic",
+      "label": "Islamic and Ottoman eras",
+      "c": -900,
+      "s": 1200
+    },
+    {
+      "id": "modern",
+      "label": "Mandate to now",
+      "c": -75,
+      "s": 150
+    },
+    {
+      "id": "recent",
+      "label": "Since 2020",
+      "c": -3,
+      "s": 6
+    }
+  ],
+  "defaultPreset": "all"
+}
