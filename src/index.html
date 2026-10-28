@@ -233,7 +233,7 @@ function animStep(now){
 }
 function stopAnim(){ state.anim=null; }
 function resetView(){
-  const r=combinedRange();
+  const r=defaultViewRange();
   animateTo((r.start+r.end)/2,(r.end-r.start)*1.0,350);
 }
 
@@ -271,7 +271,7 @@ function setDatasets(ids,opts){
       if(dp){ state.C=dp.c; state.S=dp.s; }
       else{ state.C=(state.ds.start+state.ds.end)/2; state.S=state.ds.end-state.ds.start; }
     }else{
-      const r=combinedRange();
+      const r=defaultViewRange();
       state.C=(r.start+r.end)/2; state.S=r.end-r.start;
     }
   }
@@ -313,23 +313,33 @@ function scheduleLink(){
 const BG='#0d0e11', SPINE='rgba(255,255,255,.28)';
 const ACCENTS=['#8ab4f8','#f0a868','#a8d8a8','#d8a8d8','#8ad8d8']; // per-dataset accent in multi mode
 function spineX(){ if(state.selected.length>1&&!mergedView()) return cssW/2; return cssW<720?36:cssW/2; }
-// Background layers (v0.23): universe, earth, and human history are
-// designated here, in the viewer code, not in the dataset files, so
-// datasets stay reusable and carry no composition data. Layout rule: if
-// the selection includes background datasets and at most one other
-// dataset, everything merges into one single column; if it includes
-// background datasets and two or more others, the view is columns of the
-// other datasets only and the background is hidden; selections with no
-// background datasets work exactly as before (single, two-dataset, and
-// columns modes unchanged).
+// Background layers (v0.23, model corrected v0.26): universe, earth, and
+// human history are designated here, in the viewer code, not in the
+// dataset files, so datasets stay reusable and carry no composition
+// data. Foreground = every non-background dataset. Layout rule: one or
+// two foreground timelines merge into one single timeline (the
+// foreground integrated into the background, events drawn on one axis,
+// regions painted as in merged mode); three or more foreground timelines
+// render as columns of the foregrounds only, with no background rendered.
 const BACKGROUND_IDS=['earth-history','human-history','powers-of-10'];
 function hasBackground(){ return state.selected.some(id=>BACKGROUND_IDS.includes(id)); }
 function extraCount(){ return state.selected.filter(id=>!BACKGROUND_IDS.includes(id)).length; }
-function mergedView(){ return hasBackground()&&extraCount()<=1; }
+function mergedView(){ return extraCount()<=2; }
 function visibleSets(){
   const all=state.selected.map(id=>state.sets[id]).filter(Boolean);
-  if(hasBackground()&&extraCount()>=2) return all.filter(ds=>!BACKGROUND_IDS.includes(ds.id));
+  if(extraCount()>=3) return all.filter(ds=>!BACKGROUND_IDS.includes(ds.id));
   return all;
+}
+// Two or more foreground timelines open on the foregrounds' combined
+// span, so the comparison is visible immediately; Reset returns there
+// too. Panning and zooming still roam the full visible range
+// (combinedRange).
+function defaultViewRange(){
+  if(extraCount()>=2){
+    const ex=state.selected.filter(id=>!BACKGROUND_IDS.includes(id)).map(id=>state.sets[id]).filter(Boolean);
+    return {start:Math.min(...ex.map(d=>d.start)), end:Math.max(...ex.map(d=>d.end))};
+  }
+  return combinedRange();
 }
 function columnsMode(){ return !mergedView()&&visibleSets().length>=3; }
 function colW(){ return cssW/visibleSets().length; }
@@ -632,8 +642,12 @@ function drawEvents(sx){
 }
 
 function updateChip(){
-  chipMain.innerHTML='10<sup>'+curDec+'</sup> '+state.ds.unit+' visible';
-  chipSub.textContent=fmtSpan(state.S,state.ds.unit);
+  // v0.24: the headline states the actual visible span; the snapped decade
+  // is a zoom scale, not a year count, so it lives in the sub-line. The old
+  // headline ("10^10 years visible") understated full-span views: 10 billion
+  // claimed vs 13.8 billion shown on the background default.
+  chipMain.innerHTML=fmtSpan(state.S,state.ds.unit)+' visible';
+  chipSub.innerHTML='zoom 10<sup>'+curDec+'</sup>';
 }
 
 /* ================= gestures ================= */
