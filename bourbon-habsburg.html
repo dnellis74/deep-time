@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Bourbon and Habsburg</title>
+<style>
+  :root{
+    --bg:#0d0e11; --ink:#f2f2f2; --dim:#9a9a9a; --accent:#ffd166;
+    --panel:#16181d; --line:rgba(255,255,255,.14);
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; height:100%; overflow:hidden; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    overscroll-behavior:none; }
+  #stage{ position:fixed; inset:0; overscroll-behavior:none; }
+  #tl{ position:absolute; inset:0; width:100%; height:100%; display:block; touch-action:none; cursor:grab; }
+  #tl:active{ cursor:grabbing; }
+
+  #chip{
+    position:absolute; top:calc(10px + env(safe-area-inset-top)); left:12px;
+    background:rgba(20,22,27,.88); border:1px solid var(--line); border-radius:10px;
+    padding:7px 11px; font-size:12.5px; line-height:1.35; pointer-events:none;
+    backdrop-filter:blur(4px); max-width:62vw;
+  }
+  #chip b{ font-weight:700; }
+  #chip .sub{ color:var(--dim); font-size:11.5px; }
+  @media (max-width:719px){
+    #chip{ left:auto; right:12px; }
+  }
+
+  #zoomctl{ position:absolute; right:12px; bottom:calc(84px + env(safe-area-inset-bottom));
+    display:flex; flex-direction:column; gap:8px; }
+  #zoomctl button{
+    width:46px; height:46px; border-radius:50%; border:1px solid var(--line);
+    background:rgba(20,22,27,.92); color:var(--ink); font-size:22px; line-height:1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  #zoomctl button:active{ background:#262a33; }
+  #zoomctl{ align-items:flex-end; }
+  #zoomctl #presentBtn{ width:auto; height:auto; padding:11px 16px; border-radius:20px; border:1px solid var(--line);
+    background:rgba(20,22,27,.92); color:var(--ink); font-size:14px; cursor:pointer; }
+  #zoomctl #presentBtn:active{ background:#262a33; }
+
+  :root{ --sab: env(safe-area-inset-bottom, 0px); }
+  /* Tray: bottom sheet on phone, right panel on desktop */
+  #tray{ position:absolute; left:0; right:0; bottom:env(safe-area-inset-bottom, 0px); background:var(--panel);
+    border-top:1px solid var(--line); border-radius:14px 14px 0 0;
+    transform:translateY(calc(100% - 56px)); transition:transform .25s ease;
+    max-height:62vh; display:flex; flex-direction:column; z-index:5; }
+  #tray.open{ transform:translateY(0); }
+  #trayHandle{ height:56px; flex:0 0 56px; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; user-select:none; }
+  #trayHandle .grab{ width:56px; height:6px; border-radius:3px; background:#3a3f49; }
+  #trayHandle, #tray button, #tray .switch{ touch-action:manipulation; }
+  #trayBody{ overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; padding:2px 18px calc(20px + env(safe-area-inset-bottom)); }
+  #trayBody h3{ margin:14px 0 8px; font-size:12px; text-transform:uppercase; letter-spacing:1.5px; color:var(--dim); }
+  #trayBody h3:first-child{ margin-top:4px; }
+  .dsbtn{ display:block; width:100%; text-align:left; margin:0 0 8px; padding:13px 12px;
+    background:#1e2128; color:var(--ink); border:1px solid var(--line); border-radius:10px;
+    font-size:14.5px; cursor:pointer; }
+  .dsbtn.active{ border-color:var(--accent); }
+  .seg{ display:flex; gap:8px; }
+  .seg button{ flex:1; padding:13px 0; background:#1e2128; color:var(--ink);
+    border:1px solid var(--line); border-radius:10px; font-size:14px; cursor:pointer; }
+  .seg button.active{ border-color:var(--accent); }
+  .row{ display:flex; align-items:center; justify-content:space-between; padding:12px 2px; font-size:14.5px; }
+  .switch{ width:64px; height:44px; border-radius:22px; background:#2c313b; border:1px solid var(--line);
+    position:relative; cursor:pointer; }
+  .switch::after{ content:""; position:absolute; top:4px; left:4px; width:36px; height:36px;
+    border-radius:50%; background:#8a8f99; transition:left .18s ease, background .18s ease; }
+  .switch.on{ background:#3d4a2a; }
+  .switch.on::after{ left:24px; background:var(--accent); }
+  #resetBtn{ width:100%; padding:14px; margin-top:6px; background:#1e2128; color:var(--ink);
+    border:1px solid var(--line); border-radius:10px; font-size:14.5px; cursor:pointer; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chipbtn{ padding:13px 16px; background:#1e2128; color:var(--ink);
+    border:1px solid var(--line); border-radius:16px; font-size:14px; cursor:pointer; }
+  .chipbtn:active{ border-color:var(--accent); }
+  .hint{ color:var(--dim); font-size:12.5px; line-height:1.5; padding:8px 2px 0; }
+
+  #pop{ position:absolute; z-index:6; max-width:78vw; background:#1e2128;
+    border:1px solid var(--line); border-radius:12px; padding:12px 14px; display:none;
+    box-shadow:0 8px 28px rgba(0,0,0,.5); }
+  #pop.show{ display:block; }
+  #pop .t{ font-weight:700; font-size:14.5px; margin:0 22px 2px 0; }
+  #pop .d{ color:var(--accent); font-size:12px; margin-bottom:6px; }
+  #pop .b{ color:#cfcfcf; font-size:13px; line-height:1.45; }
+  #popClose{ position:absolute; top:6px; right:8px; background:none; border:none; color:var(--dim);
+    font-size:18px; cursor:pointer; padding:4px 8px; }
+
+  @media (min-width:720px){
+    #tray{ left:auto; right:0; top:0; bottom:0; width:300px; border-radius:0;
+      border-top:none; border-left:1px solid var(--line);
+      transform:translateX(calc(100% - 46px)); max-height:none;
+      flex-direction:row; }
+    #tray.open{ transform:translateX(0); }
+    #trayHandle{ flex:0 0 46px; height:auto; }
+    #trayHandle .grab{ width:5px; height:44px; }
+    #trayBody{ flex:1; padding:18px 18px 20px 6px; }
+    #zoomctl{ bottom:calc(20px + env(safe-area-inset-bottom)); }
+    #chip{ left:auto; right:58px; }
+
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="tl"></canvas>
+  <div id="chip"><b id="chipMain"></b><br><span class="sub" id="chipSub"></span></div>
+  <div id="zoomctl">
+    <button id="presentBtn">Present</button>
+    <button id="zin" aria-label="Zoom in">+</button>
+    <button id="zout" aria-label="Zoom out">&minus;</button>
+  </div>
+  <div id="tray">
+    <div id="trayHandle" role="button" aria-label="Toggle settings"><div class="grab"></div></div>
+    <div id="trayBody">
+      <h3>Dataset</h3>
+      <div id="dsList"></div>
+      <div id="jumpSection">
+        <h3>Jump to</h3>
+        <div class="chips" id="presetChips"></div>
+      </div>
+      <h3>Label density</h3>
+      <div class="seg" id="densitySeg">
+        <button data-d="1.6">Sparse</button>
+        <button data-d="1" class="active">Normal</button>
+        <button data-d="0.55">Dense</button>
+      </div>
+      <h3>Display</h3>
+      <div class="row"><span>Regions</span><div class="switch on" id="regionSwitch" role="switch" aria-checked="true"></div></div>
+      <div class="hint">Tip: tap an era name on the timeline to zoom into it.</div>
+      <button id="resetBtn">Reset view</button>
+    </div>
+  </div>
+  <div id="pop">
+    <button id="popClose" aria-label="Close">&times;</button>
+    <div class="t" id="popTitle"></div>
+    <div class="d" id="popDate"></div>
+    <div class="b" id="popBlurb"></div>
+  </div>
+</div>
+<noscript>Deep Time needs JavaScript.</noscript>
+<script>window.__DATASETS__={"manifest":[{"file":"habsburg.json","id":"habsburg","title":"The Habsburgs"},{"file":"bourbon.json","id":"bourbon","title":"The Bourbons"},{"file":"world.json","id":"world-history","title":"Western Europe and the World"}],"sets":{"habsburg":{"defaultPreset":"all","end":0,"events":[{"blurb":"Guntram the Rich, a count in the Breisgau, rebels against the German king Otto I and has much of his land confiscated. He is the earliest traceable ancestor of the house that will take its name from his grandson's castle.","id":"guntram","importance":82,"label":"Guntram the Rich rebels, 950","t":-1076,"tier":3},{"blurb":"Radbot of Klettgau, Guntram's grandson, and Werner, bishop of Strasbourg, build Habsburg Castle, the Hawk's Castle, above the Aar in the Aargau. The family will take its name from it, and Radbot's grandson Otto II will be the first to call himself Count of Habsburg.","id":"habsburg-castle","importance":88,"label":"Habsburg Castle built, 1020","t":-1006,"tier":3},{"blurb":"After the Great Interregnum, the electors choose Rudolf, Count of Habsburg, as King of Germany. A middling Swiss count becomes the head of the empire, and his family never lets go.","id":"rudolf-elected","importance":90,"label":"Rudolf I elected, 1273","t":-753,"tier":3},{"blurb":"Rudolf defeats the Bohemian king Ottokar II at D\u00fcrnkrut on the Marchfeld, killing him in battle. The victory gives the Habsburgs Austria, Styria, Carinthia, and Carniola, the hereditary lands that fund everything after.","id":"durnkrut","importance":92,"label":"D\u00fcrnkrut, 1278","t":-748,"tier":3},{"blurb":"Rudolf IV, Duke of Austria, has the Privilegium Maius forged, a set of documents supposedly from Julius Caesar and Nero granting Austria archducal rank and near-sovereignty. The forgery works: the archducal title sticks.","id":"privilegium","importance":60,"label":"Privilegium Maius forged, 1358","t":-668,"tier":2},{"blurb":"Albert II of Austria is elected King of Germany, the first Habsburg to hold the imperial crown since Rudolf's line, beginning an almost unbroken Habsburg run at the head of the empire.","id":"albert-ii","importance":58,"label":"Albert II elected, 1438","t":-588,"tier":2},{"blurb":"Frederick III is crowned emperor in Rome, the last imperial coronation held there. His reign is long and patient, and his motto, AEIOU, claims Austria's rule over the world.","id":"frederick-iii","importance":66,"label":"Frederick III crowned, 1452","t":-574,"tier":2},{"blurb":"Maximilian, Frederick's son, marries Mary of Burgundy, heiress of the richest state in Europe. The marriage brings the Netherlands, Franche-Comt\u00e9, and a claim to Burgundy, and the motto follows: let others wage war; fortunate Austria, marry.","id":"mary-burgundy","importance":94,"label":"Maximilian marries Mary, 1477","t":-549,"tier":3},{"blurb":"Maximilian I becomes emperor on his father's death, reforming the empire's institutions while his children marry into Spain, Bohemia, and Hungary.","id":"maximilian","importance":70,"label":"Maximilian I emperor, 1493","t":-533,"tier":2},{"blurb":"Charles, Maximilian's grandson, is elected Holy Roman Emperor as Charles V, ruling Spain, the Netherlands, Austria, Naples, and the new American empire. The sun, it is said, never sets on his dominions.","id":"charles-v","importance":96,"label":"Charles V elected emperor, 1519","t":-507,"tier":3},{"blurb":"Charles hands the Austrian hereditary lands to his brother Ferdinand, formalizing the division of the house into Spanish and Austrian branches that will last for centuries.","id":"ferdinand-lands","importance":64,"label":"Ferdinand gets Austria, 1522","t":-504,"tier":2},{"blurb":"Charles V abdicates, exhausted, splitting his empire: his brother Ferdinand becomes emperor in central Europe, his son Philip II takes Spain, the Netherlands, and the Americas. The house now rules from two capitals.","id":"abdication","importance":95,"label":"Charles V abdicates, 1556","t":-470,"tier":3},{"blurb":"Philip II of Spain claims the Portuguese crown, uniting the Iberian Peninsula and its overseas empires under one Habsburg for sixty years.","id":"iberian-union","importance":62,"label":"Iberian Union, 1580","t":-446,"tier":2},{"blurb":"Imperial officials are thrown from a window of Prague Castle by Bohemian Protestants, opening the Thirty Years' War. The Habsburg emperor Ferdinand II spends thirty years fighting to keep his lands Catholic and united.","id":"defenestration","importance":84,"label":"Defenestration of Prague, 1618","t":-408,"tier":3},{"blurb":"The Peace of Westphalia ends the Thirty Years' War, recognizing the German princes' sovereignty and the empire's fragmentation. The Habsburg emperor keeps his hereditary lands but loses the dream of a united Catholic empire.","id":"westphalia-habsburg","importance":68,"label":"Peace of Westphalia, 1648","t":-378,"tier":2},{"blurb":"A relief army under John III Sobieski breaks the Ottoman siege of Vienna, saving the Habsburg capital. The victory turns the tide against the Ottomans and makes Austria a great power.","id":"vienna-habsburg","importance":86,"label":"Siege of Vienna lifted, 1683","t":-343,"tier":3},{"blurb":"Charles II of Spain dies childless, ending the Spanish Habsburg line after two centuries of inbreeding. His will leaves Spain to a Bourbon, and Europe goes to war over it.","id":"charles-ii-habsburg","importance":90,"label":"Spanish Habsburgs end, 1700","t":-326,"tier":3},{"blurb":"Maria Theresa inherits Austria on her father's death, and Frederick of Prussia immediately invades Silesia. The twenty-three-year-old queen holds her inheritance through eight years of war and reigns for forty.","id":"maria-theresa","importance":93,"label":"Maria Theresa accedes, 1740","t":-286,"tier":3},{"blurb":"Maria Theresa dies, and her son Joseph II rules alone, freeing serfs, tolerating Protestants, and dissolving monasteries at a pace his empire cannot absorb.","id":"joseph-ii","importance":56,"label":"Joseph II sole ruler, 1780","t":-246,"tier":2},{"blurb":"Francis II, facing Napoleon's Confederation of the Rhine, dissolves the Holy Roman Empire after nearly a thousand years. He continues as Francis I, Emperor of Austria.","id":"empire-dissolved","importance":97,"label":"Holy Roman Empire dissolved, 1806","t":-220,"tier":3},{"blurb":"The Congress of Vienna, stage-managed by the Austrian chancellor Metternich, redraws Europe after Napoleon and restores the old order. Austria presides over the continent's conservatism for a generation.","id":"vienna-congress","importance":72,"label":"Congress of Vienna, 1815","t":-211,"tier":2},{"blurb":"After a year of revolution across the empire, the eighteen-year-old Franz Joseph takes the throne. He will reign for sixty-eight years, through the loss of Italy, the compromise with Hungary, and the road to the Great War.","id":"franz-joseph","importance":74,"label":"Franz Joseph ascends, 1848","t":-178,"tier":2},{"blurb":"The Ausgleich, or Compromise, creates the Dual Monarchy: Austria and Hungary share a monarch, an army, and a foreign policy, but run separate governments. The empire becomes Austria-Hungary.","id":"ausgleich","importance":80,"label":"Ausgleich, 1867","t":-159,"tier":3},{"blurb":"Archduke Franz Ferdinand, heir to the throne, is assassinated at Sarajevo by a Bosnian Serb nationalist. Austria's ultimatum to Serbia sets off the First World War.","id":"sarajevo","importance":98,"label":"Sarajevo, 1914","t":-112,"tier":3},{"blurb":"Emperor Charles I renounces participation in government, and the republic is proclaimed in Vienna. The Habsburg monarchy, after 640 years of rule, ends without a formal abdication.","id":"empire-ends","importance":96,"label":"Empire dissolved, 1918","t":-108,"tier":3},{"blurb":"The new Austrian republic passes the Habsburg Law, exiling the family and confiscating its property unless members renounce all claims to the throne. The dynasty becomes private citizens.","id":"habsburg-law","importance":54,"label":"Habsburg Law, 1919","t":-107,"tier":2},{"blurb":"Otto von Habsburg, Charles I's son, renounces all claims to the Austrian throne, opening the way for his return to Austria after decades of exile.","id":"otto-renounces","importance":50,"label":"Otto renounces claims, 1961","t":-65,"tier":2},{"blurb":"Otto hands the headship of the house to his son Karl, who becomes the family's public face in European politics and in the Paneuropean movement.","id":"karl-head","importance":44,"label":"Karl becomes head of house, 2007","t":-19,"tier":1},{"blurb":"Otto von Habsburg dies at ninety-eight, the last crown prince of Austria-Hungary. He is buried in the Capuchin Crypt in Vienna, his heart, by tradition, at Pannonhalma in Hungary.","id":"otto-dies","importance":52,"label":"Otto dies, 2011","t":-15,"tier":2}],"id":"habsburg","maxSpan":1200,"minSpan":1,"presets":[{"c":-538,"id":"all","label":"All","s":1076},{"c":-773,"id":"rise","label":"Rise","s":606},{"c":-117,"id":"modern","label":"Modern Empire","s":210}],"start":-1076,"timeFormat":"ago","title":"The Habsburgs","unit":"years"},"bourbon":{"defaultPreset":"all","end":0,"events":[{"blurb":"Aymar, lord of Souvigny, is granted fiefs on the Allier River by King Charles the Simple. His son Adh\u00e9mar acquires the castle of Bourbon, giving the family its name: the first record of the Bourbons.","id":"aymar-fiefs","importance":80,"label":"First Bourbon fiefs, 913","t":-1113,"tier":3},{"blurb":"Beatrice of Burgundy, Lady of Bourbon, marries Robert of France, Count of Clermont and son of Saint Louis. The Capetian prince and the Bourbon heiress found the royal House of Bourbon.","id":"robert-clermont","importance":86,"label":"Robert of Clermont marries, 1272","t":-754,"tier":3},{"blurb":"King Charles IV raises Bourbonnais to a duchy for Louis I, Robert's son. The dukes of Bourbon become the first peers of the blood royal after the king's own sons.","id":"duchy","importance":84,"label":"Duchy of Bourbon, 1327","t":-699,"tier":3},{"blurb":"Charles, Constable of Bourbon, the last duke of the old line, is killed leading the imperial assault on Rome. His death ends the direct ducal line and scatters the Bourbon inheritance.","id":"constable-dies","importance":58,"label":"Constable dies at Rome, 1527","t":-499,"tier":2},{"blurb":"Henry of Navarre, head of the Bourbon house, becomes Henry IV of France after the Valois line dies out. The Protestant king converts, declaring Paris well worth a Mass, and ends the Wars of Religion.","id":"henry-iv","importance":94,"label":"Henry IV king, 1589","t":-437,"tier":3},{"blurb":"Henry IV issues the Edict of Nantes, granting French Protestants freedom of worship and fortified towns for their security. It ends thirty-six years of religious war.","id":"nantes-bourbon","importance":88,"label":"Edict of Nantes, 1598","t":-428,"tier":3},{"blurb":"Fran\u00e7ois Ravaillac assassinates Henry IV in Paris. The nine-year-old Louis XIII succeeds under his mother Marie de' Medici's regency, and Richelieu soon begins the work of royal absolutism.","id":"henry-killed","importance":66,"label":"Henry IV assassinated, 1610","t":-416,"tier":2},{"blurb":"Louis XIV, the Sun King, takes personal rule at twenty-two after Mazarin's death. His seventy-two-year reign, the longest in European history, makes Versailles the center of the continent and France the model of absolutism.","id":"louis-xiv","importance":96,"label":"Louis XIV takes power, 1643","t":-383,"tier":3},{"blurb":"Louis XIV revokes the Edict of Nantes, outlawing Protestant worship in France. Hundreds of thousands of Huguenots flee, carrying their skills to England, Prussia, and the Netherlands.","id":"revocation","importance":72,"label":"Revocation of Nantes, 1685","t":-341,"tier":2},{"blurb":"Philip, Duke of Anjou, grandson of Louis XIV, becomes Philip V of Spain on the death of the last Habsburg king. The Bourbon dynasty takes the Spanish throne, and Europe goes to war to stop France and Spain uniting.","id":"philip-v","importance":92,"label":"Philip V of Spain, 1700","t":-326,"tier":3},{"blurb":"The Treaty of Utrecht ends the War of the Spanish Succession: Philip V keeps Spain and its empire but renounces any claim to the French throne, forever separating the two Bourbon crowns.","id":"utrecht","importance":70,"label":"Treaty of Utrecht, 1713","t":-313,"tier":2},{"blurb":"Louis XIV dies at Versailles after seventy-two years on the throne. His five-year-old great-grandson succeeds as Louis XV, and the regency that follows unwinds the Sun King's system.","id":"louis-xiv-dies","importance":62,"label":"Louis XIV dies, 1715","t":-311,"tier":2},{"blurb":"Louis XVI takes the throne, inheriting a bankrupt state and a rising demand for reform. Fifteen years later he will summon the Estates-General, and the Revolution will follow.","id":"louis-xvi","importance":64,"label":"Louis XVI accedes, 1774","t":-252,"tier":2},{"blurb":"Parisians storm the Bastille, and the National Assembly proclaims the rights of man. The Bourbon monarchy, unchallenged for a century, collapses into revolution.","id":"revolution-bourbon","importance":90,"label":"Revolution begins, 1789","t":-237,"tier":3},{"blurb":"Louis XVI is guillotined in the Place de la R\u00e9volution after a trial by the Convention. The execution makes the Revolution's break with monarchy irreversible.","id":"louis-executed","importance":93,"label":"Louis XVI executed, 1793","t":-233,"tier":3},{"blurb":"Napoleon's invasion of Spain forces Ferdinand VII, the Spanish Bourbon king, to abdicate at Bayonne. Madrid rises against the French on the Dos de Mayo, beginning the Peninsular War.","id":"ferdinand-vii","importance":60,"label":"Ferdinand VII deposed, 1808","t":-218,"tier":2},{"blurb":"After Napoleon's fall, Louis XVI's brother returns as Louis XVIII, restored by the allies. The Bourbon Restoration tries to rule a France the Revolution remade.","id":"restoration","importance":68,"label":"Louis XVIII restored, 1814","t":-212,"tier":2},{"blurb":"Charles X, Louis XVIII's brother and an uncompromising reactionary, takes the throne and moves to restore the old order by ordinance. Six years later Paris throws him out.","id":"charles-x","importance":50,"label":"Charles X accedes, 1824","t":-202,"tier":1},{"blurb":"The July Revolution deposes Charles X, and Louis-Philippe, head of the Orl\u00e9ans branch of the Bourbons, takes power as King of the French. The citizen-king rules for eighteen years.","id":"louis-philippe","importance":74,"label":"Louis-Philippe king, 1830","t":-196,"tier":2},{"blurb":"Isabella II, three years old, succeeds Ferdinand VII in Spain, and her uncle Don Carlos refuses to accept a female succession. The Carlist Wars that follow divide Spain for forty years.","id":"isabella","importance":56,"label":"Isabella II accedes, 1833","t":-193,"tier":2},{"blurb":"Barricades rise across Paris, Louis-Philippe abdicates and flees to England, and the Second Republic is proclaimed. The French Bourbon monarchy ends.","id":"louis-philippe-falls","importance":89,"label":"Louis-Philippe falls, 1848","t":-178,"tier":3},{"blurb":"Isabella II is deposed by the Glorious Revolution and flees to France. Spain experiments with a republic, a Savoyard king, and another republic before the Bourbons return.","id":"isabella-deposed","importance":52,"label":"Isabella II deposed, 1868","t":-158,"tier":1},{"blurb":"Alfonso XII, Isabella's son, is restored to the Spanish throne, founding the Restoration system that governs Spain, with interruptions, until 1931.","id":"alfonso-xii","importance":76,"label":"Alfonso XII restored, 1874","t":-152,"tier":2},{"blurb":"Alfonso XIII leaves Spain after republican victories in municipal elections, and the Second Republic is proclaimed. The Spanish Bourbons go into exile for the second time.","id":"alfonso-exiled","importance":78,"label":"Alfonso XIII exiled, 1931","t":-95,"tier":2},{"blurb":"Two days after Franco's death, Juan Carlos I, groomed by the dictator as his successor, becomes king and instead steers Spain to democracy, facing down a military coup in 1981.","id":"juan-carlos","importance":95,"label":"Juan Carlos I king, 1975","t":-51,"tier":3},{"blurb":"Juan Carlos abdicates in favor of his son, who reigns as Felipe VI. The Bourbon dynasty, first recorded on the Allier eleven centuries earlier, still occupies the Spanish throne.","id":"felipe-vi","importance":91,"label":"Felipe VI accedes, 2014","t":-12,"tier":3}],"id":"bourbon","maxSpan":1200,"minSpan":1,"presets":[{"c":-557,"id":"all","label":"All","s":1114},{"c":-307,"id":"kings-of-france","label":"Kings of France","s":260},{"c":-169,"id":"spanish","label":"Spanish Bourbons","s":314}],"start":-1114,"timeFormat":"ago","title":"The Bourbons","unit":"years"},"world-history":{"defaultPreset":"all","end":0,"events":[{"blurb":"William of Normandy defeats Harold at Hastings and is crowned king of England. The Conquest ties England to the continent, replaces its aristocracy with Normans, and reshapes its language.","id":"hastings","importance":88,"label":"Norman Conquest, 1066","t":-960,"tier":3},{"blurb":"Crusaders storm Jerusalem after a three-year march, massacring its Muslim and Jewish inhabitants and founding the Kingdom of Jerusalem. The First Crusade's success hardens the religious frontier for centuries.","id":"jerusalem","importance":82,"label":"Crusaders take Jerusalem, 1099","t":-927,"tier":3},{"blurb":"King John seals Magna Carta at Runnymede, conceding that the king is subject to law. Its clauses on counsel and judgment become the foundation text of limited monarchy.","id":"magna-carta-world","importance":86,"label":"Magna Carta, 1215","t":-811,"tier":3},{"blurb":"Mongol armies crush the Poles at Legnica and the Hungarians at Mohi within days of each other, then withdraw on the death of the Great Khan. Europe escapes conquest by succession politics in Karakorum.","id":"mongols-world","importance":70,"label":"Mongols invade Europe, 1241","t":-785,"tier":3},{"blurb":"Plague reaches Europe from the Black Sea, killing roughly a third of the continent in four years. The labor shortage that follows ends serfdom in the west and empties whole villages.","id":"black-death-world","importance":94,"label":"Black Death, 1347","t":-679,"tier":3},{"blurb":"Mehmed II takes Constantinople after a fifty-three-day siege, ending the Byzantine Empire after eleven centuries. Greek scholars flee west with their manuscripts, feeding the Renaissance.","id":"constantinople-world","importance":92,"label":"Fall of Constantinople, 1453","t":-573,"tier":3},{"blurb":"Columbus lands in the Bahamas, believing he has reached Asia. The voyage joins two worlds that had not touched for ten thousand years, and begins the European colonization of the Americas.","id":"columbus-world","importance":96,"label":"Columbus reaches the Americas, 1492","t":-534,"tier":3},{"blurb":"Martin Luther posts his 95 Theses at Wittenberg, challenging indulgences and, within years, the papacy itself. The Reformation splits western Christendom for good.","id":"luther-world","importance":95,"label":"Luther's 95 Theses, 1517","t":-509,"tier":3},{"blurb":"The surviving ship of Magellan's expedition returns to Spain, completing the first circumnavigation of the globe. The voyage proves the world is round, larger than believed, and mostly ocean.","id":"circumnavigation-world","importance":76,"label":"First circumnavigation, 1522","t":-504,"tier":3},{"blurb":"Copernicus publishes De revolutionibus on his deathbed, moving the Earth from the center of the universe. The book waits seventy years for its revolution to begin.","id":"copernicus-world","importance":84,"label":"Copernicus publishes, 1543","t":-483,"tier":3},{"blurb":"The Spanish Armada, sent to invade England and restore Catholicism, is scattered by storms and English fireships around Gravelines. Spain's naval supremacy is broken, and England's sea power begins.","id":"armada-world","importance":78,"label":"Spanish Armada defeated, 1588","t":-438,"tier":3},{"blurb":"English settlers found Jamestown in Virginia, the first permanent English colony in the Americas. It survives starvation, war with the Powhatan, and its own investors' impatience.","id":"jamestown","importance":72,"label":"Jamestown founded, 1607","t":-419,"tier":3},{"blurb":"The Peace of Westphalia ends the Thirty Years' War, the most destructive conflict Europe had known. It establishes the sovereign state as the basic unit of international order.","id":"westphalia-world","importance":90,"label":"Peace of Westphalia, 1648","t":-378,"tier":3},{"blurb":"Parliament invites William and Mary to take the English throne, deposing James II without a battle. The Glorious Revolution settles parliamentary supremacy and a Bill of Rights.","id":"glorious-world","importance":74,"label":"Glorious Revolution, 1688","t":-338,"tier":3},{"blurb":"Frederick of Prussia invades Silesia, opening the Seven Years' War, fought in Europe, North America, India, and at sea. It is the first war waged on a genuinely global scale.","id":"seven-years","importance":68,"label":"Seven Years' War begins, 1756","t":-270,"tier":3},{"blurb":"The American colonies declare independence from Britain, and with French help win it. The republic they found becomes the model and the rival of the European order.","id":"independence","importance":91,"label":"American Independence, 1776","t":-250,"tier":3},{"blurb":"Parisians storm the Bastille, and the National Assembly proclaims the rights of man. The Revolution overturns the old order in France and then, through war, across Europe.","id":"revolution-world","importance":93,"label":"French Revolution, 1789","t":-237,"tier":3},{"blurb":"Wellington and Bl\u00fccher defeat Napoleon at Waterloo, ending twenty-three years of French revolutionary and imperial war. The victors' settlement at Vienna holds the peace for nearly a century.","id":"waterloo","importance":80,"label":"Waterloo, 1815","t":-211,"tier":3},{"blurb":"Revolution sweeps Europe from Paris to Vienna to Berlin, toppling kings and demanding constitutions. Almost every revolt fails within a year, but the old order never fully recovers.","id":"revolutions-1848","importance":66,"label":"Revolutions of 1848","t":-178,"tier":3},{"blurb":"The Kingdom of Italy is proclaimed under Victor Emmanuel II, uniting most of the peninsula after Garibaldi's Thousand conquered the south. The Risorgimento remakes the map of Europe.","id":"italy-united","importance":64,"label":"Italy united, 1861","t":-165,"tier":3},{"blurb":"Austria's ultimatum to Serbia, after the assassination at Sarajevo, draws the alliance system into the First World War. Four empires collapse before it ends.","id":"wwi","importance":97,"label":"First World War begins, 1914","t":-112,"tier":3},{"blurb":"The Bolsheviks seize power in Petrograd, and within five years a communist state rules a sixth of the Earth's land. The Russian Revolution defines the twentieth century's politics.","id":"october","importance":89,"label":"Russian Revolution, 1917","t":-109,"tier":3},{"blurb":"Germany invades Poland, and Britain and France declare war. The Second World War kills more people than any conflict in history and ends with the atomic bomb and a divided Europe.","id":"wwii","importance":98,"label":"Second World War begins, 1939","t":-87,"tier":3},{"blurb":"The war ends with the United Nations founded at San Francisco, an attempt to give the world what the League of Nations could not: a working peace.","id":"un-founded","importance":62,"label":"United Nations founded, 1945","t":-81,"tier":3},{"blurb":"Six European states sign the Treaty of Rome, founding the European Economic Community. The coal-and-steel experiment grows into the European Union.","id":"rome-treaty","importance":60,"label":"Treaty of Rome, 1957","t":-69,"tier":3},{"blurb":"Apollo 11 lands two men on the Moon, watched by a fifth of humanity. The space race's peak becomes the century's most shared moment.","id":"moon","importance":85,"label":"Moon landing, 1969","t":-57,"tier":3},{"blurb":"The Berlin Wall falls as East Germans cross into the West, and the Cold War ends without a shot. Germany reunites within a year, and the Soviet Union dissolves within two.","id":"wall-falls","importance":87,"label":"Berlin Wall falls, 1989","t":-37,"tier":3},{"blurb":"Hijacked airliners destroy the World Trade Center and damage the Pentagon, killing nearly three thousand people. The attacks launch two decades of war in Afghanistan and Iraq.","id":"september-11","importance":81,"label":"September 11 attacks, 2001","t":-25,"tier":3},{"blurb":"The World Health Organization declares COVID-19 a pandemic. Within months the virus has reached every continent, killed millions, and shut down the world's economies and borders.","id":"covid","importance":79,"label":"COVID-19 pandemic, 2020","t":-6,"tier":3}],"id":"world-history","maxSpan":1000,"minSpan":1,"presets":[{"c":-480,"id":"all","label":"All","s":960},{"c":-179,"id":"revolutions","label":"Age of Revolutions","s":142},{"c":-43,"id":"modern","label":"Modern World","s":76}],"start":-960,"timeFormat":"ago","title":"Western Europe and the World","unit":"years"}}};</script>
+<script>
+'use strict';
+/* ================= utils ================= */
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const trim3=x=>parseFloat(x.toPrecision(3)).toString();
+function fmtDate(t,ds){
+  if(t===0) return 'present';
+  const a=Math.abs(t), suf=ds.timeFormat==='ago'?' ago':'';
+  if(a>=1e9) return trim3(a/1e9)+' Ga'+suf;
+  if(a>=1e6) return trim3(a/1e6)+' Ma'+suf;
+  if(a>=1e3) return trim3(a/1e3)+' ka'+suf;
+  return Math.round(a)+' yr'+suf;
+}
+function fmtSpan(s,unit){
+  if(s>=1e9) return '~'+trim3(s/1e9)+' billion '+unit;
+  if(s>=1e6) return '~'+trim3(s/1e6)+' million '+unit;
+  if(s>=1e3) return '~'+trim3(s/1e3)+' thousand '+unit;
+  return '~'+Math.round(s)+' '+unit;
+}
+function eventDateStr(e,ds){
+  const a=fmtDate(e.t,ds);
+  return (e.tEnd!=null)? a+' to '+fmtDate(e.tEnd,ds) : a;
+}
+
+/* ================= state ================= */
+const canvas=document.getElementById('tl'), ctx=canvas.getContext('2d');
+const chipMain=document.getElementById('chipMain'), chipSub=document.getElementById('chipSub');
+const state={ manifest:[], sets:{}, ds:null, selected:[], C:0, S:1, density:1, regions:true, anim:null };
+let cssW=0, cssH=0, dpr=1, needRender=true;
+let bottomInset=0; // px reserved at canvas bottom for the closed tray handle on phones (constant; tray overlays)
+const viewH=()=>cssH-bottomInset;
+let lastPlaced=[]; // hit-test records {e,ds,di,x,y,x0,x1,y0,y1}
+let lastRegionLabels=[]; // hit-test records {conn,ds,x0,x1,y0,y1} for tap-to-zoom
+let curDec=10; // snapped decade of current span; tiers gate on this, same as the chip
+const spanDecade=()=>Math.round(Math.log10(state.S));
+
+function resize(){
+  dpr=Math.min(window.devicePixelRatio||1,3);
+  cssW=window.innerWidth; cssH=window.innerHeight;
+  document.getElementById('stage').style.height=cssH+'px';
+  canvas.width=Math.round(cssW*dpr); canvas.height=Math.round(cssH*dpr);
+  const sab=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sab'))||0;
+  bottomInset=cssW<720?56+10+sab:0; // closed handle + clearance + gesture bar; constant, tray overlays
+  document.getElementById('zoomctl').style.bottom=cssW<720?(bottomInset+18)+'px':'';
+  needRender=true;
+  if(state.ds) draw(); // resizing the canvas erases it; repaint immediately
+}
+window.addEventListener('resize',resize);
+
+/* ================= viewport ================= */
+const viewLo=()=>state.C-state.S/2, viewHi=()=>state.C+state.S/2;
+const yOf=t=>viewH()*(t-(state.C-state.S/2))/state.S;
+const tOf=y=>(state.C-state.S/2)+state.S*y/viewH();
+// combined range across the selected datasets; identical to the single
+// dataset's range when only one is selected
+function combinedRange(){
+  const ss=selectedSets();
+  if(!ss.length) return {start:0,end:0,minSpan:1,maxSpan:1};
+  return {start:Math.min(...ss.map(d=>d.start)), end:Math.max(...ss.map(d=>d.end)),
+          minSpan:Math.min(...ss.map(d=>d.minSpan)), maxSpan:Math.max(...ss.map(d=>d.maxSpan))};
+}
+function clampView(){
+  const r=combinedRange(), span=r.end-r.start;
+  state.S=clamp(state.S,r.minSpan,r.maxSpan);
+  if(state.S>=span) state.C=(r.start+r.end)/2;
+  else state.C=clamp(state.C,r.start+state.S/2,r.end-state.S/2);
+}
+function panBy(dy){ state.C-=dy*state.S/viewH(); clampView(); needRender=true; }
+function zoomAt(y,factor){
+  const r=combinedRange(), tm=tOf(y);
+  state.S=clamp(state.S*factor,r.minSpan,r.maxSpan);
+  state.C=tm+state.S/2-state.S*y/viewH();
+  clampView(); needRender=true;
+}
+function animateTo(C1,S1,dur){
+  dur=dur||280;
+  state.anim={C0:state.C,S0:state.S,C1:S1!=null?C1:state.C,S1:S1,t0:performance.now(),dur:dur};
+  requestAnimationFrame(animStep);
+}
+function animStep(now){
+  const a=state.anim; if(!a) return;
+  let p=clamp((now-a.t0)/a.dur,0,1);
+  p=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+  state.C=a.C0+(a.C1-a.C0)*p;
+  state.S=Math.exp(Math.log(a.S0)+(Math.log(a.S1)-Math.log(a.S0))*p);
+  clampView(); needRender=true; draw();
+  if(p<1) requestAnimationFrame(animStep); else { state.anim=null; scheduleLink(); }
+}
+function stopAnim(){ state.anim=null; }
+function resetView(){
+  const r=defaultViewRange();
+  animateTo((r.start+r.end)/2,(r.end-r.start)*1.0,350);
+}
+
+/* ================= data ================= */
+async function loadAll(){
+  if(window.__DATASETS__){
+    const inline=window.__DATASETS__;
+    state.manifest=inline.manifest; state.sets=inline.sets;
+    return;
+  }
+  const m=await (await fetch('datasets/manifest.json')).json();
+  state.manifest=m;
+  for(const item of m){
+    state.sets[item.id]=await (await fetch('datasets/'+item.file)).json();
+  }
+}
+function selectedSets(){ return visibleSets(); }
+function setDatasets(ids,opts){
+  opts=opts||{};
+  // stable order: manifest order, not tap order, so a dataset always
+  // renders in the same side or column
+  const order=new Map(state.manifest.map((m,i)=>[m.id,i]));
+  state.selected=ids.filter((id,i)=>ids.indexOf(id)===i&&state.sets[id])
+    .sort((a,b)=>(order.has(a)?order.get(a):999)-(order.has(b)?order.get(b):999));
+  if(!state.selected.length&&state.manifest.length) state.selected=['habsburg','bourbon','world-history'];
+  state.ds=state.sets[state.selected[0]];
+  stopAnim(); hidePopover();
+  if(!opts.keepView){
+    const q=new URLSearchParams(location.search);
+    const urlIds=(q.get('d')||'').split(',').filter(Boolean);
+    if(q.get('c')&&q.get('s')&&urlIds.length===state.selected.length&&urlIds.every(id=>state.selected.includes(id))){
+      state.C=parseFloat(q.get('c')); state.S=parseFloat(q.get('s'));
+    }else if(state.selected.length===1){
+      const dp=(state.ds.presets||[]).find(p=>p.id===state.ds.defaultPreset);
+      if(dp){ state.C=dp.c; state.S=dp.s; }
+      else{ state.C=(state.ds.start+state.ds.end)/2; state.S=state.ds.end-state.ds.start; }
+    }else{
+      const r=defaultViewRange();
+      state.C=(r.start+r.end)/2; state.S=r.end-r.start;
+    }
+  }
+  clampView(); buildTrayList(); buildPresets(); needRender=true; draw();
+}
+function setDataset(id){ setDatasets([id]); }
+function toggleDataset(id){
+  if(state.selected.includes(id)){
+    if(state.selected.length===1) return; // at least one dataset stays selected
+    setDatasets(state.selected.filter(x=>x!==id),{keepView:true});
+  }else{
+    setDatasets([...state.selected,id],{keepView:true});
+  }
+  scheduleLink();
+}
+function buildPresets(){
+  const box=document.getElementById('presetChips'); box.innerHTML='';
+  const multi=state.selected.length>1;
+  const presets=[];
+  for(const ds of selectedSets()) for(const v of (ds.presets||[])) presets.push({v:v,ds:ds});
+  document.getElementById('jumpSection').style.display=presets.length?'':'none';
+  for(const p of presets){
+    const b=document.createElement('button');
+    b.className='chipbtn'; b.textContent=multi?p.v.label+' · '+p.ds.id:p.v.label;
+    b.addEventListener('click',()=>{ stopAnim(); animateTo(p.v.c,p.v.s,350); });
+    box.appendChild(b);
+  }
+}
+function scheduleLink(){
+  clearTimeout(scheduleLink.t);
+  scheduleLink.t=setTimeout(()=>{
+    const q=new URLSearchParams();
+    q.set('d',state.selected.join(',')); q.set('c',state.C.toPrecision(6)); q.set('s',state.S.toPrecision(6));
+    history.replaceState(null,'',location.pathname+'?'+q.toString());
+  },600);
+}
+
+/* ================= render ================= */
+const BG='#0d0e11', SPINE='rgba(255,255,255,.28)';
+const ACCENTS=['#8ab4f8','#f0a868','#a8d8a8','#d8a8d8','#8ad8d8']; // per-dataset accent in multi mode
+function spineX(){ if(state.selected.length>1&&!mergedView()) return cssW/2; return cssW<720?36:cssW/2; }
+// Background layers (v0.23, model corrected v0.26): universe, earth, and
+// human history are designated here, in the viewer code, not in the
+// dataset files, so datasets stay reusable and carry no composition
+// data. Foreground = every non-background dataset. Layout rule: one or
+// two foreground timelines merge into one single timeline (the
+// foreground integrated into the background, events drawn on one axis,
+// regions painted as in merged mode); three or more foreground timelines
+// render as columns of the foregrounds only, with no background rendered.
+const BACKGROUND_IDS=['earth-history','human-history','powers-of-10'];
+function hasBackground(){ return state.selected.some(id=>BACKGROUND_IDS.includes(id)); }
+function extraCount(){ return state.selected.filter(id=>!BACKGROUND_IDS.includes(id)).length; }
+function mergedView(){ return extraCount()<=2; }
+function visibleSets(){
+  const all=state.selected.map(id=>state.sets[id]).filter(Boolean);
+  if(extraCount()>=3) return all.filter(ds=>!BACKGROUND_IDS.includes(ds.id));
+  return all;
+}
+// Two or more foreground timelines open on the foregrounds' combined
+// span, so the comparison is visible immediately; Reset returns there
+// too. Panning and zooming still roam the full visible range
+// (combinedRange).
+function defaultViewRange(){
+  if(extraCount()>=2){
+    const ex=state.selected.filter(id=>!BACKGROUND_IDS.includes(id)).map(id=>state.sets[id]).filter(Boolean);
+    return {start:Math.min(...ex.map(d=>d.start)), end:Math.max(...ex.map(d=>d.end))};
+  }
+  return combinedRange();
+}
+function columnsMode(){ return !mergedView()&&visibleSets().length>=3; }
+function colW(){ return cssW/visibleSets().length; }
+function colX(i){ return i*colW(); }
+function colSpine(i){ return colX(i)+14; }
+
+function draw(){
+  if(!needRender&&!state.anim) return;
+  needRender=false;
+  curDec=spanDecade();
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.fillStyle=BG; ctx.fillRect(0,0,cssW,cssH);
+  drawRegions();
+  // spines: one central spine in single, two-dataset, and merged mode; one
+  // spine per column in columns mode (three or more visible datasets)
+  const sx=spineX();
+  if(columnsMode()){
+    for(let i=0;i<state.selected.length;i++){
+      const sxi=colSpine(i);
+      ctx.strokeStyle=SPINE; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(sxi,0); ctx.lineTo(sxi,viewH()); ctx.stroke();
+    }
+  }else{
+    ctx.strokeStyle=SPINE; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(sx,0); ctx.lineTo(sx,viewH()); ctx.stroke();
+  }
+  drawPresent(sx);
+  drawEvents(sx);
+  updateChip();
+}
+function drawPresent(sx){
+  if(!selectedSets().some(ds=>ds.end===0)) return;
+  const y=yOf(0);
+  if(y<-20||y>viewH()+20) return;
+  ctx.strokeStyle='rgba(255,209,102,.7)'; ctx.lineWidth=1.5;
+  ctx.setLineDash([6,5]); ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(cssW,y); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#ffd166'; ctx.font='600 11px '+FONT;
+  ctx.fillText('PRESENT',12,y-7);
+}
+const FONT='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif';
+
+function drawRegions(){
+  lastRegionLabels=[];
+  if(!state.regions) return;
+  const lo=viewLo(), hi=viewHi();
+  const multi=state.selected.length>1;
+  // merged mode: every selected dataset's regions share one full-width
+  // column, painted globally broadest span first (not per dataset), so a
+  // broad region from one dataset sits beneath narrower regions from any
+  // dataset, the same nesting rule single mode already uses.
+  if(mergedView()){
+    const items=[];
+    for(const ds of selectedSets()){
+      if(!ds.connections) continue;
+      for(const b of ds.connections)
+        if(b.form==='region'&&curDec<=b.tier&&b.tEnd>lo&&b.tStart<hi) items.push({b:b,ds:ds});
+    }
+    items.sort((a,b)=>(b.b.tEnd-b.b.tStart)-(a.b.tEnd-a.b.tStart));
+    ctx.textBaseline='alphabetic';
+    for(const {b,ds} of items){
+      const y0=clamp(yOf(b.tStart),-60,cssH+60), y1=clamp(yOf(b.tEnd),-60,cssH+60);
+      if(y1-y0<2) continue;
+      ctx.fillStyle=b.color; ctx.fillRect(0,y0,cssW,y1-y0);
+      if(y1-y0>=28&&y0<viewH()&&y1>0){
+        ctx.fillStyle='rgba(255,255,255,.6)';
+        ctx.font='600 11px '+FONT;
+        if('letterSpacing' in ctx) ctx.letterSpacing='2px';
+        const label=fitText(b.label.toUpperCase(),cssW-24);
+        const ly=clamp(y0+18,14,viewH()-8);
+        ctx.fillText(label,12,ly);
+        if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+        const w=ctx.measureText(label).width;
+        lastRegionLabels.push({conn:b,ds:ds,x0:4,x1:12+w+14,y0:ly-20,y1:ly+10});
+      }
+    }
+    return;
+  }
+  ctx.textBaseline='alphabetic';
+  selectedSets().forEach((ds,di)=>{
+    if(!ds.connections) return;
+    const list=ds.connections
+      .filter(b=>b.form==='region'&&curDec<=b.tier&&b.tEnd>lo&&b.tStart<hi)
+      .sort((a,b)=>(b.tEnd-b.tStart)-(a.tEnd-a.tStart));
+    // single mode: full-width tints as before. Two-dataset mode: the two
+    // datasets tint their half of the width. Columns mode (three or more):
+    // every dataset tints its own column, so no dataset's eras sit on
+    // another's.
+    const cols=columnsMode();
+    const half=!multi||di<2||cols;
+    const x0=!multi?0:cols?colX(di):(di===0?0:cssW/2);
+    const x1=!multi?cssW:cols?colX(di+1):(di===0?cssW/2:cssW);
+    const labelX=!multi?12:cols?colX(di)+12:(di===0?12:cssW/2+12);
+    const maxW=cols?colW()-24:(multi?cssW/2-24:cssW-24);
+    for(const b of list){
+      const y0=clamp(yOf(b.tStart),-60,cssH+60), y1=clamp(yOf(b.tEnd),-60,cssH+60);
+      if(y1-y0<2) continue;
+      if(half){ ctx.fillStyle=b.color; ctx.fillRect(x0,y0,x1-x0,y1-y0); }
+      if(y1-y0>=28&&y0<viewH()&&y1>0){
+        ctx.fillStyle='rgba(255,255,255,.6)';
+        ctx.font='600 11px '+FONT;
+        if('letterSpacing' in ctx) ctx.letterSpacing='2px';
+        const label=fitText(b.label.toUpperCase(),maxW);
+        const ly=clamp(y0+18,14,viewH()-8);
+        ctx.fillText(label,labelX,ly);
+        if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+        const w=ctx.measureText(label).width;
+        lastRegionLabels.push({conn:b,ds:ds,x0:labelX-8,x1:labelX+w+14,y0:ly-20,y1:ly+10});
+      }
+    }
+  });
+}
+
+// minimum events shown per dataset: when tier gating leaves a dataset thin
+// in view, fill with its highest-importance in-view events regardless of
+// tier, so sparse eras still show a few major events (v0.20). Promotion is
+// eligibility only: the greedy declutter below still decides which of the
+// visible events get labels, and busy views (tier-eligible >= PROMOTE_MIN)
+// are untouched.
+const PROMOTE_MIN=4;
+function visibleEvents(){
+  const lo=viewLo(), hi=viewHi();
+  const out=[];
+  for(const ds of selectedSets()){
+    const inView=[];
+    for(const e of ds.events){
+      const t1=(e.tEnd!=null?e.tEnd:e.t);
+      if(t1>=lo&&e.t<=hi) inView.push(e);
+    }
+    const eligible=ds.showAllEvents?inView:inView.filter(e=>curDec<=e.tier);
+    let chosen=eligible;
+    if(eligible.length<PROMOTE_MIN){
+      const rest=inView.filter(e=>curDec>e.tier)
+        .sort((a,b)=>(b.importance-a.importance)||(b.tier-a.tier)||(a.t-b.t));
+      chosen=eligible.concat(rest.slice(0,PROMOTE_MIN-eligible.length));
+    }
+    out.push(...chosen);
+  }
+  return out;
+}
+function fitText(text,maxW){
+  if(ctx.measureText(text).width<=maxW) return text;
+  let t=text;
+  while(t.length>1&&ctx.measureText(t+'...').width>maxW) t=t.slice(0,-1);
+  return t+'...';
+}
+function drawEvents(sx){
+  const evs=visibleEvents();
+  const cols=columnsMode();
+  const merged=mergedView();
+  lastPlaced=[];
+  const wide=cssW>=720;
+  const multi=state.selected.length>1;
+  // dataset lookup by event object: ids may repeat across datasets (the demo
+  // and earth sets share several), so maps are keyed by object, never by id
+  const dsOf=new Map(), diOf=new Map();
+  selectedSets().forEach((ds,di)=>{ for(const e of ds.events){ dsOf.set(e,ds); diOf.set(e,di); } });
+  // side assignment: chronological alternation in single mode (unchanged);
+  // by dataset in two-dataset mode, first left, second right. Columns mode
+  // ignores sides: each dataset owns a column, see the geometry below.
+  const sideOf=new Map();
+  // merged mode uses single-mode geometry: chronological alternation on
+  // wide screens, right side on phones, one shared label column.
+  if(!multi||merged){
+    const chrono=[...evs].sort((a,b)=>a.t-b.t);
+    chrono.forEach((e,i)=>sideOf.set(e,wide?(i%2===0?'r':'l'):'r'));
+  }else{
+    for(const e of evs) sideOf.set(e,diOf.get(e)===0?'l':'r');
+  }
+  // lane assignment for tall spans: overlapping ranges get their own lane so
+  // overlaps read like a chart. Single mode keeps the old geometry (lanes
+  // alternate sides on wide screens, stack right on phones). Multi mode
+  // stacks lanes on the owning dataset's side.
+  const laneOf=new Map();
+  const isTall=e=>e.tEnd!=null&&Math.abs(yOf(e.tEnd)-yOf(e.t))>=36;
+  const spansOverlap=(a0,a1,b0,b1)=>a0<=b1&&b0<=a1;
+  const singleLaneGeom=i=>{
+    if(wide){ const s=i%2===0?-1:1, k=(i/2)|0; return {bx:sx+s*(17+k*22), side:s<0?'l':'r'}; }
+    return {bx:sx+17+i*20, side:'r'};
+  };
+  if(cols){
+    const lanesByCol=selectedSets().map(()=>[]);
+    for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
+      if(!isTall(e)) continue;
+      const ci=diOf.get(e);
+      const lanes=lanesByCol[ci];
+      let li=lanes.findIndex(l=>l.every(s=>!spansOverlap(e.t,e.tEnd,s[0],s[1])));
+      if(li<0){ if(lanes.length<4){ lanes.push([]); li=lanes.length-1; } else li=3; }
+      lanes[li].push([e.t,e.tEnd]);
+      laneOf.set(e,{side:'r',bx:colSpine(ci)+17+li*18});
+    }
+  }else if(!multi||merged){
+    const lanes=[];
+    for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
+      if(!isTall(e)) continue;
+      let li=lanes.findIndex(l=>l.every(s=>!spansOverlap(e.t,e.tEnd,s[0],s[1])));
+      if(li<0){ if(lanes.length<6){ lanes.push([]); li=lanes.length-1; } else li=5; }
+      lanes[li].push([e.t,e.tEnd]);
+      laneOf.set(e,singleLaneGeom(li));
+    }
+  }else{
+    const lanesBySide={l:[],r:[]};
+    for(const e of [...evs].filter(e=>e.tEnd!=null).sort((a,b)=>a.t-b.t)){
+      if(!isTall(e)) continue;
+      const side=diOf.get(e)===0?'l':'r';
+      const lanes=lanesBySide[side];
+      let li=lanes.findIndex(l=>l.every(s=>!spansOverlap(e.t,e.tEnd,s[0],s[1])));
+      if(li<0){ if(lanes.length<6){ lanes.push([]); li=lanes.length-1; } else li=5; }
+      lanes[li].push([e.t,e.tEnd]);
+      laneOf.set(e,{side:side,bx:sx+(side==='l'?-1:1)*(17+li*22)});
+    }
+  }
+  // dots and bars first
+  for(const e of evs){
+    const y=yOf(e.t);
+    const g0=laneOf.get(e);
+    if(g0){
+      const ya=yOf(e.tEnd);
+      const top=clamp(Math.min(y,ya),-40,cssH+40), bot=clamp(Math.max(y,ya),-40,cssH+40);
+      ctx.fillStyle='rgba(122,162,247,.8)';
+      const bw=10;
+      ctx.beginPath();
+      if(ctx.roundRect) ctx.roundRect(g0.bx-bw/2,top,bw,Math.max(bot-top,8),4); else ctx.rect(g0.bx-bw/2,top,bw,Math.max(bot-top,8));
+      ctx.fill();
+      lastPlaced.push({e:e,ds:dsOf.get(e),di:diOf.get(e),x:g0.bx,y:(top+bot)/2,x0:g0.bx-9,x1:g0.bx+9,y0:top,y1:bot,bar:true});
+      continue;
+    }
+    if(e.tEnd!=null){
+      const y1=yOf(e.tEnd);
+      const top=clamp(Math.min(y,y1),-40,cssH+40), bot=clamp(Math.max(y,y1),-40,cssH+40);
+      ctx.fillStyle='rgba(122,162,247,.55)';
+      const bw=7;
+      const barX=cols?colSpine(diOf.get(e)):sx;
+      ctx.beginPath();
+      if(ctx.roundRect) ctx.roundRect(barX-bw/2,top,bw,Math.max(bot-top,8),3); else ctx.rect(barX-bw/2,top,bw,Math.max(bot-top,8));
+      ctx.fill();
+    }else{
+      if(y<-10||y>viewH()+10) continue;
+      ctx.fillStyle=multi?ACCENTS[diOf.get(e)%ACCENTS.length]:(e.importance>=80?'#ffd166':'#e8e8e8');
+      ctx.beginPath(); ctx.arc(cols?colSpine(diOf.get(e)):sx,y,e.importance>=80?5:4,0,Math.PI*2); ctx.fill();
+    }
+  }
+  // labels, greedy by importance; in two-dataset mode collisions are per side,
+  // so a left label never blocks a right label at the same height; in columns
+  // mode collisions are per column, so no dataset's labels can cover another's
+  const byImp=[...evs].sort((a,b)=>b.importance-a.importance);
+  const claimed=[];
+  const claimedSide={l:[],r:[]};
+  const claimedCol=selectedSets().map(()=>[]);
+  const pad=7*state.density;
+  ctx.textBaseline='alphabetic';
+  for(const e of byImp){
+    const y=yOf(e.t);
+    const g1=laneOf.get(e);
+    let side, xA, maxW, tickFrom;
+    if(cols){
+      const ci=diOf.get(e);
+      side='r';
+      if(g1){ xA=g1.bx+12; tickFrom=g1.bx+5; }
+      else{ xA=colSpine(ci)+14; tickFrom=colSpine(ci); }
+      maxW=colX(ci+1)-xA-8;
+    }else if(g1){
+      side=g1.side;
+      xA=g1.bx+(side==='r'?12:-12);
+      maxW=side==='r'?cssW-xA-14:xA-14;
+      tickFrom=g1.bx+(side==='r'?5:-5);
+    }else{
+      side=sideOf.get(e);
+      xA=sx+(side==='r'?14:-14);
+      maxW=(side==='r'?cssW-xA-14:xA-14);
+      tickFrom=sx;
+    }
+    if(maxW<40) continue;
+    ctx.font='600 14px '+FONT;
+    const label=fitText(e.label,maxW);
+    ctx.font='12px '+FONT;
+    const sub=fitText(eventDateStr(e,dsOf.get(e)),maxW);
+    const ly=clamp(y,26,viewH()-46);
+    const top=ly-16, bot=ly+22;
+    const cl=cols?claimedCol[diOf.get(e)]:(multi&&!merged)?claimedSide[side]:claimed;
+    let clash=false;
+    for(const c of cl){ if(top<c[1]+pad&&bot>c[0]-pad){clash=true;break;} }
+    if(clash) continue;
+    cl.push([top,bot]);
+    const tx=side==='r'?xA:xA;
+    ctx.textAlign=side==='r'?'left':'right';
+    // tick
+    ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(tickFrom,ly-4); ctx.lineTo(xA+(side==='r'?-4:4),ly-4); ctx.stroke();
+    // merged labels take their dataset's accent (same color as its dots),
+    // so the reader can tell which dataset a label belongs to in one column
+    ctx.fillStyle=merged?ACCENTS[diOf.get(e)%ACCENTS.length]:'#f2f2f2'; ctx.font='600 14px '+FONT;
+    ctx.fillText(label,tx,ly-4);
+    ctx.fillStyle='#9a9a9a'; ctx.font='12px '+FONT;
+    ctx.fillText(sub,tx,ly+13);
+    ctx.textAlign='left';
+    const w=Math.max(ctx.measureText(label).width,ctx.measureText(sub).width);
+    lastPlaced.push({e:e,ds:dsOf.get(e),di:diOf.get(e),x:sx,y:y,x0:Math.min(tx,tx+(side==='r'?w:-w)),x1:Math.max(tx,tx+(side==='r'?w:-w)),y0:top,y1:bot});
+  }
+}
+
+function updateChip(){
+  // v0.24: the headline states the actual visible span; the snapped decade
+  // is a zoom scale, not a year count, so it lives in the sub-line. The old
+  // headline ("10^10 years visible") understated full-span views: 10 billion
+  // claimed vs 13.8 billion shown on the background default.
+  chipMain.innerHTML=fmtSpan(state.S,state.ds.unit)+' visible';
+  chipSub.innerHTML='zoom 10<sup>'+curDec+'</sup>';
+}
+
+/* ================= gestures ================= */
+const ptrs=new Map(); let pinchPrev=null, downInfo=null;
+function evtPos(e){ const r=canvas.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}; }
+canvas.addEventListener('pointerdown',e=>{
+  canvas.setPointerCapture(e.pointerId);
+  ptrs.set(e.pointerId,evtPos(e));
+  pinchPrev=null; stopAnim(); hidePopover();
+  if(ptrs.size===1) downInfo={p:evtPos(e),t:performance.now()};
+  e.preventDefault();
+});
+canvas.addEventListener('pointermove',e=>{
+  if(!ptrs.has(e.pointerId)) return;
+  e.preventDefault();
+  const p=evtPos(e), prev=ptrs.get(e.pointerId);
+  ptrs.set(e.pointerId,p);
+  if(ptrs.size===1){
+    panBy(p.y-prev.y);
+  }else if(ptrs.size===2){
+    const [a,b]=[...ptrs.values()];
+    const d=Math.hypot(a.x-b.x,a.y-b.y), my=(a.y+b.y)/2;
+    if(pinchPrev){
+      panBy(my-pinchPrev.my);
+      if(pinchPrev.d>0&&d>0) zoomAt(my,pinchPrev.d/d);
+    }
+    pinchPrev={d:d,my:my};
+  }
+  draw();
+});
+function endPointer(e){
+  const wasSingle=ptrs.size===1;
+  ptrs.delete(e.pointerId);
+  if(ptrs.size<2) pinchPrev=null;
+  if(wasSingle&&downInfo){
+    const p=evtPos(e), dt=performance.now()-downInfo.t;
+    const moved=Math.hypot(p.x-downInfo.p.x,p.y-downInfo.p.y);
+    if(moved<9&&dt<450) handleTap(p);
+  }
+  if(ptrs.size===0){ downInfo=null; scheduleLink(); }
+}
+canvas.addEventListener('pointerup',endPointer);
+canvas.addEventListener('pointercancel',endPointer);
+// Chrome pull-to-refresh: block the browser's overscroll refresh for touches
+// starting on the canvas. Pointer handling alone does not always suppress it.
+canvas.addEventListener('touchmove',e=>{ e.preventDefault(); },{passive:false});
+canvas.addEventListener('wheel',e=>{
+  e.preventDefault(); stopAnim(); hidePopover();
+  const r=canvas.getBoundingClientRect();
+  zoomAt(e.clientY-r.top,Math.exp(e.deltaY*0.0016));
+  draw(); scheduleLink();
+},{passive:false});
+canvas.addEventListener('dblclick',e=>{
+  const r=canvas.getBoundingClientRect();
+  const y=e.clientY-r.top, tm=tOf(y);
+  animateTo(tm+ (state.S/10)/2 - (state.S/10)*y/viewH(), state.S/10, 240);
+});
+window.addEventListener('keydown',e=>{
+  if(e.key==='+'||e.key==='='){ animateTo(state.C,state.S/10,240); }
+  else if(e.key==='-'){ animateTo(state.C,state.S*10,240); }
+  else if(e.key==='ArrowUp'){ stopAnim(); panBy(viewH()*0.18); draw(); scheduleLink(); }
+  else if(e.key==='ArrowDown'){ stopAnim(); panBy(-viewH()*0.18); draw(); scheduleLink(); }
+});
+document.getElementById('zin').addEventListener('click',()=>animateTo(state.C,state.S/10,240));
+document.getElementById('zout').addEventListener('click',()=>animateTo(state.C,state.S*10,240));
+
+function handleTap(p){
+  let best=null,bestD=18;
+  for(const r of lastPlaced){
+    const dx=r.x-p.x, dy=r.y-p.y;
+    const inBox=p.x>=r.x0-8&&p.x<=r.x1+8&&p.y>=r.y0-6&&p.y<=r.y1+6;
+    const d=Math.hypot(dx,dy);
+    if(inBox||d<bestD){ best=r; bestD=inBox?-1:d; if(inBox) break; }
+  }
+  if(best){ showPopover(best,p); return; }
+  for(const r of lastRegionLabels){
+    if(p.x>=r.x0&&p.x<=r.x1&&p.y>=r.y0&&p.y<=r.y1){ zoomToRegion(r.conn); return; }
+  }
+  hidePopover();
+}
+function zoomToRegion(r){
+  const span=r.tEnd-r.tStart;
+  if(span<=0) return;
+  animateTo((r.tStart+r.tEnd)/2,span*1.25,350);
+}
+
+/* ================= popover ================= */
+const pop=document.getElementById('pop');
+function showPopover(rec,p){
+  const ds=rec.ds||state.ds;
+  document.getElementById('popTitle').textContent=rec.e.label;
+  document.getElementById('popDate').textContent=eventDateStr(rec.e,ds)+(state.selected.length>1?' · '+ds.title:'');
+  document.getElementById('popBlurb').textContent=rec.e.blurb||'No details recorded.';
+  pop.classList.add('show');
+  const pw=pop.offsetWidth, ph=pop.offsetHeight;
+  pop.style.left=clamp(p.x+14,8,cssW-pw-8)+'px';
+  pop.style.top=clamp(p.y-ph-14,8,viewH()-ph-8)+'px';
+}
+function hidePopover(){ pop.classList.remove('show'); }
+document.getElementById('popClose').addEventListener('click',hidePopover);
+
+/* ================= tray ================= */
+const tray=document.getElementById('tray');
+function layoutZoomctl(){
+  const zc=document.getElementById('zoomctl'), chip=document.getElementById('chip');
+  if(window.innerWidth>=720){ zc.style.right=tray.classList.contains('open')?'326px':'58px'; chip.style.right=tray.classList.contains('open')?'312px':'58px'; }
+  else { zc.style.right=''; chip.style.right=''; }
+}
+document.getElementById('trayHandle').addEventListener('click',()=>{
+  tray.classList.toggle('open'); layoutZoomctl();
+});
+window.addEventListener('resize',layoutZoomctl);
+function buildTrayList(){
+  const box=document.getElementById('dsList'); box.innerHTML='';
+  // tags and accents follow the VISIBLE datasets: in background-plus-two
+  // extras columns, the hidden background datasets get neither
+  const visIds=visibleSets().map(ds=>ds.id);
+  const multi=visIds.length>1;
+  const merged=mergedView();
+  for(const m of state.manifest){
+    const idx=visIds.indexOf(m.id);
+    const b=document.createElement('button');
+    b.className='dsbtn'+(state.selected.includes(m.id)?' active':'');
+    const cols=columnsMode();
+    b.textContent=m.title+(multi&&idx>=0?(cols?' · '+(idx+1):merged?'':idx===0?' · Left':' · Right'):'');
+    // merged mode: the chip's border carries the dataset's accent, matching
+    // its dots and labels in the single column
+    if(merged&&idx>=0) b.style.borderColor=ACCENTS[idx%ACCENTS.length];
+    b.addEventListener('click',()=>{ toggleDataset(m.id); });
+    box.appendChild(b);
+  }
+}
+document.getElementById('densitySeg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  state.density=parseFloat(b.dataset.d);
+  [...e.currentTarget.children].forEach(x=>x.classList.toggle('active',x===b));
+  needRender=true; draw();
+});
+const regionSwitch=document.getElementById('regionSwitch');
+regionSwitch.addEventListener('click',()=>{
+  state.regions=!state.regions;
+  regionSwitch.classList.toggle('on',state.regions);
+  regionSwitch.setAttribute('aria-checked',state.regions);
+  needRender=true; draw();
+});
+document.getElementById('resetBtn').addEventListener('click',resetView);
+function jumpToPresent(){
+  // Present looks for a present preset across the visible datasets, not
+  // just the first selected one: in a merged background view the first
+  // dataset (earth) has none, but human and universe do
+  const vds=visibleSets(); if(!vds.length) return;
+  const pDs=vds.find(ds=>(ds.presets||[]).some(x=>x.id==='present'));
+  stopAnim();
+  if(pDs){ const p=pDs.presets.find(x=>x.id==='present'); animateTo(p.c,p.s,350); }
+  else{ const ds=state.ds||vds[0]; animateTo(ds.end-ds.minSpan/2,ds.minSpan,350); }
+}
+document.getElementById('presentBtn').addEventListener('click',jumpToPresent);
+
+/* ================= boot ================= */
+(async function(){
+  resize();
+  try{ await loadAll(); }
+  catch(err){
+    chipMain.textContent='Could not load data';
+    chipSub.textContent=String(err&&err.message||err);
+    return;
+  }
+  const q=new URLSearchParams(location.search);
+  const wanted=(q.get('d')||'').split(',').filter(id=>state.sets[id]);
+  const first=wanted.length?wanted:['habsburg','bourbon','world-history'];
+  setDatasets(first);
+  layoutZoomctl();
+  draw();
+})();
+</script>
+</body>
+</html>
