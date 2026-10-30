@@ -77,13 +77,15 @@ paste-ready prompt for generating new datasets are in
 Writing (21), Political Figures (24), Wars and Kingdoms (28), and
 European History (17, coarse: biggest events only). Span 1100-1700.
 
-`bourbon-habsburg.html` is a second standalone themed build, same
-pattern: datasets in `datasets/bourbon-habsburg/` (own manifest, built
-by `build_bourbon_habsburg.py`): The Habsburgs (29 events, from
+`bourbon-hapsburg.html` is a second standalone themed build, same
+pattern: datasets in `datasets/bourbon-hapsburg/` (own manifest, built
+by `build_bourbon_hapsburg.py`): The Hapsburgs (29 events, from
 Guntram the Rich's rebellion in 950 to Otto's death in 2011), The
 Bourbons (26, from the first Bourbon fiefs in 913 to Felipe VI in
 2014), and Western Europe and the World (29, coarse: biggest events
-only, 1066 to 2020).
+only, 1066 to 2020). Western Europe and the World is the background
+timeline for this build (viewer-side BACKGROUND_IDS, not a data flag),
+so the two dynasties merge into one timeline against it.
 
 ## Validate a dataset
 

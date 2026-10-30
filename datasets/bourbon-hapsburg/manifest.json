@@ -1,0 +1,17 @@
+[
+  {
+    "file": "hapsburg.json",
+    "id": "hapsburg",
+    "title": "The Hapsburgs"
+  },
+  {
+    "file": "bourbon.json",
+    "id": "bourbon",
+    "title": "The Bourbons"
+  },
+  {
+    "file": "world.json",
+    "id": "world-history",
+    "title": "Western Europe and the World"
+  }
+]

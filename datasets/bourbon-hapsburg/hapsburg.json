@@ -1,0 +1,265 @@
+{
+  "defaultPreset": "all",
+  "end": 0,
+  "events": [
+    {
+      "blurb": "Guntram the Rich, a count in the Breisgau, rebels against the German king Otto I and has much of his land confiscated. He is the earliest traceable ancestor of the house that will take its name from his grandson's castle.",
+      "id": "guntram",
+      "importance": 82,
+      "label": "Guntram the Rich rebels, 950",
+      "t": -1076,
+      "tier": 3
+    },
+    {
+      "blurb": "Radbot of Klettgau, Guntram's grandson, and Werner, bishop of Strasbourg, build Habsburg Castle, the Hawk's Castle, above the Aar in the Aargau. The family will take its name from it, and Radbot's grandson Otto II will be the first to call himself Count of Habsburg.",
+      "id": "habsburg-castle",
+      "importance": 88,
+      "label": "Habsburg Castle built, 1020",
+      "t": -1006,
+      "tier": 3
+    },
+    {
+      "blurb": "After the Great Interregnum, the electors choose Rudolf, Count of Habsburg, as King of Germany. A middling Swiss count becomes the head of the empire, and his family never lets go.",
+      "id": "rudolf-elected",
+      "importance": 90,
+      "label": "Rudolf I elected, 1273",
+      "t": -753,
+      "tier": 3
+    },
+    {
+      "blurb": "Rudolf defeats the Bohemian king Ottokar II at D\u00fcrnkrut on the Marchfeld, killing him in battle. The victory gives the Habsburgs Austria, Styria, Carinthia, and Carniola, the hereditary lands that fund everything after.",
+      "id": "durnkrut",
+      "importance": 92,
+      "label": "D\u00fcrnkrut, 1278",
+      "t": -748,
+      "tier": 3
+    },
+    {
+      "blurb": "Rudolf IV, Duke of Austria, has the Privilegium Maius forged, a set of documents supposedly from Julius Caesar and Nero granting Austria archducal rank and near-sovereignty. The forgery works: the archducal title sticks.",
+      "id": "privilegium",
+      "importance": 60,
+      "label": "Privilegium Maius forged, 1358",
+      "t": -668,
+      "tier": 2
+    },
+    {
+      "blurb": "Albert II of Austria is elected King of Germany, the first Habsburg to hold the imperial crown since Rudolf's line, beginning an almost unbroken Habsburg run at the head of the empire.",
+      "id": "albert-ii",
+      "importance": 58,
+      "label": "Albert II elected, 1438",
+      "t": -588,
+      "tier": 2
+    },
+    {
+      "blurb": "Frederick III is crowned emperor in Rome, the last imperial coronation held there. His reign is long and patient, and his motto, AEIOU, claims Austria's rule over the world.",
+      "id": "frederick-iii",
+      "importance": 66,
+      "label": "Frederick III crowned, 1452",
+      "t": -574,
+      "tier": 2
+    },
+    {
+      "blurb": "Maximilian, Frederick's son, marries Mary of Burgundy, heiress of the richest state in Europe. The marriage brings the Netherlands, Franche-Comt\u00e9, and a claim to Burgundy, and the motto follows: let others wage war; fortunate Austria, marry.",
+      "id": "mary-burgundy",
+      "importance": 94,
+      "label": "Maximilian marries Mary, 1477",
+      "t": -549,
+      "tier": 3
+    },
+    {
+      "blurb": "Maximilian I becomes emperor on his father's death, reforming the empire's institutions while his children marry into Spain, Bohemia, and Hungary.",
+      "id": "maximilian",
+      "importance": 70,
+      "label": "Maximilian I emperor, 1493",
+      "t": -533,
+      "tier": 2
+    },
+    {
+      "blurb": "Charles, Maximilian's grandson, is elected Holy Roman Emperor as Charles V, ruling Spain, the Netherlands, Austria, Naples, and the new American empire. The sun, it is said, never sets on his dominions.",
+      "id": "charles-v",
+      "importance": 96,
+      "label": "Charles V elected emperor, 1519",
+      "t": -507,
+      "tier": 3
+    },
+    {
+      "blurb": "Charles hands the Austrian hereditary lands to his brother Ferdinand, formalizing the division of the house into Spanish and Austrian branches that will last for centuries.",
+      "id": "ferdinand-lands",
+      "importance": 64,
+      "label": "Ferdinand gets Austria, 1522",
+      "t": -504,
+      "tier": 2
+    },
+    {
+      "blurb": "Charles V abdicates, exhausted, splitting his empire: his brother Ferdinand becomes emperor in central Europe, his son Philip II takes Spain, the Netherlands, and the Americas. The house now rules from two capitals.",
+      "id": "abdication",
+      "importance": 95,
+      "label": "Charles V abdicates, 1556",
+      "t": -470,
+      "tier": 3
+    },
+    {
+      "blurb": "Philip II of Spain claims the Portuguese crown, uniting the Iberian Peninsula and its overseas empires under one Habsburg for sixty years.",
+      "id": "iberian-union",
+      "importance": 62,
+      "label": "Iberian Union, 1580",
+      "t": -446,
+      "tier": 2
+    },
+    {
+      "blurb": "Imperial officials are thrown from a window of Prague Castle by Bohemian Protestants, opening the Thirty Years' War. The Habsburg emperor Ferdinand II spends thirty years fighting to keep his lands Catholic and united.",
+      "id": "defenestration",
+      "importance": 84,
+      "label": "Defenestration of Prague, 1618",
+      "t": -408,
+      "tier": 3
+    },
+    {
+      "blurb": "The Peace of Westphalia ends the Thirty Years' War, recognizing the German princes' sovereignty and the empire's fragmentation. The Habsburg emperor keeps his hereditary lands but loses the dream of a united Catholic empire.",
+      "id": "westphalia-habsburg",
+      "importance": 68,
+      "label": "Peace of Westphalia, 1648",
+      "t": -378,
+      "tier": 2
+    },
+    {
+      "blurb": "A relief army under John III Sobieski breaks the Ottoman siege of Vienna, saving the Habsburg capital. The victory turns the tide against the Ottomans and makes Austria a great power.",
+      "id": "vienna-habsburg",
+      "importance": 86,
+      "label": "Siege of Vienna lifted, 1683",
+      "t": -343,
+      "tier": 3
+    },
+    {
+      "blurb": "Charles II of Spain dies childless, ending the Spanish Habsburg line after two centuries of inbreeding. His will leaves Spain to a Bourbon, and Europe goes to war over it.",
+      "id": "charles-ii-habsburg",
+      "importance": 90,
+      "label": "Spanish Habsburgs end, 1700",
+      "t": -326,
+      "tier": 3
+    },
+    {
+      "blurb": "Maria Theresa inherits Austria on her father's death, and Frederick of Prussia immediately invades Silesia. The twenty-three-year-old queen holds her inheritance through eight years of war and reigns for forty.",
+      "id": "maria-theresa",
+      "importance": 93,
+      "label": "Maria Theresa accedes, 1740",
+      "t": -286,
+      "tier": 3
+    },
+    {
+      "blurb": "Maria Theresa dies, and her son Joseph II rules alone, freeing serfs, tolerating Protestants, and dissolving monasteries at a pace his empire cannot absorb.",
+      "id": "joseph-ii",
+      "importance": 56,
+      "label": "Joseph II sole ruler, 1780",
+      "t": -246,
+      "tier": 2
+    },
+    {
+      "blurb": "Francis II, facing Napoleon's Confederation of the Rhine, dissolves the Holy Roman Empire after nearly a thousand years. He continues as Francis I, Emperor of Austria.",
+      "id": "empire-dissolved",
+      "importance": 97,
+      "label": "Holy Roman Empire dissolved, 1806",
+      "t": -220,
+      "tier": 3
+    },
+    {
+      "blurb": "The Congress of Vienna, stage-managed by the Austrian chancellor Metternich, redraws Europe after Napoleon and restores the old order. Austria presides over the continent's conservatism for a generation.",
+      "id": "vienna-congress",
+      "importance": 72,
+      "label": "Congress of Vienna, 1815",
+      "t": -211,
+      "tier": 2
+    },
+    {
+      "blurb": "After a year of revolution across the empire, the eighteen-year-old Franz Joseph takes the throne. He will reign for sixty-eight years, through the loss of Italy, the compromise with Hungary, and the road to the Great War.",
+      "id": "franz-joseph",
+      "importance": 74,
+      "label": "Franz Joseph ascends, 1848",
+      "t": -178,
+      "tier": 2
+    },
+    {
+      "blurb": "The Ausgleich, or Compromise, creates the Dual Monarchy: Austria and Hungary share a monarch, an army, and a foreign policy, but run separate governments. The empire becomes Austria-Hungary.",
+      "id": "ausgleich",
+      "importance": 80,
+      "label": "Ausgleich, 1867",
+      "t": -159,
+      "tier": 3
+    },
+    {
+      "blurb": "Archduke Franz Ferdinand, heir to the throne, is assassinated at Sarajevo by a Bosnian Serb nationalist. Austria's ultimatum to Serbia sets off the First World War.",
+      "id": "sarajevo",
+      "importance": 98,
+      "label": "Sarajevo, 1914",
+      "t": -112,
+      "tier": 3
+    },
+    {
+      "blurb": "Emperor Charles I renounces participation in government, and the republic is proclaimed in Vienna. The Habsburg monarchy, after 640 years of rule, ends without a formal abdication.",
+      "id": "empire-ends",
+      "importance": 96,
+      "label": "Empire dissolved, 1918",
+      "t": -108,
+      "tier": 3
+    },
+    {
+      "blurb": "The new Austrian republic passes the Habsburg Law, exiling the family and confiscating its property unless members renounce all claims to the throne. The dynasty becomes private citizens.",
+      "id": "habsburg-law",
+      "importance": 54,
+      "label": "Habsburg Law, 1919",
+      "t": -107,
+      "tier": 2
+    },
+    {
+      "blurb": "Otto von Habsburg, Charles I's son, renounces all claims to the Austrian throne, opening the way for his return to Austria after decades of exile.",
+      "id": "otto-renounces",
+      "importance": 50,
+      "label": "Otto renounces claims, 1961",
+      "t": -65,
+      "tier": 2
+    },
+    {
+      "blurb": "Otto hands the headship of the house to his son Karl, who becomes the family's public face in European politics and in the Paneuropean movement.",
+      "id": "karl-head",
+      "importance": 44,
+      "label": "Karl becomes head of house, 2007",
+      "t": -19,
+      "tier": 1
+    },
+    {
+      "blurb": "Otto von Habsburg dies at ninety-eight, the last crown prince of Austria-Hungary. He is buried in the Capuchin Crypt in Vienna, his heart, by tradition, at Pannonhalma in Hungary.",
+      "id": "otto-dies",
+      "importance": 52,
+      "label": "Otto dies, 2011",
+      "t": -15,
+      "tier": 2
+    }
+  ],
+  "id": "hapsburg",
+  "maxSpan": 1200,
+  "minSpan": 1,
+  "presets": [
+    {
+      "c": -538,
+      "id": "all",
+      "label": "All",
+      "s": 1076
+    },
+    {
+      "c": -773,
+      "id": "rise",
+      "label": "Rise",
+      "s": 606
+    },
+    {
+      "c": -117,
+      "id": "modern",
+      "label": "Modern Empire",
+      "s": 210
+    }
+  ],
+  "start": -1076,
+  "timeFormat": "ago",
+  "title": "The Hapsburgs",
+  "unit": "years"
+}
