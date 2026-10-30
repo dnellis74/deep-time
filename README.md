@@ -67,6 +67,7 @@ paste-ready prompt for generating new datasets are in
 | Palestinian History: The People of Filastin | 81 | 8 | 6 |
 | The Trigger Effect (Connections S1E1) | 12 | 0 | 4 |
 | The Long Chain (Connections S1E7) | 22 | 0 | 4 |
+| Star Wars | 14 | 0 | 4 |
 
 ## Special builds
 

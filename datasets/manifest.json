@@ -38,5 +38,10 @@
     "file": "connections-long-chain.json",
     "id": "connections-long-chain",
     "title": "The Long Chain (Connections S1E7)"
+  },
+  {
+    "file": "star-wars.json",
+    "id": "star-wars",
+    "title": "Star Wars"
   }
 ]
