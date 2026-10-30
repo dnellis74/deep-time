@@ -68,6 +68,15 @@ paste-ready prompt for generating new datasets are in
 | The Trigger Effect (Connections S1E1) | 12 | 0 | 4 |
 | The Long Chain (Connections S1E7) | 22 | 0 | 4 |
 
+## Special builds
+
+`early-modern-italy.html` is a standalone themed build that sits next to
+`index.html` and is not part of the main app. Its datasets live in
+`datasets/early-modern-italy/` (own manifest, built by
+`build_early_modern_italy.py`): Renaissance Art (20 events), Humanist
+Writing (21), Political Figures (24), Wars and Kingdoms (28), and
+European History (17, coarse: biggest events only). Span 1100-1700.
+
 ## Validate a dataset
 
 `validate_datasets.py` checks a dataset file against the format rules
